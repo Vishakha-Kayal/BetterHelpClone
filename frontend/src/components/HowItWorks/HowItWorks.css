@@ -1,0 +1,12 @@
+.steps::before{
+content:"";
+background-image: url("../../assets/images/divider-main-3.png");
+position: absolute;
+bottom: -1%;
+left: 0;
+right:0;
+background-size: 100% 100%;
+background-repeat: no-repeat;
+height: 8rem;
+z-index:9;
+}

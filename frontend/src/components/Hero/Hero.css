@@ -1,0 +1,45 @@
+.heroWrapper::before {
+    content: "";
+    height: 4.5rem;
+    z-index: 1;
+    background-image: url("../../assets/images/divider-main-1.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.therapyOption {
+    background-image: var(--default-img);
+    background-size: cover;
+    background-position: center;
+}
+
+.therapyOption:hover {
+    background-image: var(--movement-img);
+}
+
+
+.arrow-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.1rem;
+    height: 2.1rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.arrow-icon {
+    transition: all 0.3s ease;
+}
+
+.therapyOption:hover .arrow-container {
+    background-color: white;
+}
+
+.therapyOption:hover .arrow-icon {
+    color: #325242;
+}

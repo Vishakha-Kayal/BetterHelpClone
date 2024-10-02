@@ -1,0 +1,27 @@
+.exploreSection{
+    background-image: url("../../assets/images/divider-main-4.png");
+    background-position: 100% 100%;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    padding: 5.375rem 0 19.375rem;
+}
+@media (max-width:767px){
+    .exploreSection{
+        background-image: url("../../assets/images/divider-main-4-mobile.png");
+        background-position: bottom;
+        background-size: 767px;
+        padding: 0 0 26rem;
+    }
+}
+.curvediv{
+    width: 115%;
+    margin-left: -2.8rem;
+    height: 7.2rem;
+    /* z-index: 1; */
+    background: #fffcf6;
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;;
+    position: absolute;
+    bottom: -0.5%;
+    left: 0;
+    right: 0;
+}

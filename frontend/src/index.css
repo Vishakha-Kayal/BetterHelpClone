@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&family=Overpass:wght@100;200;300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-size: 62.5%;
+  /* background-color: #325343; */
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Overpass', sans-serif;
+}
+
+.navContent li {
+  position: relative;
+  cursor: pointer;
+}
+
+.navContent li::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  display: none;
+  height: 4.2px;
+  bottom: -15px;
+  left: 0;
+  background-color: #5faa41;
+  transition: all 0.3s ease;
+}
+
+.navContent li:hover::after {
+  display: block;
+}
+
+.faqSection::before {
+  content: "";
+  position: absolute;
+  height: 7rem;
+  background-image: url("./assets/images/divider-main-5.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  bottom: -1%;
+  left: 0;
+  right: 0;
+}
+
+@media (max-width:767px) {
+  .faqSection::before {
+    background-image: url("./assets/images/divider-main-5-phone.png");
+    background-position: bottom;
+    background-size: 100%;
+  }
+}
+
+@media (max-width:480px) {
+  html {
+    font-size: 58%;
+  }
+}
