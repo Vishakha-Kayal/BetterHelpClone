@@ -4,8 +4,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const Reviews = ({ text, designation, image }) => {
-  const [i, setI] = useState(0); // Define state for index
-  const values = [0, -100, -200]; // Define your translation values
+  const [i, setI] = useState(0); 
+  const values = [0, -100, -200]; 
 
   useEffect(() => {
     const interval = setInterval(() => {

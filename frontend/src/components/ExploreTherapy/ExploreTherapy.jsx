@@ -25,8 +25,6 @@ const ExploreTherapy = () => {
     });
   });
 
-
-
   return (
     <section className="exploreSection min-h-screen bg-[#325343] p-[3rem] scrollerT relative">
       <div className="compareDiv">

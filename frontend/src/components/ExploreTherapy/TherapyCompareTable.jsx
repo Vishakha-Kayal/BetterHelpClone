@@ -10,9 +10,7 @@ const TherapyCompareTable = () => {
     "https://assets.betterhelp.com/betterhelp_two/icons/no.svg";
   const [openInfo, setOpenInfo] = useState(true);
   const toggleInfo = (index) => {
-    setOpenInfo(openInfo === index ? null : index);
-    console.log("after toggle",openInfo);
-    
+    setOpenInfo(openInfo === index ? null : index);   
   };
   return (
     <table className="w-full lg:w-[53%]">
@@ -44,8 +42,6 @@ const TherapyCompareTable = () => {
                   src={assets.info}
                   alt="Info"
                   onMouseEnter={() => {
-                    console.log("i am hovered", index);
-                    console.log("before toggle",openInfo);
                     toggleInfo(index);
                   }}
                   onMouseLeave={() => toggleInfo(null)}
