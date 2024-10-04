@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer/Footer";
-import { assets, faqData } from "../assets/assets";
+import { assets, morefaqs } from "../assets/assets";
 import { IoIosArrowUp } from "react-icons/io";
 import Button from "../components/Button";
 import { Link } from "react-router-dom";
@@ -28,7 +28,7 @@ const FaqPage = () => {
         </header>
 
         <section className="flex flex-col w-full lg:w-[50%] m-auto border-t-[2px] border-b-[#c3c8c1]">
-          {faqData.map((faqs, index) => {
+          {morefaqs.map((faqs, index) => {
             const { question, answer } = faqs;
             return (
               <div
