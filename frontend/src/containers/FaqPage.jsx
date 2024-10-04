@@ -1,39 +1,33 @@
 import React, { useState } from "react";
+import Header from "../components/Header";
+import Footer from "../components/Footer/Footer";
+import { assets, faqData } from "../assets/assets";
 import { IoIosArrowUp } from "react-icons/io";
-import { faqData } from "../assets/assets";
-import Button from "./Button";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Button from "../components/Button";
 import { Link } from "react-router-dom";
-gsap.registerPlugin(ScrollTrigger);
 
-const FAQ = () => {
-  useGSAP(() => {
-    gsap.from(".faqSection", {
-      delay: 0.1,
-      y: 200,
-      opacity: 0,
-      duration: 1,
-      scrollTrigger: {
-        trigger: ".faqSection",
-        scroller: "body",
-        start: "top 75%",
-      },
-    });
-  });
-
+const FaqPage = () => {
   const [openIndex, setOpenIndex] = useState(null);
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
+
   return (
-    <section className="faqSection w-full min-h-[165vh] lg:min-h-[130vh] relative pb-28">
-      <div className="w-full md:w-[75vw] m-auto h-full px-8 ">
-        <h2 className="py-6 w-[80%] mx-auto md:w-full text-center  mb-[1.5rem] lg:pt-[2.5rem] lg:mb-8 text-[2.8rem] md:text-[3.2rem] lg:text-[4.8rem] lg:leading-[2.5rem] font-overpass font-light">
-          Frequently Asked Questions
-        </h2>
-        <section className="flex flex-col w-full lg:w-[70%] m-auto">
+    <>
+      <Header customBG={true} />
+      <section className="w-full min-h-screen bg-textPrimary py-24">
+        <header
+          className="faqHeader w-full h-[25rem] md:h-[28rem] relative"
+          style={{
+            backgroundImage: `radial-gradient(circle at 50% 50%, #ffdf9e00 0%, #ffdf9e80 100%),url(${assets.textureImg})`,
+          }}
+        >
+          <h2 className="w-[80%] pt-[5rem] mx-auto md:w-full text-center  mb-[1.5rem] lg:pt-[6.5rem] lg:mb-8 text-[2.8rem] md:text-[3.2rem] lg:text-[4.8rem] lg:leading-[2.5rem] font-overpass font-light ">
+            Frequently Asked Questions
+          </h2>
+        </header>
+
+        <section className="flex flex-col w-full lg:w-[50%] m-auto border-t-[2px] border-b-[#c3c8c1]">
           {faqData.map((faqs, index) => {
             const { question, answer } = faqs;
             return (
@@ -72,28 +66,28 @@ const FAQ = () => {
             );
           })}
           <div className="flex flex-col mt-14 gap-6 items-center ">
-            <Link
-              to="/faq"
-              className="text-[1.6rem] underline text-secondary font-semibold"
+            <h4
+              className="text-5xl py-7 text-overpass text-[#444444] font-light"
             >
-              More frequently asked questions
-            </Link>
+              Ready To Get Started
+            </h4>
             <Button
               bg="bg-[#a6de9b]"
-              paddingY="py-[1.5rem]"
+              paddingY="py-[1.8rem]"
               paddingX="px-[1.6rem]"
-              text="text-[2rem]"
+              text="text-4xl"
               font="font-bold"
               color="text-primary"
-              content="Get Started"
-              width="w-[17.8rem]"
+              content="Get matched with a therapist"
+              width="w-[36rem]"
               hoverbg="hover:bg-secondary hover:text-white transition all ease 1s cursor-pointer"
             />
           </div>
         </section>
-      </div>
-    </section>
+      </section>
+      <Footer/>
+    </>
   );
 };
 
-export default FAQ;
+export default FaqPage;

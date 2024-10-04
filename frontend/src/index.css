@@ -60,6 +60,16 @@ h3 {
   right: 0;
 }
 
+.faqHeader::before{
+  content:"";
+  position: absolute;
+  height:8rem;
+  background-color: #ffffff;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 50% 50% 0 0;
+}
 @media (max-width:767px) {
   .faqSection::before {
     background-image: url("./assets/images/divider-main-5-phone.png");

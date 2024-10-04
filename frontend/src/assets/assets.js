@@ -22,6 +22,7 @@ import howitworks2 from "./images/how-it-works-2.png"
 import howitworks3 from "./images/how-it-works-3.png"
 import arrowgreen2 from "./images/arrow-down-green-2.png"
 import info from "./images/info-light-green.svg"
+import profileIcon from "./images/profileIcon.png"
 
 
 export const assets = {
@@ -40,6 +41,7 @@ export const assets = {
   arrowgreen2,
   logoicon,
   info,
+  profileIcon
 };
 
 export const therapyOptions = [

@@ -13,7 +13,7 @@ import Footer from "../components/Footer/Footer";
 
 const HomePage = () => {
   return (
-    <main className="bg-[#fffcf6]">
+    <main className="bg-[#fffcf6] w-full min-h-screen relative">
       <section
         className="relative  w-full h-screen bg-primary"
         style={{ backgroundImage: `url(${assets.textureImg})` }}
