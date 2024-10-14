@@ -1,58 +1,64 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { url } from "../../App";
 
 const CreateBlog = () => {
   const navigate = useNavigate();
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [category, setCategory] = useState("");
-  const [thumbnail, setThumbnail] = useState(null);
+  const [formData, setFormData] = useState({
+    title: "",
+    content: "",
+    category: "",
+    thumbnail: null,
+  });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const token = localStorage.getItem("token");
+
   useEffect(() => {
     if (!token) {
       navigate("/adminlogin");
     }
-  }, [navigate]);
+  }, [token, navigate]);
 
-  const handleBlogCreate = async (e) => {
+  const handleInputChange = (e) => {
+    const { name, value, files } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: name === "thumbnail" ? files[0] : value,
+    }));
+  };
+
+  const handleBlogCreate = useCallback(async (e) => {
     e.preventDefault();
+    const { title, content, category, thumbnail } = formData;
+
     if (!title || !content || !category || !thumbnail) {
-      setError(
-        "All fields are required: title, content, category, and thumbnail."
-      );
+      setError("All fields are required: title, content, category, and thumbnail.");
       return;
     }
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("content", content);
-    formData.append("category", category);
-    formData.append("thumbnail", thumbnail);
+
+    const data = new FormData();
+    data.append("title", title);
+    data.append("content", content);
+    data.append("category", category);
+    data.append("thumbnail", thumbnail);
 
     try {
-      await axios.post(`${url}/api/admin/createBlog`, formData, {
+      await axios.post(`${url}/api/admin/createBlog`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       setSuccess("Blog created successfully!");
       setError("");
-      setThumbnail(null);
-      setContent("");
-      setTitle("");
-      setCategory("");
+      setFormData({ title: "", content: "", category: "", thumbnail: null });
     } catch (error) {
-      console.log("error", error);
+      console.error("Error creating blog:", error);
       setError(error.response?.data?.message || "Failed to create blog");
       setSuccess("");
     }
-    finally{
-        setSuccess("")
-    }
-  };
+  }, [formData, token]);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -62,65 +68,57 @@ const CreateBlog = () => {
         {success && <p className="text-green-500 text-xl">{success}</p>}
         <form className="space-y-4" onSubmit={handleBlogCreate}>
           <div>
-            <label
-              className="block mb-2 text-xl font-medium text-gray-700"
-              htmlFor="title"
-            >
+            <label className="block mb-2 text-xl font-medium text-gray-700" htmlFor="title">
               Blog Title
             </label>
             <input
               id="title"
+              name="title"
               type="text"
               className="w-full p-6 border border-gray-300 rounded-lg text-xl"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              value={formData.title}
+              onChange={handleInputChange}
               required
             />
           </div>
           <div>
-            <label
-              className="block mb-2 text-xl font-medium text-gray-700"
-              htmlFor="content"
-            >
+            <label className="block mb-2 text-xl font-medium text-gray-700" htmlFor="content">
               Blog Content
             </label>
             <textarea
               id="content"
+              name="content"
               className="w-full p-6 border border-gray-300 rounded-lg text-xl"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
+              value={formData.content}
+              onChange={handleInputChange}
               rows={6}
               required
             ></textarea>
           </div>
           <div>
-            <label
-              className="block mb-2 text-xl font-medium text-gray-700"
-              htmlFor="category"
-            >
+            <label className="block mb-2 text-xl font-medium text-gray-700" htmlFor="category">
               Category
             </label>
             <input
               id="category"
+              name="category"
               type="text"
               className="w-full p-6 border border-gray-300 rounded-lg text-xl"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
+              value={formData.category}
+              onChange={handleInputChange}
               required
             />
           </div>
           <div>
-            <label
-              className="block mb-2 text-xl font-medium text-gray-700"
-              htmlFor="thumbnail"
-            >
+            <label className="block mb-2 text-xl font-medium text-gray-700" htmlFor="thumbnail">
               Thumbnail Image
             </label>
             <input
               id="thumbnail"
+              name="thumbnail"
               type="file"
               className="w-full p-6 border border-gray-300 rounded-lg text-xl"
-              onChange={(e) => setThumbnail(e.target.files[0])}
+              onChange={handleInputChange}
               required
             />
           </div>
