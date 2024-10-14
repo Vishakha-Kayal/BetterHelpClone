@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { assets } from "../assets/assets";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { LuPlus } from "react-icons/lu";
@@ -9,41 +9,35 @@ const Header = ({ customBG }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [hamClick, sethamClick] = useState(false);
   const navigate = useNavigate();
-  const onHandleRedirectToHome = () => {
+
+  const onHandleRedirectToHome = useCallback(() => {
     navigate("/");
-  };
+  }, [navigate]);
+
+  const handleScroll = useCallback(() => {
+    setIsScrolled(window.scrollY > 50);
+  }, []);
+
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-
     window.addEventListener("scroll", handleScroll);
-
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [handleScroll]);
 
   useEffect(() => {
-    const handleLogin = () => {
-      if (customBG == true) {
-        setIsScrolled(true);
-      }
-    };
-    handleLogin();
+    if (customBG) {
+      setIsScrolled(true);
+    }
+  }, [customBG]);
+
+  const onHandleHamBurger = useCallback(() => {
+    sethamClick((prev) => !prev);
   }, []);
 
-  const onHandleHamBurger = () => {
-    sethamClick(!hamClick);
-    console.log(hamClick);
-  };
   return (
     <header
-      className={`z-[4] fixed top-0 w-screen h-[6.4rem]  md:px-14 md:py-6 lg:py-7 transition-all duration-300 ${
+      className={`z-[4] fixed top-0 w-screen h-[6.4rem] md:px-14 md:py-6 lg:py-7 transition-all duration-300 ${
         isScrolled
           ? "bg-white text-primary shadow-md"
           : "bg-primary text-textPrimary"
@@ -54,7 +48,7 @@ const Header = ({ customBG }) => {
           hamClick ? "bg-white" : ""
         }`}
       >
-        <div className="w-full flex justify-between items-start gap-3 px-4 pt-6 ">
+        <div className="w-full flex justify-between items-start gap-3 px-4 pt-6">
           <div className="w-[16rem]">
             <img
               src={isScrolled ? assets.logo : assets.homelogo}
@@ -71,14 +65,8 @@ const Header = ({ customBG }) => {
               />
             )}
           </div>
-          <div className="">
-            {!hamClick && (
-              <GiHamburgerMenu
-                style={{ fontSize: "2rem" }}
-                onClick={onHandleHamBurger}
-              />
-            )}
-            {hamClick && (
+          <div>
+            {hamClick ? (
               <LuPlus
                 style={{
                   fontSize: "2.6rem",
@@ -87,21 +75,26 @@ const Header = ({ customBG }) => {
                 }}
                 onClick={onHandleHamBurger}
               />
+            ) : (
+              <GiHamburgerMenu
+                style={{ fontSize: "2rem" }}
+                onClick={onHandleHamBurger}
+              />
             )}
           </div>
         </div>
         {hamClick && (
           <div className="w-full h-[80vh] bg-white px-4">
             <div className="flex flex-col gap-7">
-              <ul
-                className={`navContent font-overpass font-medium flex flex-col gap-6 text-[2.3rem] text-[#444444] p-4`}
-              >
+              <ul className="font-overpass font-medium flex flex-col gap-6 text-[2.3rem] text-[#444444] p-4">
                 <li>Business</li>
                 <li>About</li>
                 <Link to="/faq">
                   <li>FAQ</li>
                 </Link>
-                <li>Blog</li>
+                <Link to="/blog">
+                  <li>Blog</li>
+                </Link>
                 <li>Group</li>
                 <li>Reviews</li>
                 <li>Therapist Jobs</li>
@@ -134,7 +127,7 @@ const Header = ({ customBG }) => {
       </div>
 
       <div className="w-full justify-between hidden lg:flex">
-        <div className="py-1 w-full  lg:flex lg:justify-between lg:items-center">
+        <div className="py-1 w-full lg:flex lg:justify-between lg:items-center">
           <div className="h-full w-[18rem]">
             <img
               src={isScrolled ? assets.logo : assets.homelogo}
@@ -153,6 +146,9 @@ const Header = ({ customBG }) => {
               <li>About</li>
               <Link to="/faq">
                 <li>FAQ</li>
+              </Link>
+              <Link to="/blog">
+                <li>Blog</li>
               </Link>
               <li>Reviews</li>
               <li>Therapist Jobs</li>
