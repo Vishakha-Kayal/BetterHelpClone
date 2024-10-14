@@ -8,21 +8,21 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const HowItWorks = () => {
-  useGSAP(()=>{
+  useGSAP(() => {
     gsap.from(".mydiv .stepsDiv", {
       y: 100,
       opacity: 0.5,
       duration: 0.6,
-      scrub: 2,
-      stagger:0.3,
+      scrub: 1,
+      stagger: 0.3,
       scrollTrigger: {
         trigger: ".scroller",
         scroller: "body",
         start: "top 60%",
-        scrub:2,
+        scrub: 2,
       },
     });
-  })
+  });
   return (
     <section className="steps w-full min-h-screen px-[2.4rem] pt-[2rem] relative bg-[#f5f7f5] scroller">
       <h2 className=" text-center  mb-[1.5rem] lg:pt-[2.5rem] lg:mb-8 text-[2.8rem] md:text-[3.2rem] lg:text-[4.8rem] lg:leading-[2.5rem] font-overpass font-light">

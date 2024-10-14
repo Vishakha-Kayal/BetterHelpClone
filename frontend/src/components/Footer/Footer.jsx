@@ -8,6 +8,7 @@ import {
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import SocialMediaLogos from "./SocialMediaLogos";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -25,7 +26,7 @@ const Footer = () => {
           <Title text="Reviews" />
           <Title text="For Therapists" />
           <Title text="Advice" />
-          <Title text="Blog" />
+          <Link to="/blog" className="text-2xl text-[#4a4d4a]">Blog</Link>
         </section>
         <section className="flex mb-24 lg:mb-0 lg:items-center lg:py-7">
           <SocialMediaLogos Icon={FaFacebookF} />

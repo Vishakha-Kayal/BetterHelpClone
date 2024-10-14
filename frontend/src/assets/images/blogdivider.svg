@@ -1,0 +1,8 @@
+<svg class="hidden w-full md:block h-28" preserveAspectRatio="none" viewBox="0 0 768 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path class="bh2:fill-site-green-400 fill-site-brandPrimary" d="M95.0625 6.61043C58.7791 10.3328 19.4708 7.11671 4 4.53203V72H380V26.9947C277.188 17.562 242.329 -8.49792 95.0625 6.61043Z">
+</path>
+<path class="opacity-75" d="M95.0625 6.61043C58.7791 10.3328 19.4708 7.11671 4 4.53203V72H380V26.9947C277.188 17.562 242.329 -8.49792 95.0625 6.61043Z" style="fill:url(#texture)">
+</path>
+<path class="fill-white" d="M526.35 0.25852C364.771 5.22899 281.83 47.9605 0 3.0867V72H768V8.83734C705.722 22.1298 624.906 -2.77326 526.35 0.25852Z">
+</path>
+</svg>

@@ -267,5 +267,3 @@ export const morefaqs = [
       "There are many studies that confirm the effectiveness of the online medium for making life changes. For example, a study published by JMIR Publications and conducted by researchers from University of California - Berkeley, University of California - San Francisco, and the San Francisco General Hospital concluded that users of BetterHelp experienced significantly reduced depression symptom severity after engaging with the platform.",
   },
 ];
-
-

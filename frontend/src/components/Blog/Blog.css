@@ -1,0 +1,23 @@
+.arrow-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+.arrow-icon {
+    transition: all 0.3s ease;
+}
+
+.blogDiv:hover .arrow-container {
+    background-color: #325343;
+}
+
+.blogDiv:hover .arrow-icon {
+    color: #ffff;
+}
+.blogDiv:hover .thumbnail {
+   scale:1.05;
+}
