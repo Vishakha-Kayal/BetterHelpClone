@@ -16,10 +16,9 @@ const BlogDesc = () => {
   };
 
   const fetchBlogWithTitle = async () => {
-    console.log(title);
-    
-    const response = await axios.get(`${url}/api/blog/${title}`,);
+    const response = await axios.get(`${url}/api/blog/${title}`);
     setBlog(response.data.data);
+    console.log(response.data.data);
   };
 
   useEffect(() => {
@@ -52,13 +51,21 @@ const BlogDesc = () => {
 
   if (!blog) return <div>Loading...</div>;
 
-  const { title: blogTitle, content, category, thumbnail } = blog;
+  const {
+    title: blogTitle,
+    content,
+    category,
+    thumbnail,
+    question,
+    answer,
+    takeaway,
+  } = blog;
 
   return (
     <>
       <Header customBG={true} />
       <section
-        className="blogWrapper w-full h-[49rem] md:h-[52rem] relative py-28  "
+        className="blogWrapper w-full h-[49rem] md:h-[45rem] relative py-28  "
         style={{
           backgroundImage: `radial-gradient(circle at 50% 50%, #fffcf6 0%, #ffdf9e80 100%),url("https://assets.betterhelp.com/betterhelp_two/css-elements/texture-wide.png?v=848b1f70243b")`,
         }}
@@ -158,7 +165,7 @@ const BlogDesc = () => {
 
       <section className="bg-white min-h-screen pb-12 flex ">
         <aside className="lg:w-[70%] px-[2rem] pt-[1.3rem]">
-          <div className="py-2 px-9 text-[1.6rem]">
+          <div className="py-2 px-9 text-[1.6rem]  leading-[2.8rem] whitespace-pre-line">
             <p>{content}</p>
           </div>
           <div className="mt-11 mx-9  mb-4 rounded-[19px] overflow-hidden">
@@ -167,6 +174,23 @@ const BlogDesc = () => {
               alt={category}
               className="w-full md:h-[34.7rem] lg:h-[48rem]"
             />
+          </div>
+          <div className="py-2 px-9 text-[2.5rem] mb-4 font-medium leading-[2.8rem]">
+            <p>{question}</p>
+          </div>
+          <div className="py-2 px-9 text-[1.6rem] font-inter leading-[2.6rem] whitespace-pre-line">
+            <p>{answer}</p>
+          </div>
+
+          <div
+            className="mt-11 mx-9  mb-4 rounded-[19px] overflow-hidden py-2 px-9"
+            style={{
+              backgroundImage:`url('https://dz9yg0snnohlc.cloudfront.net/green_curve.png')`,
+              backgroundSize:"cover" 
+            }}
+          >
+            <h2 className="text-[2.1rem] font-overpass text-[#4a4d4a] font-semibold my-4 pt-3" >Takeaway</h2>
+            <h4 className="text-[1.6rem]">{takeaway}</h4>
           </div>
         </aside>
         <aside className="hidden lg:flex flex-col w-[30%] px-[2rem] pt-[1.3rem]">

@@ -4,12 +4,15 @@ import SignupPage from "./containers/SignupPage";
 import FaqPage from "./containers/FaqPage";
 import BlogPage from "./containers/BlogPage";
 import AdminSignup from "./components/Admin/AdminSIgnup";
-import "./assets/images/teen_movement.png";
 import { Route, Routes } from "react-router-dom";
 import AdminLogin from "./components/Admin/AdminLogin";
 import CreateBlog from "./components/Blog/CreateBlog";
 import BlogDesc from "./components/Blog/BlogDesc";
+import MoreBlogs from "./components/Blog/MoreBlogs";
+import ProgramPage from "./containers/ProgramPage";
+import Home from "./components/Farmers/Home";
 export const url = "http://localhost:3000";
+
 
 function App() {
   return (
@@ -25,6 +28,9 @@ function App() {
           <Route path="/adminlogin" element={<AdminLogin />} />
           <Route path="/createblog" element={<CreateBlog />} />
           <Route path="/blog/:title" element={<BlogDesc />} />
+          <Route path="/allBlogs" element={<MoreBlogs />} />
+          <Route path="/programs" element={<ProgramPage />} />
+          <Route path="/programs/farmers" element={<Home />} />
         </Routes>
       </main>
     </>

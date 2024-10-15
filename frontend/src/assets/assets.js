@@ -23,6 +23,12 @@ import howitworks3 from "./images/how-it-works-3.png";
 import arrowgreen2 from "./images/arrow-down-green-2.png";
 import info from "./images/info-light-green.svg";
 import profileIcon from "./images/profileIcon.png";
+import student from "./images/student.png";
+import farmer from "./images/farmer.webp";
+import farmerherobg from "./images/farmerherobg.svg";
+import scrollDown from "./images/scrollDown.svg";
+import sadfarmer from "./images/sadfarmer.jpg";
+import farmer2Img from "./images/farmer2Img.svg";
 
 export const assets = {
   textureImg,
@@ -41,6 +47,12 @@ export const assets = {
   logoicon,
   info,
   profileIcon,
+  student,
+  farmer,
+  farmerherobg,
+  scrollDown,
+  sadfarmer,
+  farmer2Img
 };
 
 export const therapyOptions = [
@@ -244,12 +256,12 @@ export const morefaqs = [
   },
   {
     question: "How are the therapists verified?",
-    answer: "Our team ensures that every provider we bring to the platform is credentialed and in good standing. Providers who apply are required to provide proper professional documentation and proof of identity. We then cross-check their credential information with their respective organization.",
+    answer:
+      "Our team ensures that every provider we bring to the platform is credentialed and in good standing. Providers who apply are required to provide proper professional documentation and proof of identity. We then cross-check their credential information with their respective organization.",
   },
   {
     question: "Can I stay anonymous?",
-    answer:
-      `When you sign up we do not ask you for your full name or contact information but rather a "nickname" created by you that will be used to identify you in the system. When you decide to start the therapy process, we will ask you for your contact information for emergency situations, such as if your therapist believes that you or someone else might be in danger. Your therapist may also request additional information about you when it is required by their licensing board guidelines. All of this data is protected by the confidentiality requirements of the therapist’s board and licensure, similar to in-office therapy.`,
+    answer: `When you sign up we do not ask you for your full name or contact information but rather a "nickname" created by you that will be used to identify you in the system. When you decide to start the therapy process, we will ask you for your contact information for emergency situations, such as if your therapist believes that you or someone else might be in danger. Your therapist may also request additional information about you when it is required by their licensing board guidelines. All of this data is protected by the confidentiality requirements of the therapist’s board and licensure, similar to in-office therapy.`,
   },
   {
     question: "How can I be sure that this is an effective form of therapy??",
@@ -258,8 +270,7 @@ export const morefaqs = [
   },
   {
     question: "How can I get started with better help?",
-    answer:
-      "Click here to get started.",
+    answer: "Click here to get started.",
   },
   {
     question: "How can I be sure that this is an effective form of therapy?",

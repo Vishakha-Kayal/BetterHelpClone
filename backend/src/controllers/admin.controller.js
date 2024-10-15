@@ -53,9 +53,9 @@ const adminLogin = asyncHandler(async (req, res) => {
 
 const createBlog = asyncHandler(async (req, res) => {
   console.log("create blog route hit");
-  const { title, content, category } = req.body;
+  const { title, category, question, answer, takeaway, content } = req.body;
   const adminId = req.user._id;
-  if (!title || !content || !category) {
+  if (!title || !category || !answer || !question) {
     throw new ApiError(
       400,
       "All fields are required: title, thumbnail, content, and category."
@@ -70,7 +70,10 @@ const createBlog = asyncHandler(async (req, res) => {
   const thumbnail = await uploadFileOnCloudinary(profileLocalPath);
   const newBlog = await Blog.create({
     title,
+    question,
+    answer,
     content,
+    takeaway,
     category,
     thumbnail: thumbnail.url,
     author: adminId,

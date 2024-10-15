@@ -7,19 +7,23 @@ const blogSchema = new Schema(
       required: true,
     },
     content: {
-      type: { type: String, enum: ["question", "answer"], required: true },
-      text: {
-        type: String,
-        required: true,
-      },
+      type: String,
+      required: true,
+    },
+    question: {
+      type: String,
+      required: true,
+    },
+    answer: {
+      type: String,
+      required: true,
     },
     takeaway: {
-        type: String,
-        required: false 
+      type: String,
+      required: false,
     },
     category: {
       type: String,
-      enum:['friends','therapy','stress management','anxiety','general','willpower','depression','current events','adhd','abuse','ambition'],
       required: true,
     },
     thumbnail: {

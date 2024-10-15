@@ -8,6 +8,7 @@ import { url } from "../../App";
 import Button from "../Button";
 import { useNavigate } from "react-router-dom";
 import RightSidebar from "./RightSidebar";
+import CategoriesInfinity from "./CategoriesInfinity";
 
 const BlogHome = () => {
   const navigate = useNavigate();
@@ -47,7 +48,7 @@ const BlogHome = () => {
             Blog Home
           </h2>
           <div className="w-full flex flex-col lg:flex-row ">
-            <div className="w-full lg:w-[70%] grid gap-5 grid-cols-1 lg:grid-cols-3 py-5 px-[2rem]">
+            <div className="w-full lg:w-[70%] grid gap-5 grid-cols-1 lg:grid-cols-3 py-11 px-[2rem]">
               {blogs.map((blog, index) => {
                 const { thumbnail, content, title, author } = blog;
                 return (
@@ -72,7 +73,21 @@ const BlogHome = () => {
               />
             </div>
           </div>
+
+          <div className="w-[70%]">
+            <Button
+              bg="bg-[#a6de9b]"
+              paddingY="py-[1.4rem]"
+              paddingX="px-[1.6rem] w-[20rem] m-auto"
+              text="text-4xl"
+              font="font-bold"
+              color="text-primary border-none"
+              content="More Blogs"
+              navigateTo="/allBlogs"
+            />
+          </div>
         </section>
+        <CategoriesInfinity />
         <Footer />
       </main>
     </>

@@ -23,8 +23,8 @@ const Reviews = ({ text, designation, image }) => {
       });
     }, 4000); 
 
-    return () => clearInterval(interval); // Cleanup on unmount
-  }, [values]); // Add values to dependencies
+    return () => clearInterval(interval); 
+  }, [values]); 
 
   return (
     <div className="reviews reviewDiv w-[78vw] lg:w-[60vw] h-full flex flex-col lg:gap-11 py-8 mb-24 flex-shrink-0 -translate-x-[0%]">

@@ -4,7 +4,7 @@ import "./Blog.css"
 
 const BlogCards = ({ image, title ,author,onHandleClick}) => {
   return (
-    <div className="cursor-pointer blogDiv flex justify-start lg:flex-col flex-row gap-2 bg-[#f5f7f5] rounded-2xl overflow-hidden border-[1px] border-[#dbdeda]"
+    <div className="cursor-pointer blogDiv flex justify-start lg:flex-col  flex-row gap-2 bg-[#f5f7f5] rounded-2xl overflow-hidden border-[1px] border-[#dbdeda]"
     onClick={onHandleClick}
     >
       <div className="thumbnail w-[40%] px-[1.2rem] py-4 lg:w-full overflow-hidden">

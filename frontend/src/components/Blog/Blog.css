@@ -7,6 +7,7 @@
     border-radius: 50%;
     transition: all 0.3s ease;
 }
+
 .arrow-icon {
     transition: all 0.3s ease;
 }
@@ -18,6 +19,26 @@
 .blogDiv:hover .arrow-icon {
     color: #ffff;
 }
+
 .blogDiv:hover .thumbnail {
-   scale:1.05;
+    scale: 1.05;
+}
+
+.infinityHeading::before {
+    content: "";
+    width: 98px;
+    height: 7px;
+    background-color: #4b7b3f;
+    position: absolute;
+    left:18%;
+    top:26%;
+}
+.infinityHeading::after {
+    content: "";
+    width: 98px;
+    height: 7px;
+    background-color: #4b7b3f;
+    position: absolute;
+    right:18%;
+    top:26%;
 }

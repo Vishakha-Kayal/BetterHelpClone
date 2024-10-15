@@ -95,8 +95,10 @@ const Header = ({ customBG }) => {
                 <Link to="/blog">
                   <li>Blog</li>
                 </Link>
+                <Link to="/programs">
+                  <li>Programs</li>
+                </Link>
                 <li>Group</li>
-                <li>Reviews</li>
                 <li>Therapist Jobs</li>
                 <li>Contact</li>
               </ul>
@@ -149,6 +151,9 @@ const Header = ({ customBG }) => {
               </Link>
               <Link to="/blog">
                 <li>Blog</li>
+              </Link>
+              <Link to="/programs">
+                <li>Programs</li>
               </Link>
               <li>Reviews</li>
               <li>Therapist Jobs</li>

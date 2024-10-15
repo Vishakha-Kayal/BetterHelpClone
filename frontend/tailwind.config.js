@@ -12,7 +12,9 @@ export default {
         secondary:"#397a4a",
         textPrimary: "#ffffff",
       },
-     
+      backgroundImage: {
+        'hero-texture': "url('https://assets.betterhelp.com/betterhelp_two/css-elements/bg-texture.png')",
+      }
     },
   },
   plugins: [

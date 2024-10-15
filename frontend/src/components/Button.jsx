@@ -12,15 +12,14 @@ const Button = ({
   hoverbg,
   width,
   borderColor,
-  navigateTo
+  navigateTo,
 }) => {
-  const navigate=useNavigate();
-  const handleClick =()=>{
-    if(navigateTo!=null){
-      navigate(`${navigateTo}`)
-
+  const navigate = useNavigate();
+  const handleClick = () => {
+    if (navigateTo != null) {
+      navigate(`${navigateTo}`);
     }
-  }
+  };
   return (
     <div
       className={`text-center ${hoverbg} ${bg} ${width} ${text} ${paddingX} ${paddingY} ${font} font-overpass rounded-[5rem] ${color} border-[1px] ${

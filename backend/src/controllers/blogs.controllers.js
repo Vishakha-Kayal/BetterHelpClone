@@ -16,7 +16,7 @@ const getAllBlogs = asyncHandler(async (req, res) => {
 const getBLogWithTitle = asyncHandler(async (req, res) => {
   const { title } = req.params;
   const decodedTitle = decodeURIComponent(title.split("_").join(" "));
-  const blog = await Blog.findOne({ title: { $regex: new RegExp(decodedTitle, 'i') } }); // 'i' for case-insensitive search
+  const blog = await Blog.findOne({ title: { $regex: new RegExp(decodedTitle, 'i') } }); 
 
 
   if (!blog) {
