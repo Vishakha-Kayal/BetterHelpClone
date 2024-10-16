@@ -1,7 +1,7 @@
 import React from "react";
-import { assets } from "../../assets/assets";
-import Button from "../Button";
-import "./farmers.css";
+import { assets } from "../../../assets/assets";
+import Button from "../../Button";
+import "../farmers.css";
 import IntroductionSection from "./IntroductionSection";
 import ChallengesSection from "./ChallengesSection";
 
@@ -32,8 +32,9 @@ const Home = () => {
                 text="text-4xl z-[99]"
                 font="font-bold"
                 color="text-primary border-none"
-                content="Sign in as a farmer"
+                content="SignUp as a farmer"
                 hoverbg="hover:bg-secondary hover:text-white transition all ease 1s cursor-pointer"
+                navigateTo="/programs/farmers/signin"
               />
             </div>
           </div>
@@ -43,11 +44,11 @@ const Home = () => {
         </aside>
       </section>
       <section className="flex p-16 gap-16">
-        <aside className="w-full md:[70%]">
+        <aside className="w-full md:[60%]">
           <IntroductionSection />
           <ChallengesSection />
         </aside>
-        <aside className="hidden md:w-[30%] ">
+        <aside className="hidden md:w-[40%] md:block ">
           <img
             src={assets.sadfarmer}
             alt="farmer image"
@@ -55,18 +56,21 @@ const Home = () => {
           />
           <div className="bg-[#f5f7f5] p-6 my-8 rounded-2xl">
             <p className="text-[1.7rem]">
-              For immediate mental health needs, please contact one of these national hotlines:
+              For immediate mental health needs, please contact one of these
+              national hotlines:
               <p className="w-[80%] mx-auto mt-3">
                 <span className="underline text-primary font-semibold">
                   Farm Aid Hotline
                 </span>{" "}
-                800-FARM-AID (327-6243) Monday-Friday 9:00 a.m. - 5:00 p.m. Eastern
+                800-FARM-AID (327-6243) Monday-Friday 9:00 a.m. - 5:00 p.m.
+                Eastern
               </p>
               <p className="w-[80%] mx-auto mt-3">
                 <span className="underline text-primary font-semibold">
                   988 Suicide and Crisis Lifeline
                 </span>{" "}
-                24/7 2-1-1, a comprehensive hotline that connects callers with local resources
+                24/7 2-1-1, a comprehensive hotline that connects callers with
+                local resources
               </p>
             </p>
           </div>
@@ -80,13 +84,15 @@ const Home = () => {
             content="Get Help Today"
             hoverbg="hover:bg-secondary hover:text-white transition all ease 1s cursor-pointer"
           />
-            <div className="h-[50rem]">
-            <img
-            src={assets.farmer2Img}
-            alt="farmer image"
-            className="rounded-2xl w-full h-full"
-          />
-            </div>
+          <div
+            className="w-full h-[40rem] mt-[9.5rem]"
+            style={{
+              backgroundImage: `url(${assets.farmer2Img})`,
+              backgroundSize: "cover",
+         
+              backgroundRepeat: "no-repeat",
+            }}
+          ></div>
         </aside>
       </section>
     </section>

@@ -11,6 +11,7 @@ const adminregister = asyncHandler(async (req, res) => {
   if (!email || !password || email.trim() === "" || password.trim() === "") {
     throw new ApiError(400, "email or password is required");
   }
+
   const admin = await Admin.findOne({ email });
   if (admin) {
     throw new ApiError(409, "Admin already exists");
@@ -20,12 +21,12 @@ const adminregister = asyncHandler(async (req, res) => {
     email: email.toLowerCase(),
     password,
   });
+
   await newAdmin.save();
   const createdAdmin = await Admin.findById(newAdmin._id);
   if (!createdAdmin) {
     throw new ApiError(500, "Something went wrong while registering the admin");
   }
-
   return res
     .status(201)
     .json(new ApiResponse(200, createdAdmin, "Admin created successfully."));

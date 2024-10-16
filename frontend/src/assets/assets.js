@@ -29,6 +29,7 @@ import farmerherobg from "./images/farmerherobg.svg";
 import scrollDown from "./images/scrollDown.svg";
 import sadfarmer from "./images/sadfarmer.jpg";
 import farmer2Img from "./images/farmer2Img.svg";
+import farmerSignin from "./images/farmerSignin.png"
 
 export const assets = {
   textureImg,
@@ -52,7 +53,8 @@ export const assets = {
   farmerherobg,
   scrollDown,
   sadfarmer,
-  farmer2Img
+  farmer2Img,
+  farmerSignin
 };
 
 export const therapyOptions = [

@@ -10,7 +10,8 @@ import CreateBlog from "./components/Blog/CreateBlog";
 import BlogDesc from "./components/Blog/BlogDesc";
 import MoreBlogs from "./components/Blog/MoreBlogs";
 import ProgramPage from "./containers/ProgramPage";
-import Home from "./components/Farmers/Home";
+import Home from "./components/Farmers/Home/Home";
+import Register from "./components/Farmers/Authentication/Register";
 export const url = "http://localhost:3000";
 
 
@@ -31,6 +32,7 @@ function App() {
           <Route path="/allBlogs" element={<MoreBlogs />} />
           <Route path="/programs" element={<ProgramPage />} />
           <Route path="/programs/farmers" element={<Home />} />
+          <Route path="/programs/farmers/signin" element={<Register />} />
         </Routes>
       </main>
     </>
