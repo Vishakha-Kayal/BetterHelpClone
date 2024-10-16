@@ -95,13 +95,13 @@ const LoginPage = () => {
               onSubmit={onHandleSubmit}
             >
               <div
-                className={`relative w-36 h-w-36  rounded-full ${
+                className={`relative w-36 h-36  rounded-full ${
                   !formData.profileImage ? "" : "border-[2px] border-[#90928f] overflow-hidden"
                 }`}
               >
                 <img
                   src={formData.profileImage ? formData.profileFile : assets.profileIcon}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                   alt=""
                 />
                 <input
