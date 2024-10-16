@@ -13,7 +13,7 @@ import ProgramPage from "./containers/ProgramPage";
 import Home from "./components/Farmers/Home/Home";
 import Register from "./components/Farmers/Authentication/Register";
 // export const url = "http://localhost:3000";
-export const url = "https://betterhelpclone.onrender.com";
+export const url = "https://betterhelpclonebackend.onrender.com";
 
 
 function App() {
