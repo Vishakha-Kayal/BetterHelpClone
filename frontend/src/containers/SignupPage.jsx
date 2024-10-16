@@ -5,6 +5,7 @@ import { assets } from "../assets/assets";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { url } from "../App";
 
 const LoginPage = () => {
   const fileInputRef = useRef(null);
@@ -26,35 +27,35 @@ const LoginPage = () => {
     }
     console.log("Form data to send:", formDataToSend);
 
-  try {
-    const response = await axios.post(
-      "http://localhost:3000/api/users/register",
-      formDataToSend
-    );
-    console.log("res", response.data);
-    
-    if (response.data.success) {
-      setformData((prev) => ({
-        ...prev,
-        email: "",
-        password: "",
-        profileImage: null,
-      }));
-      toast.success("Account Created Successfully");
+    try {
+      const response = await axios.post(
+        `${url}/api/users/register`,
+        formDataToSend
+      );
+      console.log("res", response.data);
+
+      if (response.data.success) {
+        setformData((prev) => ({
+          ...prev,
+          email: "",
+          password: "",
+          profileImage: null,
+        }));
+        toast.success("Account Created Successfully");
+      }
+    } catch (error) {
+      if (error.response) {
+        toast.error("email already exists");
+        setformData((prev) => ({
+          ...prev,
+          email: "",
+          password: "",
+          profileImage: null,
+        }));
+      } else {
+        toast.error("An error occurred. Please try again.");
+      }
     }
-  } catch (error) {
-    if (error.response) {
-      toast.error("email already exists");
-      setformData((prev) => ({
-        ...prev,
-        email: "",
-        password: "",
-        profileImage: null,
-      }));
-    } else {
-      toast.error("An error occurred. Please try again.");
-    }
-  }
   };
 
   const onhandleUpload = () => {
@@ -96,11 +97,17 @@ const LoginPage = () => {
             >
               <div
                 className={`relative w-36 h-36  rounded-full ${
-                  !formData.profileImage ? "" : "border-[2px] border-[#90928f] overflow-hidden"
+                  !formData.profileImage
+                    ? ""
+                    : "border-[2px] border-[#90928f] overflow-hidden"
                 }`}
               >
                 <img
-                  src={formData.profileImage ? formData.profileFile : assets.profileIcon}
+                  src={
+                    formData.profileImage
+                      ? formData.profileFile
+                      : assets.profileIcon
+                  }
                   className="w-full h-full object-contain"
                   alt=""
                 />

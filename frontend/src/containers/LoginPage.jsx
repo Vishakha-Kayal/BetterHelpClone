@@ -5,6 +5,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import { url } from "../App";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const LoginPage = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/users/login",
+        `${url}/api/users/login`,
         formData
       );
 
