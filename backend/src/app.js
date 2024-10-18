@@ -28,4 +28,7 @@ app.use("/api/admin", adminRouter);
 import blogRouter from "./routes/blogs.routes.js"
 app.use("/api",blogRouter)
 
+import farmerRouter from "./routes/farmer.routes.js"
+app.use("/api/farmers",farmerRouter)
+
 export { app };

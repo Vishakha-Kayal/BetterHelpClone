@@ -53,6 +53,7 @@ const Home = () => {
             src={assets.sadfarmer}
             alt="farmer image"
             className="rounded-2xl"
+            loading="lazy"
           />
           <div className="bg-[#f5f7f5] p-6 my-8 rounded-2xl">
             <p className="text-[1.7rem]">
@@ -89,7 +90,6 @@ const Home = () => {
             style={{
               backgroundImage: `url(${assets.farmer2Img})`,
               backgroundSize: "cover",
-         
               backgroundRepeat: "no-repeat",
             }}
           ></div>

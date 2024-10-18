@@ -24,6 +24,8 @@ const LoginPage = () => {
     formDataToSend.append("password", password);
     if (profileImage) {
       formDataToSend.append("profileImage", profileImage);
+      console.log("profileImage",profileImage);
+      
     }
     console.log("Form data to send:", formDataToSend);
 
@@ -75,6 +77,7 @@ const LoginPage = () => {
         profileFile: URL.createObjectURL(file), // For preview
         profileImage: file,
       }));
+
     }
   };
 

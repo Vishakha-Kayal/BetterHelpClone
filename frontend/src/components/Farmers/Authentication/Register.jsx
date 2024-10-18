@@ -1,46 +1,19 @@
 import React, { useCallback, useRef, useState } from "react";
 import { assets } from "../../../assets/assets";
-
-const InputField = ({
-  id,
-  label,
-  type,
-  placeholder,
-  value,
-  name,
-  onChange,
-  required,
-  maxDigits,
-}) => (
-  <div className="w-[94%] mx-auto my-7">
-    <label
-      className="block mb-2 text-xl font-medium text-gray-700"
-      htmlFor={id}
-    >
-      {label}
-    </label>
-    <input
-      id={id}
-      type={type}
-      placeholder={placeholder}
-      name={name}
-      className="w-full p-6 border border-gray-300 rounded-lg text-xl outline-none hover:shadow-[0_0_0_2.7px_#a6de9b]"
-      value={value}
-      onChange={onChange}
-      maxLength={maxDigits}
-      required={required}
-    />
-  </div>
-);
+import InputField from "./InputField";
+import axios from "axios";
+import { url } from "../../../App";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
   const [farmersData, setfarmersData] = useState({
-    fullname: "",
+    fullName: "",
     aadharNumber: "",
-    identityCard: "",
+    identityCard: null,
     phoneNumber: "",
     password: "",
-    profileImage: null,
+    farmerPhoto: null,
     profileFile: assets.farmerSignin,
   });
   const [error, setError] = useState("");
@@ -69,33 +42,65 @@ const Register = () => {
       setfarmersData((prev) => ({
         ...prev,
         profileFile: URL.createObjectURL(file),
-        profileImage: file,
+        farmerPhoto: file,
       }));
-      console.log("profile file", farmersData.profileFile);
     }
+    console.log("profile file", farmersData.farmerPhoto);
   };
-  const onHandleFormSubmit = (e) => {
+  const onHandleFormSubmit = async (e) => {
     e.preventDefault();
+    const {
+      fullName,
+      aadharNumber,
+      identityCard,
+      phoneNumber,
+      password,
+      farmerPhoto,
+    } = farmersData;
+    const formDataToSend = new FormData();
+    formDataToSend.append("fullName", fullName);
+    formDataToSend.append("aadharNumber", aadharNumber);
+    formDataToSend.append("phoneNumber", phoneNumber);
+    formDataToSend.append("password", password);
+    if (farmerPhoto) {
+      formDataToSend.append("farmerPhoto", farmerPhoto);
+    }
+    if (!farmerPhoto) {
+      toast.error("Please upload your photo.");
+      return;
+    }
+
+    if (identityCard) {
+      formDataToSend.append("identityCard", identityCard);
+    }
+
+    if (!identityCard) {
+      toast.error("Please upload your identity proof.");
+      return;
+    }
+
     if (farmersData.phoneNumber.length !== 10) {
       setError("Phone number must be exactly 10 digits.");
       return;
     }
     setError("");
-    console.log("Form data: ", farmersData);
+
+    const response = await axios.post(
+      `${url}/api/farmers/register`,
+      formDataToSend
+    );
+    if (response.data.success) {
+      toast.success("Farmer registered Successfully");
+    } else {
+      toast.error(response.data.message || "An error occurred");
+    }
   };
 
   return (
     <>
+      <ToastContainer className={`text-2xl`} />
       <main
-        className="min-h-screen flex pl-24 bg-[#eaefe8] bg-hero-texture"
-        style={{
-          backgroundImage: `url('https://img.freepik.com/free-photo/3d-background-with-white-cubes_23-2150472996.jpg?t=st=1729091829~exp=1729095429~hmac=a9f57e58a18a9321a242565534d9dd8f10510c4a6d55c222f29e8090faf1ad36&w=1060')`,
-
-          backgroundSize: "contain",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "120% 100%",
-        }}
-      >
+        className="min-h-screen flex pl-24 bg-[#eaefe8] bg-hero-texture justify-center">
         <section className="w-[42vw] lg:w-[38vw] h-full mb-24">
           <form className="mt-4 px-2" onSubmit={onHandleFormSubmit}>
             <div className="w-[26rem] h-[26rem] rounded-full mx-auto farmerProfile flex justify-center items-center">
@@ -103,13 +108,14 @@ const Register = () => {
                 src={farmersData.profileFile}
                 alt="farmers photo"
                 className={`${
-                  farmersData.profileImage ? "w-[80%] h-[80%] rounded-full" : ""
+                  farmersData.farmerPhoto ? "w-[80%] h-[80%] rounded-full" : ""
                 }`}
               />
             </div>
             <div className="text-center">
               <input
                 type="file"
+                name="farmerPhoto"
                 ref={fileInput}
                 className="hidden"
                 accept="image/*"
@@ -129,12 +135,12 @@ const Register = () => {
               Empowering farmers to improve their mental well-being.
             </p>
             <InputField
-              id="fullname"
+              id="fullName"
               label="Full Name"
-              name="fullname"
+              name="fullName"
               type="text"
               placeholder="Enter Full Name"
-              value={farmersData.fullname}
+              value={farmersData.fullName}
               onChange={onHandleFormChange}
               required
             />
@@ -166,7 +172,7 @@ const Register = () => {
                   if (file) {
                     setfarmersData((prevData) => ({
                       ...prevData,
-                      identityCard: file.name,
+                      identityCard: file,
                     }));
                   }
                 }}
@@ -180,7 +186,7 @@ const Register = () => {
               </span>
               {farmersData.identityCard && (
                 <p className="mt-2 text-red-600 text-xl font-bold">
-                  Selected File: {farmersData.identityCard}
+                  Selected File: {farmersData.identityCard.name}
                 </p>
               )}
             </div>
