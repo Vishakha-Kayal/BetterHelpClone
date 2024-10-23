@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { url } from "../App";
+import { assets } from "../assets/assets";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -24,10 +25,7 @@ const LoginPage = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        `${url}/api/users/login`,
-        formData
-      );
+      const response = await axios.post(`${url}/api/users/login`, formData);
 
       if (response.data.success) {
         setformData((prev) => ({ ...prev, email: "", password: "" }));
@@ -56,44 +54,49 @@ const LoginPage = () => {
               falling into place.
             </p>
           </aside>
-          <aside className="w-full md:w-[50%] bg-white rounded-2xl py-24">
+          <aside className="w-full md:w-[50%] bg-[#ffff] rounded-2xl py-24">
             <form
               className="flex flex-col gap-8 w-[80%] items-center mx-auto"
               onSubmit={onHandleSubmit}
             >
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                placeholder="Email Address"
-                className="hover:shadow-[0_0_0_3px_#a6de9b] w-full border-[2px] border-[#6d706c] font-inter text-2xl font-semibold px-6 py-8 text-[#4a4d4a] rounded-xl"
-                onChange={onHandleInput}
-              />
-              <input
-                type="password"
-                name="password"
-                value={formData.password}
-                placeholder="Password"
-                className="hover:shadow-[0_0_0_3px_#a6de9b] w-full border-[2px] border-[#6d706c] font-inter text-2xl font-semibold px-6 py-8 text-[#4a4d4a] rounded-xl"
-                onChange={onHandleInput}
-              />
-              <input
-                type="submit"
-                value="Login"
-                className="text-primary w-full bg-[#a6de9b] py-[1.5rem] text-4xl text-center font-overpass rounded-[5rem]  border-[1px] 
-                font-medium hover:bg-secondary hover:text-textPrimary transition all ease 1s cursor-pointer"
-              />
-              <Link
-                to="#"
-                className="underline text-secondary text-2xl font-bold hover:text-primary transition all ease 1s cursor-pointer"
+              <div className="flex items-center gap-8 h-[6.3rem] hover:shadow-[0_0_0_3px_#a6de9b] hover:bg-[#f4fbf2] w-full border-[2px] border-[#6d706c] font-inter text-2xl font-semibold px-6 text-[#4a4d4a] rounded-xl cursor-pointer"
+                      onClick={() => {
+                        navigate("/user/signin");
+                      }}
               >
-                Forgot Password ?
-              </Link>
+                <div className="">
+                  <img src={assets.userIcon} alt="" className="w-14" />
+                </div>
+                <p className="text-[1.65rem]">Signin As A Normal User</p>
+              </div>
+
+              <div className="flex items-center gap-8 h-[6.3rem] hover:shadow-[0_0_0_3px_#a6de9b] hover:bg-[#f4fbf2] w-full border-[2px] border-[#6d706c] font-inter text-2xl font-semibold px-6 text-[#4a4d4a] rounded-xl cursor-pointer"
+                 onClick={() => {
+                  navigate("/programs/farmers/signin");
+                }}
+              >
+                <div className="">
+                  <img src={assets.farmerIcon} alt="" className="w-16" />
+                </div>
+                <p className="text-[1.65rem]">Signin As A Farmer</p>
+              </div>
+
+              <div className="flex items-center gap-8 h-[6.3rem] hover:shadow-[0_0_0_3px_#a6de9b] hover:bg-[#f4fbf2] w-full border-[2px] border-[#6d706c] font-inter text-2xl font-semibold px-6 text-[#4a4d4a] rounded-xl cursor-pointer"
+                 onClick={() => {
+                  navigate("/programs/students/signin");
+                }}
+                >
+                <div className="">
+                  <img src={assets.studentIcon} alt="" className="w-14" />
+                </div>
+                <p className="text-[1.65rem]">Signin As A Student</p>
+              </div>
+
               <Link
                 to="/signup"
                 className="underline text-secondary text-2xl font-bold hover:text-primary transition all ease 1s cursor-pointer"
               >
-                Already have an account ?? Click here
+                Don't have an account ?? SignUp
               </Link>
             </form>
           </aside>

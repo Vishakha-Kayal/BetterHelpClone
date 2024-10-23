@@ -1,12 +1,12 @@
 import React from "react";
-import { assets } from "../../../assets/assets";
+import { assets ,onHandleScroll} from "../../../assets/assets";
 import Button from "../../Button";
 import "../farmers.css";
 import IntroductionSection from "./IntroductionSection";
 import ChallengesSection from "./ChallengesSection";
 
 const Home = () => {
-  return (
+    return (
     <section className="bg-textPrimary min-h-[180vh] bg-hero-texture">
       <section
         className="w-full h-[100vh] bg-white relative z-0"
@@ -34,11 +34,11 @@ const Home = () => {
                 color="text-primary border-none"
                 content="SignUp as a farmer"
                 hoverbg="hover:bg-secondary hover:text-white transition all ease 1s cursor-pointer"
-                navigateTo="/programs/farmers/signin"
+                navigateTo="/programs/farmers/signup"
               />
             </div>
           </div>
-          <div className="flex flex-col items-center mb-20">
+          <div className="flex flex-col items-center mb-20" onClick={onHandleScroll}>
             <img src={assets.scrollDown} alt="scroll" className="w-20 scroll" />
           </div>
         </aside>

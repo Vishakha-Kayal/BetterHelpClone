@@ -9,7 +9,6 @@ const Steps = ({ step, index }) => {
   const stepsimg = useRef(null);
 
   useGSAP(() => {
-   
     gsap.from(stepsimg.current, {
       y: 200,
       opacity: 0,
@@ -19,7 +18,7 @@ const Steps = ({ step, index }) => {
         trigger: ".scroller",
         scroller: "body",
         start: "top 60%",
-        scrub:2,
+        // scrub:2,
       },
     });
   });

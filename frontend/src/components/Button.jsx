@@ -13,19 +13,26 @@ const Button = ({
   width,
   borderColor,
   navigateTo,
+  boxShadow,
+  onClick
 }) => {
   const navigate = useNavigate();
   const handleClick = () => {
-    if (navigateTo != null) {
+    if (onClick) {
+      onClick(); 
+    } else {
       navigate(`${navigateTo}`);
     }
+  
   };
+ 
   return (
     <div
       className={`text-center ${hoverbg} ${bg} ${width} ${text} ${paddingX} ${paddingY} ${font} font-overpass rounded-[5rem] ${color} border-[1px] ${
         isScrolled ? "border-primary" : "border-white"
-      } font-medium ${borderColor} cursor-pointer`}
+      } font-medium ${borderColor} cursor-pointer capitalize`}
       onClick={handleClick}
+      style={boxShadow}
     >
       {content}
     </div>

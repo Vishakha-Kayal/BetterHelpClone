@@ -7,6 +7,7 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
+
 const HowItWorks = () => {
   useGSAP(() => {
     gsap.from(".mydiv .stepsDiv", {
@@ -19,7 +20,7 @@ const HowItWorks = () => {
         trigger: ".scroller",
         scroller: "body",
         start: "top 60%",
-        scrub: 2,
+        // scrub: 2,
       },
     });
   });

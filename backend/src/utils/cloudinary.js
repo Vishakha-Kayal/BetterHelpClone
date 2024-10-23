@@ -62,4 +62,34 @@ const uploadMultipleFiles = async (req, res, next) => {
     res.status(500).send("Error uploading files.");
   }
 };
-export { uploadFileOnCloudinary, uploadMultipleFiles };
+
+const uploadStudentFiles = async (req, res, next) => {
+  const files = req.files;
+  console.log("uploadMultipleFiles req.files = ", files);
+
+  if (!files || files.length === 0) {
+    return res.status(400).send("No files uploaded.");
+  }
+
+  try {
+    const uploadPromises = [];
+
+    if (Array.isArray(files.identityCard)) {
+        uploadPromises.push(uploadFileOnCloudinary(files?.identityCard[0]?.path));
+    }
+
+    if (Array.isArray(files.studentPhoto)) {
+      files.studentPhoto.forEach(file => {
+        uploadPromises.push(uploadFileOnCloudinary(file.path));
+      });
+    }
+
+    const results = await Promise.all(uploadPromises);
+    req.uploadedFiles = results; 
+    next(); 
+  } catch (error) {
+    console.error("Error uploading files:", error);
+    res.status(500).send("Error uploading files.");
+  }
+};
+export { uploadFileOnCloudinary, uploadMultipleFiles ,uploadStudentFiles};

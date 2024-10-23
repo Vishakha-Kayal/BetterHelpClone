@@ -49,7 +49,7 @@ const BlogHome = () => {
           </h2>
           <div className="w-full flex flex-col lg:flex-row ">
             <div className="w-full lg:w-[70%] grid gap-5 grid-cols-1 lg:grid-cols-3 py-11 px-[2rem]">
-              {blogs.map((blog, index) => {
+              {blogs.slice(0, 6).map((blog, index) => {
                 const { thumbnail, content, title, author } = blog;
                 return (
                   <BlogCards

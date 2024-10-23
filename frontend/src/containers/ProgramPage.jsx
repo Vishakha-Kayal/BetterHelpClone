@@ -26,7 +26,7 @@ const ProgramPage = () => {
               boxShadow:
                 "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px",
             }}
-            onClick={()=>{navigate('/programs/farmers')}}
+            onClick={()=>{navigate('/programs/farmers')}}                  
           >
             <h1 className="text-7xl text-textPrimary absolute right-7 py-20 font-light">
               Farmer
@@ -45,6 +45,7 @@ const ProgramPage = () => {
               boxShadow:
                 "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px",
             }}
+            onClick={()=>{navigate('/programs/students')}}
           >
             <h1 className="text-7xl text-textPrimary absolute left-7  py-20 font-light">
               Student

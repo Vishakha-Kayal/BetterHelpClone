@@ -31,4 +31,7 @@ app.use("/api",blogRouter)
 import farmerRouter from "./routes/farmer.routes.js"
 app.use("/api/farmers",farmerRouter)
 
+import studentRouter from "./routes/student.routes.js"
+app.use("/api/students",studentRouter)
+
 export { app };

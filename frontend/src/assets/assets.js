@@ -29,10 +29,20 @@ import farmerherobg from "./images/farmerherobg.svg";
 import scrollDown from "./images/scrollDown.svg";
 import sadfarmer from "./images/sadfarmer.jpg";
 import farmer2Img from "./images/farmer2Img.svg";
-import farmerSignin from "./images/farmerSignin.png"
-import fbgtry from "./images/fbgtry.svg"
-import bgfarm1 from "./images/bgfarm1.svg"
-import grassbgtry from "./images/grassbgtry.svg"
+import farmerSignin from "./images/farmerSignin.png";
+import fbgtry from "./images/fbgtry.svg";
+import bgfarm1 from "./images/bgfarm1.svg";
+import grassbgtry from "./images/grassbgtry.svg";
+import studentBg from "./images/studentBg.jpg";
+import studentBg2 from "./images/studentBg2.jpg";
+import student1 from "./images/student1.png";
+import student2 from "./images/student2.jpg";
+import studentSIgnup from "./images/signup.webp";
+import user from "./images/user.svg";
+import studentLogin from "./images/login.webp"
+import userIcon from "./images/userIcon.webp"
+import studentIcon from "./images/studentIcon.webp"
+import farmerIcon from "./images/farmerIcon.webp"
 
 export const assets = {
   textureImg,
@@ -59,7 +69,17 @@ export const assets = {
   farmer2Img,
   farmerSignin,
   fbgtry,
-  bgfarm1,grassbgtry
+  bgfarm1,
+  grassbgtry,
+  studentBg,
+  studentBg2,
+  student1,
+  student2,
+  studentSIgnup,
+  user,
+  studentLogin,
+  userIcon,
+  studentIcon,farmerIcon
 };
 
 export const therapyOptions = [
@@ -285,3 +305,10 @@ export const morefaqs = [
       "There are many studies that confirm the effectiveness of the online medium for making life changes. For example, a study published by JMIR Publications and conducted by researchers from University of California - Berkeley, University of California - San Francisco, and the San Francisco General Hospital concluded that users of BetterHelp experienced significantly reduced depression symptom severity after engaging with the platform.",
   },
 ];
+
+export const onHandleScroll =()=>{
+  window.scrollTo({
+    top: window.innerHeight,
+    behavior: "smooth",
+  })
+}

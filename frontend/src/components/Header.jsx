@@ -4,11 +4,52 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { LuPlus } from "react-icons/lu";
 import Button from "./Button";
 import { Link, useNavigate } from "react-router-dom";
+import { IoIosNotificationsOutline } from "react-icons/io";
+import { decodeToken } from "../utils/decodeToken.js";
+
+const RegisteredSection = ({ icon, user, isScrolled, onclick }) => {
+  return (
+    <>
+      <div className="w-14 h-14 bg-textPrimary rounded-full flex justify-center items-center">
+        <IoIosNotificationsOutline className="text-4xl text-primary" />
+      </div>
+      <div className="h-14 flex justify-center items-center gap-3 rounded">
+        <div className="w-14 h-full rounded-full bg-secondary flex justify-center items-center">
+          <img src={icon} alt="" className="w-[80%] h-[80%]" />
+        </div>
+        <span className="text-2xl capitalize">{user}</span>
+      </div>
+      <Button
+        bg={`${isScrolled ? "bg-[#a6de9b]" : "bg-[#ffffff]"}`}
+        paddingY="py-[0.8rem]"
+        paddingX="px-[1.6rem]"
+        text="text-2xl"
+        font="font-bold"
+        color="text-primary border-none"
+        content="logout"
+        isScrolled={isScrolled}
+        onClick={onclick}
+      />
+    </>
+  );
+};
 
 const Header = ({ customBG }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [hamClick, sethamClick] = useState(false);
   const navigate = useNavigate();
+  const [userType, setUserType] = useState(null);
+  const [farmer, setFarmer] = useState("");
+  const [student, setStudent] = useState(null);
+  const [user, setUser] = useState(null);
+
+  const handleLogout = useCallback(() => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userType");
+    setUserType(null);
+    setFarmer("");
+    navigate("/login");
+  }, [navigate]);
 
   const onHandleRedirectToHome = useCallback(() => {
     navigate("/");
@@ -31,6 +72,88 @@ const Header = ({ customBG }) => {
     }
   }, [customBG]);
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const storedUserType = localStorage.getItem("userType");
+
+    if (storedUserType === "farmer") {
+      const farmerDets = decodeToken(token);
+      setFarmer(farmerDets.fullName);
+      setUserType(storedUserType || null);
+    } else if (storedUserType === "student") {
+      const studentDets = decodeToken(token);
+      setStudent(studentDets.fullName);
+      setUserType(storedUserType || null);
+    } else if (storedUserType === "user") {
+      const usertDets = decodeToken(token);
+      setUser(usertDets.email);
+      setUserType(storedUserType || null);
+    } else {
+      setUserType(null);
+    }
+  }, []);
+
+  const renderUserNav = () => {
+    switch (userType) {
+      case "user":
+        return (
+          <RegisteredSection
+            icon={assets.userIcon}
+            user={user.slice(0, user.indexOf('@'))}
+            isScrolled={isScrolled}
+            onclick={handleLogout}
+          />
+        );
+      case "farmer":
+        return (
+          <RegisteredSection
+            icon={assets.farmerIcon}
+            user={farmer}
+            isScrolled={isScrolled}
+            onclick={handleLogout}
+          />
+        );
+      case "student":
+        return (
+          <RegisteredSection
+            icon={assets.studentIcon}
+            user={student}
+            isScrolled={isScrolled}
+            onclick={handleLogout}
+          />
+        );
+      case null:
+        return (
+          <>
+            <Button
+              bg="bg-none"
+              paddingY="py-[0.8rem]"
+              paddingX="px-[1.6rem]"
+              text="text-2xl"
+              font="font-bold"
+              color={`${isScrolled ? "text-primary" : "text-white"}`}
+              content="Login"
+              isScrolled={isScrolled}
+              navigateTo="/login"
+            />
+            <Button
+              bg={`${isScrolled ? "bg-[#a6de9b]" : "bg-[#ffffff]"}`}
+              paddingY="py-[0.8rem]"
+              paddingX="px-[1.6rem]"
+              text="text-2xl"
+              font="font-bold"
+              color="text-primary border-none"
+              content="Get Started"
+              isScrolled={isScrolled}
+              navigateTo="/signup"
+            />
+          </>
+        );
+      default:
+        return null;
+    }
+  };
+
   const onHandleHamBurger = useCallback(() => {
     sethamClick((prev) => !prev);
   }, []);
@@ -43,11 +166,13 @@ const Header = ({ customBG }) => {
           : "bg-primary text-textPrimary"
       }`}
     >
+      {/* Header content */}
       <div
         className={`w-full flex flex-col justify-between gap-3 lg:hidden ${
           hamClick ? "bg-white" : ""
         }`}
       >
+        {/* Mobile Header */}
         <div className="w-full flex justify-between items-start gap-3 px-4 pt-6">
           <div className="w-[16rem]">
             <img
@@ -56,14 +181,6 @@ const Header = ({ customBG }) => {
               onClick={onHandleRedirectToHome}
               className="cursor-pointer"
             />
-            {hamClick && !isScrolled && (
-              <img
-                src={assets.logo}
-                alt=""
-                onClick={onHandleRedirectToHome}
-                className="cursor-pointer absolute top-6 w-[16rem]"
-              />
-            )}
           </div>
           <div>
             {hamClick ? (
@@ -128,6 +245,7 @@ const Header = ({ customBG }) => {
         )}
       </div>
 
+      {/* Desktop Header */}
       <div className="w-full justify-between hidden lg:flex">
         <div className="py-1 w-full lg:flex lg:justify-between lg:items-center">
           <div className="h-full w-[18rem]">
@@ -156,31 +274,9 @@ const Header = ({ customBG }) => {
                 <li>Programs</li>
               </Link>
               <li>Reviews</li>
-              <li>Therapist Jobs</li>
               <li>Contact</li>
             </ul>
-            <Button
-              bg="bg-none"
-              paddingY="py-[0.8rem]"
-              paddingX="px-[1.6rem]"
-              text="text-2xl"
-              font="font-bold"
-              color={`${isScrolled ? "text-primary" : "text-white"}`}
-              content="Login"
-              isScrolled={isScrolled}
-              navigateTo="/login"
-            />
-            <Button
-              bg={`${isScrolled ? "bg-[#a6de9b]" : "bg-[#ffffff]"}`}
-              paddingY="py-[0.8rem]"
-              paddingX="px-[1.6rem]"
-              text="text-2xl"
-              font="font-bold"
-              color="text-primary border-none"
-              content="Get Started"
-              isScrolled={isScrolled}
-              navigateTo="/signup"
-            />
+            {renderUserNav()}
           </div>
         </div>
       </div>

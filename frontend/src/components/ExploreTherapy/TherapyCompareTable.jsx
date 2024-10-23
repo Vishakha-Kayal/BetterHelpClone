@@ -56,9 +56,7 @@ const TherapyCompareTable = () => {
                 <div className={`w-0 h-0 border-t-[8px] border-t-transparent border-b-[8px] border-b-transparent border-r-[10px] border-r-textPrimary absolute left-[11%] top-0 ${openInfo===index ? "visible" : "hidden"} `}></div>
 
               </div>
-              {/* <span className='absolute w-[15rem] bg-white text-primary text-xl font-light z-[9]'>
-                         {option.faq}
-                         </span> */}
+     
             </td>
             {/* For BetterHelp */}
             <td className="bg-[#f5f7f5] text-[1.6rem] w-[7.2rem] ">
