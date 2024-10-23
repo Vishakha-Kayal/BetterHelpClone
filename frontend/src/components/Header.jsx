@@ -15,7 +15,7 @@ const RegisteredSection = ({ icon, user, isScrolled, onclick }) => {
       </div>
       <div className="h-14 flex justify-center items-center gap-3 rounded">
         <div className="w-14 h-full rounded-full bg-secondary flex justify-center items-center">
-          <img src={icon} alt="" className="w-[80%] h-[80%]" />
+          <img src={icon} alt="" className="w-[90%] h-[90%]" />
         </div>
         <span className="text-2xl capitalize">{user}</span>
       </div>
@@ -98,7 +98,7 @@ const Header = ({ customBG }) => {
       case "user":
         return (
           <RegisteredSection
-            icon={assets.userIcon}
+            icon={assets.userNavIcon}
             user={user.slice(0, user.indexOf('@'))}
             isScrolled={isScrolled}
             onclick={handleLogout}
@@ -116,7 +116,7 @@ const Header = ({ customBG }) => {
       case "student":
         return (
           <RegisteredSection
-            icon={assets.studentIcon}
+            icon={assets.studentNavIcon}
             user={student}
             isScrolled={isScrolled}
             onclick={handleLogout}

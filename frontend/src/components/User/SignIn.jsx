@@ -86,7 +86,7 @@ const SignIn = () => {
                 font-medium hover:bg-secondary hover:text-textPrimary transition all ease 1s cursor-pointer"
               />
               <Link
-                to="#"
+                to="/user/resetPsswd"
                 className="underline text-secondary text-2xl font-bold hover:text-primary transition all ease 1s cursor-pointer"
               >
                 Forgot Password ?

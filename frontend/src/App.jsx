@@ -1,3 +1,4 @@
+import { VerificationProvider } from "./context/VerificationContext";
 import HomePage from "./containers/HomePage";
 import LoginPage from "./containers/LoginPage";
 import SignupPage from "./containers/SignupPage";
@@ -18,13 +19,16 @@ import StudentLogin from "./components/Students/Authentication/StudentLogin";
 import FarmerLogin from "./components/Farmers/Authentication/FarmerLogin";
 import SignUp from "./components/User/SignUp";
 import SignIn from "./components/User/SignIn";
+import ForgotPsswd from "./components/User/ForgotPsswd";
+import Verify from "./components/User/Verify";
+import ResetPsswd from "./components/User/ResetPsswd";
 // export const url = "http://localhost:3000";
 export const url = "https://betterhelpclonebackend.onrender.com";
 
 function App() {
-  console.log(localStorage.getItem("userType"))
   return (
-    <>
+
+    <VerificationProvider>
       <main className="w-full min-h-screen bg-slate-100 overflow-hidden">
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -49,9 +53,13 @@ function App() {
           />
           <Route path="/programs/students/signin" element={<StudentLogin />} />
           <Route path="/programs/farmers/signin" element={<FarmerLogin />} />
+          <Route path="/user/resetPsswd" element={<ForgotPsswd />} />
+          <Route path="/user/verifyPsswd" element={<Verify />} />
+          <Route path="/user/changePsswd" element={<ResetPsswd />} />
         </Routes>
       </main>
-    </>
+    </VerificationProvider>
+
   );
 }
 

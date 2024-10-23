@@ -65,8 +65,6 @@ const registerUser = asyncHandler(async (req, res) => {
 
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
-  console.log(req.body);
-
   if (!password || !email) {
     throw new ApiError(400, "username and email is required");
   }
@@ -112,4 +110,31 @@ const loginUser = asyncHandler(async (req, res) => {
     );
 });
 
-export { registerUser, loginUser };
+const checkUser = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  if (!email) {
+    throw new ApiError(400, "Email is required");
+  }
+  const user = await User.findOne({ email });
+  if (!user) {
+    return res.status(404).json({ success: false, message: "User not found" });
+  } else {
+    return res.json({ success: true });
+  }
+});
+
+const editUser = asyncHandler(async (req, res) => {
+  const { password, email } = req.body;
+  console.log("req", req.body);
+  if (!password) {
+    throw new ApiError(400, "Password is required");
+  }
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new ApiError(500, "Internal server error");
+  }
+  user.password = password;
+  await user.save()
+  return res.json({success:true})
+});
+export { registerUser, loginUser, checkUser, editUser };

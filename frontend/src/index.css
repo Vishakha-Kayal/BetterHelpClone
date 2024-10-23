@@ -70,6 +70,19 @@ h3 {
   border-radius: 50% 50% 0 0;
 }
 
+.otp-input {
+  background-color: rgb(228, 228, 228);
+  width: 5rem;
+  height: 5rem;
+  text-align: center;
+  border: none;
+  border-radius: 7px;
+  caret-color: #5db094;
+  outline: none;
+  font-weight: 600;
+  font-size: 1.6rem;
+}
+
 @media (max-width:767px) {
   .faqSection::before {
     background-image: url("./assets/images/divider-main-5-phone.png");

@@ -43,6 +43,8 @@ import studentLogin from "./images/login.webp"
 import userIcon from "./images/userIcon.webp"
 import studentIcon from "./images/studentIcon.webp"
 import farmerIcon from "./images/farmerIcon.webp"
+import studentNavIcon from "./images/studentNavIcon.png"
+import userNavIcon from "./images/userNavIcon.png"
 
 export const assets = {
   textureImg,
@@ -79,7 +81,7 @@ export const assets = {
   user,
   studentLogin,
   userIcon,
-  studentIcon,farmerIcon
+  studentIcon,farmerIcon,userNavIcon,studentNavIcon
 };
 
 export const therapyOptions = [
