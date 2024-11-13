@@ -3,12 +3,12 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 const app = express();
 
-app.use(
-  cors({
-    origin: process.env.CORS_ORIGIN,
-    credentials: true,
-  })
-);
+
+app.use(cors({
+  origin: 'http://localhost:5173', // Allow requests from your frontend
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
+  credentials: true // Allow credentials if needed
+}));
 
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
@@ -33,5 +33,8 @@ app.use("/api/farmers",farmerRouter)
 
 import studentRouter from "./routes/student.routes.js"
 app.use("/api/students",studentRouter)
+
+import groupRouter from "./routes/groups.routes.js"
+app.use("/api/groups",groupRouter)
 
 export { app };

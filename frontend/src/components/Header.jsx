@@ -25,7 +25,7 @@ const RegisteredSection = ({ icon, user, isScrolled, onclick }) => {
         paddingX="px-[1.6rem]"
         text="text-2xl"
         font="font-bold"
-        color="text-primary border-none"
+        color="text-primary border-none "
         content="logout"
         isScrolled={isScrolled}
         onClick={onclick}
@@ -272,6 +272,9 @@ const Header = ({ customBG }) => {
               </Link>
               <Link to="/programs">
                 <li>Programs</li>
+              </Link>
+              <Link to="/groups">
+                <li>Groups</li>
               </Link>
               <li>Reviews</li>
               <li>Contact</li>

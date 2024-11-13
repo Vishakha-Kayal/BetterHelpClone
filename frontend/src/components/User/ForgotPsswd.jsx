@@ -16,7 +16,7 @@ const ForgotPsswd = () => {
   const { setVerificationCode } = useVerification();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(null);                                              
 
   const onHandleFormSubmit = async (e) => {
     e.preventDefault();

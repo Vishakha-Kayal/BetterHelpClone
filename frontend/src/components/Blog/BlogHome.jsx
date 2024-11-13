@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import RightSidebar from "./RightSidebar";
 import CategoriesInfinity from "./CategoriesInfinity";
 
+
 const BlogHome = () => {
   const navigate = useNavigate();
   const [blogs, setBlogs] = useState([]);
@@ -23,7 +24,36 @@ const BlogHome = () => {
       console.error("Error fetching blogs:", error);
     }
   };
-
+  const [categories] = useState([
+    {
+      image: "http://res.cloudinary.com/dpis1vmne/image/upload/v1728894714/v6iot9baxhyww95vu8lw.jpg",
+      name: "bullying",
+    },
+    {
+      image: "http://res.cloudinary.com/dpis1vmne/image/upload/v1728897965/bonvzqfmfea2an0evkhb.jpg",
+      name: "depression",
+    },
+    {
+      image: "http://res.cloudinary.com/dpis1vmne/image/upload/v1728898055/blazjq9zjwfycclxqw3g.jpg",
+      name: "general",
+    },
+    {
+      image: "https://res.cloudinary.com/dpis1vmne/image/upload/v1728557204/nzpuokitqkrf1elpdb8b.jpg",
+      name: "friendship",
+    },
+    {
+      image: "https://res.cloudinary.com/dpis1vmne/image/upload/v1728557290/bzqnljskahbtsfwh2esv.jpg",
+      name: "therapy",
+    },
+    {
+      image: "https://res.cloudinary.com/dpis1vmne/image/upload/v1728557565/lukdagjklxdi40oynaps.jpg",
+      name: "anxiety",
+    },
+    {
+      image: "https://res.cloudinary.com/dpis1vmne/image/upload/v1728557682/a0ne0moflyzzrwhjuuwr.jpg",
+      name: "willpower",
+    },
+  ]);
   useEffect(() => {
     getBlogs();
   }, []);
@@ -39,6 +69,7 @@ const BlogHome = () => {
     const formattedTitle = title.split(" ").join("_");
     navigate(`/blog/${encodeURIComponent(formattedTitle)}`);
   };
+
   return (
     <>
       <main className="flex flex-col justify-between  w-full min-h-[100vh] bg-[#ffffff] pt-[8rem] ">
@@ -87,7 +118,7 @@ const BlogHome = () => {
             />
           </div>
         </section>
-        <CategoriesInfinity />
+        <CategoriesInfinity categories={categories} heading="Explore Blogs in various categories"/>
         <Footer />
       </main>
     </>

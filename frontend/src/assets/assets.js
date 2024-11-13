@@ -39,14 +39,17 @@ import student1 from "./images/student1.png";
 import student2 from "./images/student2.jpg";
 import studentSIgnup from "./images/signup.webp";
 import user from "./images/user.svg";
-import studentLogin from "./images/login.webp"
-import userIcon from "./images/userIcon.webp"
-import studentIcon from "./images/studentIcon.webp"
-import farmerIcon from "./images/farmerIcon.webp"
-import studentNavIcon from "./images/studentNavIcon.png"
-import userNavIcon from "./images/userNavIcon.png"
+import studentLogin from "./images/login.webp";
+import userIcon from "./images/userIcon.webp";
+import studentIcon from "./images/studentIcon.webp";
+import farmerIcon from "./images/farmerIcon.webp";
+import studentNavIcon from "./images/studentNavIcon.png";
+import userNavIcon from "./images/userNavIcon.png";
+import eatingDisorder from "./images/eating-disorder.webp";
+import formImage from "./images/form-image.webp";
 
 export const assets = {
+  formImage,
   textureImg,
   logo,
   homelogo,
@@ -58,6 +61,7 @@ export const assets = {
   therapistFive,
   therapistSix,
   lineSquiggle,
+  eatingDisorder,
   lineburst,
   arrowgreen2,
   logoicon,
@@ -81,8 +85,970 @@ export const assets = {
   user,
   studentLogin,
   userIcon,
-  studentIcon,farmerIcon,userNavIcon,studentNavIcon
+  studentIcon,
+  farmerIcon,
+  userNavIcon,
+  studentNavIcon,
 };
+
+export const mentalHealthGroups = [
+  {
+    id: 0,
+    title: "Anxiety Relief Group",
+    members: 75,
+    description:
+      "A safe space for people experiencing anxiety to share their feelings and coping mechanisms.",
+    goals:
+      "Provide emotional support, share stress-relief techniques, and build resilience.",
+    for: "People struggling with chronic anxiety.",
+    topics: "Coping strategies, mindfulness practices, and stress management.",
+    groupFocus: {
+      name: "Group Focus",
+      points: [
+        {
+          heading: "Shared Experiences",
+          description:
+            "Members share their experiences managing anxiety and learning coping strategies.",
+        },
+        {
+          heading: "Support and Encouragement",
+          description:
+            "Emotional support from peers to alleviate anxiety-related distress.",
+        },
+        {
+          heading: "Education and Resources",
+          description:
+            "Access to mindfulness techniques, therapy options, and stress management resources.",
+        },
+        {
+          heading: "Mental Health Management",
+          description:
+            "Discussions on balancing stress, managing panic attacks, and long-term mental stability.",
+        },
+      ],
+    },
+    whoCanJoin: [
+      {
+        category: "Individuals with Anxiety",
+        description: "Anyone dealing with chronic anxiety.",
+      },
+      {
+        category: "Caregivers and Loved Ones",
+        description:
+          "Those supporting someone with anxiety can join to learn how to provide help.",
+      },
+    ],
+    meetingStructure: {
+      weeklyDiscussions:
+        "Weekly group discussions on managing anxiety triggers and building resilience.",
+      expertSessions:
+        "Expert-led sessions on anxiety treatment and management options.",
+    },
+    isPublic: true,
+    image_url:
+      "https://images.unsplash.com/photo-1683284355176-0424e1f62468?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGFueGlldHklMjByZWxpZWZ8ZW58MHwwfDB8fHww",
+    createdBy: {
+      $oid: "670bc726d523ed9e57fd1b13",
+    },
+    members: [],
+    createdAt: {
+      $date: "2024-11-06T14:02:15.906Z",
+    },
+    updatedAt: {
+      $date: "2024-11-06T14:02:15.906Z",
+    },
+    __v: 0,
+  },
+  {
+    id: 1,
+    title: "Depression Support Circle",
+    members: 120,
+    description:
+      "An uplifting community for individuals dealing with depression.",
+    goals: "Provide peer support and encourage emotional healing.",
+    for: "People suffering from depression.",
+    topics:
+      "Emotional challenges, treatment experiences, and hope for recovery.",
+    groupFocus: {
+      name: "Group Focus",
+      points: [
+        {
+          heading: "Shared Experiences",
+          description:
+            "Members share their journeys with depression to find common ground and understanding.",
+        },
+        {
+          heading: "Support and Encouragement",
+          description:
+            "A supportive space to uplift one another through recovery.",
+        },
+        {
+          heading: "Education and Resources",
+          description:
+            "Providing educational resources on managing depressive symptoms and effective treatments.",
+        },
+        {
+          heading: "Mental Health Management",
+          description:
+            "Focusing on self-care routines and maintaining emotional balance.",
+        },
+      ],
+    },
+    whoCanJoin: [
+      {
+        category: "Individuals with Depression",
+        description:
+          "Anyone battling depression, whether newly diagnosed or long-term sufferers.",
+      },
+      {
+        category: "Caregivers and Loved Ones",
+        description:
+          "Caregivers can join to gain insights into supporting someone with depression.",
+      },
+    ],
+    meetingStructure: {
+      weeklyDiscussions:
+        "Weekly discussions focusing on managing depressive episodes and promoting emotional healing.",
+      expertSessions:
+        "Occasional guest sessions with mental health professionals on depression treatment and recovery.",
+    },
+    isPublic: false,
+    image_url:
+      "https://images.unsplash.com/photo-1539541417736-3d44c90da315?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZGVwcmVzc2lvbiUyMHN1cHBvcnR8ZW58MHwwfDB8fHww",
+    createdBy: {
+      $oid: "670bc726d523ed9e57fd1b13",
+    },
+    members: [],
+    createdAt: {
+      $date: "2024-11-06T14:02:15.906Z",
+    },
+    updatedAt: {
+      $date: "2024-11-06T14:02:15.906Z",
+    },
+    __v: 0,
+  },
+  {
+    id: 2,
+    title: "Bipolar Balance Network",
+    members: 65,
+    description:
+      "The Bipolar Balance Network is a support group created to help individuals navigating the complexities of bipolar disorder. This group is designed to provide a safe space where members can connect, share experiences, and gain insight into managing the highs and lows associated with this condition.",
+    goals: "Foster understanding and stability.",
+    for: "The primary goal of the Bipolar Balance Network is to foster a supportive environment for people living with bipolar disorder, as well as their loved ones and caregivers. By sharing personal stories, coping strategies, and wellness tips, members can find comfort and understanding from those facing similar challenges.",
+    topics: "Medication management, mood swings, and self-care routines.",
+    groupFocus: {
+      name: "Group Focus",
+      points: [
+        {
+          heading: "Shared Experiences",
+          description:
+            "Members share their personal journeys with bipolar disorder, allowing others to learn from different perspectives.",
+        },
+        {
+          heading: "Support and Encouragement",
+          description:
+            "The group offers emotional support, helping members feel less isolated in their struggles and more empowered in their recovery.",
+        },
+        {
+          heading: "Education and Resources",
+          description:
+            "Access to reliable information on managing bipolar symptoms, treatment options, and wellness practices, such as mood tracking, medication adherence, and therapy options.",
+        },
+        {
+          heading: "Mental Health Management",
+          description:
+            "Discussions on the balance between manic and depressive episodes, managing medication, and maintaining mental stability.",
+        },
+      ],
+    },
+    whoCanJoin: [
+      {
+        category: "Individuals with Bipolar Disorder",
+        description:
+          "Whether newly diagnosed or experienced in managing the disorder, anyone living with bipolar disorder is welcome.",
+      },
+      {
+        category: "Caregivers and Loved Ones",
+        description:
+          "Those supporting someone with bipolar disorder can also join to learn and share how best to provide care and understanding.",
+      },
+    ],
+    meetingStructure: {
+      weeklyDiscussions:
+        "Regular group chats on specific topics, such as coping with manic episodes, dealing with stigma, or building supportive relationships.",
+      expertSessions:
+        "Occasionally, mental health professionals may be invited to share their expertise on managing bipolar disorder.",
+    },
+    isPublic: true,
+    image_url:
+      "https://images.unsplash.com/photo-1652125158952-475247c6f116?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Ymlwb2xhciUyMGRpc29yZGVyfGVufDB8MHwwfHx8MA%3D%3D",
+    createdBy: {
+      $oid: "670bc726d523ed9e57fd1b13",
+    },
+    members: [],
+    createdAt: {
+      $date: "2024-11-06T14:02:15.906Z",
+    },
+    updatedAt: {
+      $date: "2024-11-06T14:02:15.906Z",
+    },
+    __v: 0,
+  },
+  {
+    id: 3,
+    title: "OCD Recovery Group",
+    members: 85,
+    description:
+      "A space for those with OCD to connect and learn new coping techniques.",
+    goals:
+      "Share therapeutic approaches and reduce OCD’s impact on daily life.",
+    for: "People with obsessive-compulsive disorder.",
+    topics: "Managing compulsions, thoughts, and rituals.",
+    groupFocus: {
+      name: "Group Focus",
+      points: [
+        {
+          heading: "Shared Experiences",
+          description:
+            "Members share their struggles with OCD to help others understand its impact.",
+        },
+        {
+          heading: "Support and Encouragement",
+          description:
+            "Group support for navigating daily life and managing intrusive thoughts.",
+        },
+        {
+          heading: "Education and Resources",
+          description:
+            "Resources on therapeutic methods, like CBT, for reducing compulsions.",
+        },
+        {
+          heading: "Mental Health Management",
+          description:
+            "Strategies to manage rituals and reduce the impact of compulsive behavior.",
+        },
+      ],
+    },
+    whoCanJoin: [
+      {
+        category: "Individuals with OCD",
+        description:
+          "Those with OCD, regardless of the severity of their symptoms.",
+      },
+      {
+        category: "Caregivers and Loved Ones",
+        description: "Supporters of individuals with OCD are welcome to join.",
+      },
+    ],
+    meetingStructure: {
+      weeklyDiscussions:
+        "Group discussions on breaking compulsive behavior patterns.",
+      expertSessions: "Sessions with specialists in OCD therapy techniques.",
+    },
+    isPublic: false,
+    image_url:
+      "https://images.unsplash.com/photo-1564121211835-e88c852648ab?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8b2NkJTIwcmVjb3Zlcnl8ZW58MHx8MHx8fDA%3D",
+    createdBy: {
+      $oid: "670bc726d523ed9e57fd1b13",
+    },
+    members: [],
+    createdAt: {
+      $date: "2024-11-06T14:02:15.906Z",
+    },
+    updatedAt: {
+      $date: "2024-11-06T14:02:15.906Z",
+    },
+    __v: 0,
+  },
+  {
+    id: 4,
+    title: "PTSD Healing Group",
+    members: 60,
+    description:
+      "A supportive group for individuals recovering from trauma and PTSD.",
+    goals: "Offer a secure space for trauma processing and healing.",
+    for: "People suffering from post-traumatic stress disorder.",
+    topics: "Trauma triggers, recovery stories, and coping tools.",
+    groupFocus: {
+      name: "Group Focus",
+      points: [
+        {
+          heading: "Shared Experiences",
+          description: "Members share their stories of trauma and recovery.",
+        },
+        {
+          heading: "Support and Encouragement",
+          description:
+            "A supportive space for trauma survivors to discuss coping strategies.",
+        },
+        {
+          heading: "Education and Resources",
+          description:
+            "Resources on therapy and recovery tools, including trauma-informed care.",
+        },
+        {
+          heading: "Mental Health Management",
+          description:
+            "Managing trauma triggers and learning how to regain control over emotions.",
+        },
+      ],
+    },
+    whoCanJoin: [
+      {
+        category: "Individuals with PTSD",
+        description: "Anyone experiencing trauma or PTSD.",
+      },
+      {
+        category: "Caregivers and Loved Ones",
+        description: "Family and friends of those with PTSD are welcome.",
+      },
+    ],
+    meetingStructure: {
+      weeklyDiscussions:
+        "Group talks on processing trauma and building healthy routines.",
+      expertSessions:
+        "Sessions with trauma-informed therapists on healing from PTSD.",
+    },
+    isPublic: true,
+    image_url:
+      "https://images.unsplash.com/photo-1490730141103-6cac27aaab94?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHRzZCUyMGhlYWxpbmd8ZW58MHx8MHx8fDA%3D",
+    createdBy: {
+      $oid: "670bc726d523ed9e57fd1b13",
+    },
+    members: [],
+    createdAt: {
+      $date: "2024-11-06T14:02:15.906Z",
+    },
+    updatedAt: {
+      $date: "2024-11-06T14:02:15.906Z",
+    },
+    __v: 0,
+  },
+  {
+    id: 5,
+    title: "Eating Disorder Recovery Group",
+    members: 100,
+    description:
+      "A group focused on providing support for individuals recovering from eating disorders.",
+    goals: "Encourage healthy eating habits and body positivity.",
+    for: "Individuals struggling with anorexia, bulimia, or binge eating.",
+    topics: "Body image, relationship with food, and self-worth.",
+    groupFocus: {
+      name: "Group Focus",
+      points: [
+        {
+          heading: "Shared Experiences",
+          description:
+            "Members discuss their struggles with eating disorders and share recovery journeys.",
+        },
+        {
+          heading: "Support and Encouragement",
+          description:
+            "A non-judgmental space for individuals working toward recovery.",
+        },
+        {
+          heading: "Education and Resources",
+          description:
+            "Nutrition education and mental health resources for managing disordered eating.",
+        },
+        {
+          heading: "Mental Health Management",
+          description:
+            "Strategies for maintaining healthy eating habits and addressing emotional triggers.",
+        },
+      ],
+    },
+    whoCanJoin: [
+      {
+        category: "Individuals with Eating Disorders",
+        description: "People recovering from or dealing with eating disorders.",
+      },
+      {
+        category: "Caregivers and Loved Ones",
+        description: "Family and friends of individuals with eating disorders.",
+      },
+    ],
+    meetingStructure: {
+      weeklyDiscussions:
+        "Open discussions on body image, food, and emotional health.",
+      expertSessions:
+        "Sessions with dieticians and mental health professionals on recovery strategies.",
+    },
+    isPublic: true,
+    image_url:
+      "https://plus.unsplash.com/premium_photo-1664302425309-ba34d06d97c7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZWF0aW5nJTIwZGlzb3JkZXJ8ZW58MHx8MHx8fDA%3D",
+    createdBy: {
+      $oid: "670bc726d523ed9e57fd1b13",
+    },
+    members: [],
+    createdAt: {
+      $date: "2024-11-06T14:02:15.906Z",
+    },
+    updatedAt: {
+      $date: "2024-11-06T14:02:15.906Z",
+    },
+    __v: 0,
+  },
+  {
+    id: 6,
+    title: "Addiction Support Network",
+    members: 150,
+    description:
+      "A recovery group for those struggling with addiction to substances or behaviors.",
+    goals: "Provide support and resources to help individuals stay sober.",
+    for: "People in recovery from substance abuse or addiction.",
+    topics: "Addiction recovery, staying sober, and relapse prevention.",
+    groupFocus: {
+      name: "Group Focus",
+      points: [
+        {
+          heading: "Shared Experiences",
+          description:
+            "Members share their experiences with addiction and recovery.",
+        },
+        {
+          heading: "Support and Encouragement",
+          description: "Support in staying sober and managing cravings.",
+        },
+        {
+          heading: "Education and Resources",
+          description:
+            "Access to recovery programs, resources, and strategies for preventing relapse.",
+        },
+        {
+          heading: "Mental Health Management",
+          description:
+            "Discussion on maintaining mental and emotional health during recovery.",
+        },
+      ],
+    },
+    whoCanJoin: [
+      {
+        category: "Individuals with Addictions",
+        description: "Those struggling with or in recovery from addiction.",
+      },
+      {
+        category: "Caregivers and Loved Ones",
+        description: "Supporters of individuals in addiction recovery.",
+      },
+    ],
+    meetingStructure: {
+      weeklyDiscussions:
+        "Open discussions on managing cravings and avoiding triggers.",
+      expertSessions:
+        "Sessions with addiction specialists on relapse prevention.",
+    },
+    isPublic: false,
+    image_url:
+      "https://plus.unsplash.com/premium_photo-1689604956095-744e38047f9f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8YWRkaWN0aW9ufGVufDB8fDB8fHww",
+    createdBy: {
+      $oid: "670bc726d523ed9e57fd1b13",
+    },
+    members: [],
+    createdAt: {
+      $date: "2024-11-06T14:02:15.906Z",
+    },
+    updatedAt: {
+      $date: "2024-11-06T14:02:15.906Z",
+    },
+    __v: 0,
+  },
+  {
+    id: 7,
+    title: "Grief Support Circle",
+    members: 40,
+    description:
+      "A safe community for those dealing with the pain of loss and grief.",
+    goals: "Provide comfort, emotional support, and healing after loss.",
+    for: "Individuals grieving the loss of a loved one.",
+    topics: "Processing grief, emotional healing, and finding closure.",
+    groupFocus: {
+      name: "Group Focus",
+      points: [
+        {
+          heading: "Shared Experiences",
+          description:
+            "Members share their stories of loss and how they are coping with grief.",
+        },
+        {
+          heading: "Support and Encouragement",
+          description:
+            "A supportive environment for emotional healing and comfort.",
+        },
+        {
+          heading: "Education and Resources",
+          description:
+            "Access to grief counseling and support resources for emotional healing.",
+        },
+        {
+          heading: "Mental Health Management",
+          description:
+            "Discussions on managing emotions and finding closure after loss.",
+        },
+      ],
+    },
+    whoCanJoin: [
+      {
+        category: "Individuals Grieving",
+        description: "Anyone grieving the loss of a loved one.",
+      },
+      {
+        category: "Caregivers and Loved Ones",
+        description: "Supporters of individuals dealing with grief.",
+      },
+    ],
+    meetingStructure: {
+      weeklyDiscussions: "Open talks on coping with grief and emotional pain.",
+      expertSessions:
+        "Sessions with grief counselors on emotional healing and finding closure.",
+    },
+    isPublic: true,
+    image_url:
+      "https://images.unsplash.com/photo-1484973768669-7fb6b5451095?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fEdyaWVmJTIwU3VwcG9ydHxlbnwwfHwwfHx8MA%3D%3D",
+    createdBy: {
+      $oid: "670bc726d523ed9e57fd1b13",
+    },
+    members: [],
+    createdAt: {
+      $date: "2024-11-06T14:02:15.906Z",
+    },
+    updatedAt: {
+      $date: "2024-11-06T14:02:15.906Z",
+    },
+    __v: 0,
+  },
+  {
+    id: 8,
+    title: "Depression Support Circle",
+    members: 120,
+    description:
+      "An uplifting community for individuals dealing with depression.",
+    goals: "Provide peer support and encourage emotional healing.",
+    for: "People suffering from depression.",
+    topics:
+      "Emotional challenges, treatment experiences, and hope for recovery.",
+    groupFocus: {
+      name: "Group Focus",
+      points: [
+        {
+          heading: "Shared Experiences",
+          description:
+            "Members share their journeys with depression to find common ground and understanding.",
+        },
+        {
+          heading: "Support and Encouragement",
+          description:
+            "A supportive space to uplift one another through recovery.",
+        },
+        {
+          heading: "Education and Resources",
+          description:
+            "Providing educational resources on managing depressive symptoms and effective treatments.",
+        },
+        {
+          heading: "Mental Health Management",
+          description:
+            "Focusing on self-care routines and maintaining emotional balance.",
+        },
+      ],
+    },
+    whoCanJoin: [
+      {
+        category: "Individuals with Depression",
+        description:
+          "Anyone battling depression, whether newly diagnosed or long-term sufferers.",
+      },
+      {
+        category: "Caregivers and Loved Ones",
+        description:
+          "Caregivers can join to gain insights into supporting someone with depression.",
+      },
+    ],
+    meetingStructure: {
+      weeklyDiscussions:
+        "Weekly discussions focusing on managing depressive episodes and promoting emotional healing.",
+      expertSessions:
+        "Occasional guest sessions with mental health professionals on depression treatment and recovery.",
+    },
+    isPublic: false,
+    image_url:
+      "https://images.unsplash.com/photo-1539541417736-3d44c90da315?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZGVwcmVzc2lvbiUyMHN1cHBvcnR8ZW58MHwwfDB8fHww",
+    createdBy: {
+      $oid: "670bc726d523ed9e57fd1b13",
+    },
+    members: [],
+    createdAt: {
+      $date: "2024-11-06T14:02:15.906Z",
+    },
+    updatedAt: {
+      $date: "2024-11-06T14:02:15.906Z",
+    },
+    __v: 0,
+  },
+  {
+    id: 9,
+    title: "OCD Recovery Group",
+    members: 85,
+    description:
+      "A space for those with OCD to connect and learn new coping techniques.",
+    goals:
+      "Share therapeutic approaches and reduce OCD’s impact on daily life.",
+    for: "People with obsessive-compulsive disorder.",
+    topics: "Managing compulsions, thoughts, and rituals.",
+    groupFocus: {
+      name: "Group Focus",
+      points: [
+        {
+          heading: "Shared Experiences",
+          description:
+            "Members share their struggles with OCD to help others understand its impact.",
+        },
+        {
+          heading: "Support and Encouragement",
+          description:
+            "Group support for navigating daily life and managing intrusive thoughts.",
+        },
+        {
+          heading: "Education and Resources",
+          description:
+            "Resources on therapeutic methods, like CBT, for reducing compulsions.",
+        },
+        {
+          heading: "Mental Health Management",
+          description:
+            "Strategies to manage rituals and reduce the impact of compulsive behavior.",
+        },
+      ],
+    },
+    whoCanJoin: [
+      {
+        category: "Individuals with OCD",
+        description:
+          "Those with OCD, regardless of the severity of their symptoms.",
+      },
+      {
+        category: "Caregivers and Loved Ones",
+        description: "Supporters of individuals with OCD are welcome to join.",
+      },
+    ],
+    meetingStructure: {
+      weeklyDiscussions:
+        "Group discussions on breaking compulsive behavior patterns.",
+      expertSessions: "Sessions with specialists in OCD therapy techniques.",
+    },
+    isPublic: false,
+    image_url:
+      "https://images.unsplash.com/photo-1564121211835-e88c852648ab?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8b2NkJTIwcmVjb3Zlcnl8ZW58MHx8MHx8fDA%3D",
+    createdBy: {
+      $oid: "670bc726d523ed9e57fd1b13",
+    },
+    members: [],
+    createdAt: {
+      $date: "2024-11-06T14:02:15.906Z",
+    },
+    updatedAt: {
+      $date: "2024-11-06T14:02:15.906Z",
+    },
+    __v: 0,
+  },
+  {
+    id: 10,
+    title: "OCD Recovery Group",
+    members: 85,
+    description:
+      "A space for those with OCD to connect and learn new coping techniques.",
+    goals:
+      "Share therapeutic approaches and reduce OCD’s impact on daily life.",
+    for: "People with obsessive-compulsive disorder.",
+    topics: "Managing compulsions, thoughts, and rituals.",
+    groupFocus: {
+      name: "Group Focus",
+      points: [
+        {
+          heading: "Shared Experiences",
+          description:
+            "Members share their struggles with OCD to help others understand its impact.",
+        },
+        {
+          heading: "Support and Encouragement",
+          description:
+            "Group support for navigating daily life and managing intrusive thoughts.",
+        },
+        {
+          heading: "Education and Resources",
+          description:
+            "Resources on therapeutic methods, like CBT, for reducing compulsions.",
+        },
+        {
+          heading: "Mental Health Management",
+          description:
+            "Strategies to manage rituals and reduce the impact of compulsive behavior.",
+        },
+      ],
+    },
+    whoCanJoin: [
+      {
+        category: "Individuals with OCD",
+        description:
+          "Those with OCD, regardless of the severity of their symptoms.",
+      },
+      {
+        category: "Caregivers and Loved Ones",
+        description: "Supporters of individuals with OCD are welcome to join.",
+      },
+    ],
+    meetingStructure: {
+      weeklyDiscussions:
+        "Group discussions on breaking compulsive behavior patterns.",
+      expertSessions: "Sessions with specialists in OCD therapy techniques.",
+    },
+    isPublic: false,
+    image_url:
+      "https://images.unsplash.com/photo-1564121211835-e88c852648ab?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8b2NkJTIwcmVjb3Zlcnl8ZW58MHx8MHx8fDA%3D",
+  },
+  {
+    id: 11,
+    title: "OCD Recovery Group",
+    members: 85,
+    description:
+      "A space for those with OCD to connect and learn new coping techniques.",
+    goals:
+      "Share therapeutic approaches and reduce OCD’s impact on daily life.",
+    for: "People with obsessive-compulsive disorder.",
+    topics: "Managing compulsions, thoughts, and rituals.",
+    groupFocus: {
+      name: "Group Focus",
+      points: [
+        {
+          heading: "Shared Experiences",
+          description:
+            "Members share their struggles with OCD to help others understand its impact.",
+        },
+        {
+          heading: "Support and Encouragement",
+          description:
+            "Group support for navigating daily life and managing intrusive thoughts.",
+        },
+        {
+          heading: "Education and Resources",
+          description:
+            "Resources on therapeutic methods, like CBT, for reducing compulsions.",
+        },
+        {
+          heading: "Mental Health Management",
+          description:
+            "Strategies to manage rituals and reduce the impact of compulsive behavior.",
+        },
+      ],
+    },
+    whoCanJoin: [
+      {
+        category: "Individuals with OCD",
+        description:
+          "Those with OCD, regardless of the severity of their symptoms.",
+      },
+      {
+        category: "Caregivers and Loved Ones",
+        description: "Supporters of individuals with OCD are welcome to join.",
+      },
+    ],
+    meetingStructure: {
+      weeklyDiscussions:
+        "Group discussions on breaking compulsive behavior patterns.",
+      expertSessions: "Sessions with specialists in OCD therapy techniques.",
+    },
+    isPublic: false,
+    image_url:
+      "https://images.unsplash.com/photo-1564121211835-e88c852648ab?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8b2NkJTIwcmVjb3Zlcnl8ZW58MHx8MHx8fDA%3D",
+    createdBy: {
+      $oid: "670bc726d523ed9e57fd1b13",
+    },
+    members: [],
+    createdAt: {
+      $date: "2024-11-06T14:02:15.906Z",
+    },
+    updatedAt: {
+      $date: "2024-11-06T14:02:15.906Z",
+    },
+    __v: 0,
+  },
+  {
+    id: 12,
+    title: "OCD Recovery Group",
+    members: 85,
+    description:
+      "A space for those with OCD to connect and learn new coping techniques.",
+    goals:
+      "Share therapeutic approaches and reduce OCD’s impact on daily life.",
+    for: "People with obsessive-compulsive disorder.",
+    topics: "Managing compulsions, thoughts, and rituals.",
+    groupFocus: {
+      name: "Group Focus",
+      points: [
+        {
+          heading: "Shared Experiences",
+          description:
+            "Members share their struggles with OCD to help others understand its impact.",
+        },
+        {
+          heading: "Support and Encouragement",
+          description:
+            "Group support for navigating daily life and managing intrusive thoughts.",
+        },
+        {
+          heading: "Education and Resources",
+          description:
+            "Resources on therapeutic methods, like CBT, for reducing compulsions.",
+        },
+        {
+          heading: "Mental Health Management",
+          description:
+            "Strategies to manage rituals and reduce the impact of compulsive behavior.",
+        },
+      ],
+    },
+    whoCanJoin: [
+      {
+        category: "Individuals with OCD",
+        description:
+          "Those with OCD, regardless of the severity of their symptoms.",
+      },
+      {
+        category: "Caregivers and Loved Ones",
+        description: "Supporters of individuals with OCD are welcome to join.",
+      },
+    ],
+    meetingStructure: {
+      weeklyDiscussions:
+        "Group discussions on breaking compulsive behavior patterns.",
+      expertSessions: "Sessions with specialists in OCD therapy techniques.",
+    },
+    isPublic: false,
+    image_url:
+      "https://images.unsplash.com/photo-1564121211835-e88c852648ab?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8b2NkJTIwcmVjb3Zlcnl8ZW58MHx8MHx8fDA%3D",
+    createdBy: {
+      $oid: "670bc726d523ed9e57fd1b13",
+    },
+    members: [],
+    createdAt: {
+      $date: "2024-11-06T14:02:15.906Z",
+    },
+    updatedAt: {
+      $date: "2024-11-06T14:02:15.906Z",
+    },
+    __v: 0,
+  },
+  {
+    id: 13,
+    title: "OCD Recovery Group",
+    members: 85,
+    description:
+      "A space for those with OCD to connect and learn new coping techniques.",
+    goals:
+      "Share therapeutic approaches and reduce OCD’s impact on daily life.",
+    for: "People with obsessive-compulsive disorder.",
+    topics: "Managing compulsions, thoughts, and rituals.",
+    groupFocus: {
+      name: "Group Focus",
+      points: [
+        {
+          heading: "Shared Experiences",
+          description:
+            "Members share their struggles with OCD to help others understand its impact.",
+        },
+        {
+          heading: "Support and Encouragement",
+          description:
+            "Group support for navigating daily life and managing intrusive thoughts.",
+        },
+        {
+          heading: "Education and Resources",
+          description:
+            "Resources on therapeutic methods, like CBT, for reducing compulsions.",
+        },
+        {
+          heading: "Mental Health Management",
+          description:
+            "Strategies to manage rituals and reduce the impact of compulsive behavior.",
+        },
+      ],
+    },
+    whoCanJoin: [
+      {
+        category: "Individuals with OCD",
+        description:
+          "Those with OCD, regardless of the severity of their symptoms.",
+      },
+      {
+        category: "Caregivers and Loved Ones",
+        description: "Supporters of individuals with OCD are welcome to join.",
+      },
+    ],
+    meetingStructure: {
+      weeklyDiscussions:
+        "Group discussions on breaking compulsive behavior patterns.",
+      expertSessions: "Sessions with specialists in OCD therapy techniques.",
+    },
+    isPublic: false,
+    image_url:
+      "https://images.unsplash.com/photo-1564121211835-e88c852648ab?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8b2NkJTIwcmVjb3Zlcnl8ZW58MHx8MHx8fDA%3D",
+  },
+  {
+    id: 14,
+    title: "OCD Recovery Group",
+    members: 85,
+    description:
+      "A space for those with OCD to connect and learn new coping techniques.",
+    goals:
+      "Share therapeutic approaches and reduce OCD’s impact on daily life.",
+    for: "People with obsessive-compulsive disorder.",
+    topics: "Managing compulsions, thoughts, and rituals.",
+    groupFocus: {
+      name: "Group Focus",
+      points: [
+        {
+          heading: "Shared Experiences",
+          description:
+            "Members share their struggles with OCD to help others understand its impact.",
+        },
+        {
+          heading: "Support and Encouragement",
+          description:
+            "Group support for navigating daily life and managing intrusive thoughts.",
+        },
+        {
+          heading: "Education and Resources",
+          description:
+            "Resources on therapeutic methods, like CBT, for reducing compulsions.",
+        },
+        {
+          heading: "Mental Health Management",
+          description:
+            "Strategies to manage rituals and reduce the impact of compulsive behavior.",
+        },
+      ],
+    },
+    whoCanJoin: [
+      {
+        category: "Individuals with OCD",
+        description:
+          "Those with OCD, regardless of the severity of their symptoms.",
+      },
+      {
+        category: "Caregivers and Loved Ones",
+        description: "Supporters of individuals with OCD are welcome to join.",
+      },
+    ],
+    meetingStructure: {
+      weeklyDiscussions:
+        "Group discussions on breaking compulsive behavior patterns.",
+      expertSessions: "Sessions with specialists in OCD therapy techniques.",
+    },
+    isPublic: false,
+    image_url:
+      "https://images.unsplash.com/photo-1564121211835-e88c852648ab?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8b2NkJTIwcmVjb3Zlcnl8ZW58MHx8MHx8fDA%3D",
+  },
+];
 
 export const therapyOptions = [
   {
@@ -308,9 +1274,9 @@ export const morefaqs = [
   },
 ];
 
-export const onHandleScroll =()=>{
+export const onHandleScroll = () => {
   window.scrollTo({
     top: window.innerHeight,
     behavior: "smooth",
-  })
-}
+  });
+};

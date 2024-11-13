@@ -6,6 +6,7 @@ export default {
       fontFamily: {
         inter: ["Inter", "sans-serif"],
         overpass: ["Overpass", "sans-serif"],
+        samurai: ["Big Samurai", "Big Shoulders Display"],
       },
       colors: {
         primary: "#325242",

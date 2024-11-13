@@ -5,6 +5,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { uploadFileOnCloudinary } from "../utils/cloudinary.js";
 import jwt from "jsonwebtoken";
 import { Blog } from "../models/blog.models.js";
+import {Group} from "../models/group.models.js"
 
 const adminregister = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
@@ -85,4 +86,63 @@ const createBlog = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, newBlog, "Blog created successfully."));
 });
 
-export { adminregister, adminLogin, createBlog };
+const createGroup = asyncHandler(async (req, res) => {
+  if (!req.user) {
+    console.log("Access denied.");
+
+    return res.status(403).json({ message: "Access denied." });
+  }
+  const {
+    title,
+    groupDescription,
+    goals,
+    groupFor,
+    topics,
+    groupFocus,
+    whoCanJoin,
+    meetingStructure,
+    isPublic,
+    image_url,
+  } = req.body;
+
+  // Validate required fields
+  if (
+    !title ||
+    !groupDescription ||
+    !goals ||
+    !groupFor ||
+    !topics ||
+    !meetingStructure ||
+    !image_url
+  ) {
+    return res.status(400).json({ message: "All fields are required." });
+  }
+
+  // Create a new group instance
+  const newGroup = new Group({
+    title,
+    groupDescription,
+    goals,
+    groupFor,
+    topics,
+    groupFocus,
+    whoCanJoin,
+    meetingStructure,
+    isPublic,
+    image_url,
+    createdBy: req.user._id, // Assuming you have user authentication and req.user is set
+  });
+
+  try {
+    // Save the group to the database
+    const savedGroup = await newGroup.save();
+    res.status(201).json(savedGroup); // Respond with the created group
+  } catch (error) {
+    console.error("Error creating group:", error);
+    res
+      .status(500)
+      .json({ message: "Failed to create group", error: error.message });
+  }
+});
+
+export { adminregister, adminLogin, createBlog, createGroup };

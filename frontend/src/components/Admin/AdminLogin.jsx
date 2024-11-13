@@ -30,7 +30,7 @@ const AdminLogin = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-[#f5f7f5]">
-      <div className="w-full max-w-2xl h-[50vh] p-8 space-y-6 bg-white rounded-lg shadow">
+      <div className="w-full max-w-2xl min-h-[50vh] p-8 space-y-6 bg-white rounded-lg shadow">
         <h2
           className={`text-5xl font-bold text-center font-overpass ${
             success || error ? "mb-0" : "mb-[2.3rem]"
@@ -85,7 +85,11 @@ const AdminLogin = () => {
           </h4>
           <h5 className={`text-center text-xl font-semibold underline cursor-pointer ${success?'block':'hidden'}`}>
             {" "}
-            <Link to="/createblog">CreateBlog</Link>
+            <Link to="/createblog">Create Blog</Link>
+          </h5>
+          <h5 className={`text-center text-xl font-semibold underline cursor-pointer ${success?'block':'hidden'}`}>
+            {" "}
+            <Link to="/admin/addGroup">Create Group</Link>
           </h5>
         </form>
       </div>

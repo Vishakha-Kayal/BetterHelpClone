@@ -4,6 +4,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import jwt from "jsonwebtoken"
 
+
 const registerStudent = asyncHandler(async (req, res) => {
   const { fullName, aadharNumber, phoneNumber, password } = req.body;
 
