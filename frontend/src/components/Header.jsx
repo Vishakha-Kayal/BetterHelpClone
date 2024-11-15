@@ -6,47 +6,52 @@ import Button from "./Button";
 import { Link, useNavigate } from "react-router-dom";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { decodeToken } from "../utils/decodeToken.js";
+import { useVerification } from "../context/verifyToken";
 
 const RegisteredSection = ({ icon, user, isScrolled, onclick }) => {
   return (
     <>
-      <div className="w-14 h-14 bg-textPrimary rounded-full flex justify-center items-center">
-        <IoIosNotificationsOutline className="text-4xl text-primary" />
-      </div>
-      <div className="h-14 flex justify-center items-center gap-3 rounded">
-        <div className="w-14 h-full rounded-full bg-secondary flex justify-center items-center">
-          <img src={icon} alt="" className="w-[90%] h-[90%]" />
+      <div className="flex flex-col md:flex-row gap-6">
+        <div className="flex justify-center md:justify-start gap-6">
+          <div className="w-14 h-14 bg-textPrimary rounded-full flex justify-center items-center">
+            <IoIosNotificationsOutline className="text-5xl text-primary" />
+          </div>
+          <div className="h-14 flex justify-center items-center gap-3 rounded">
+            <div className="w-14 h-full rounded-full bg-secondary flex justify-center items-center">
+              <img src={icon} alt="" className="w-[90%] h-[90%]" />
+            </div>
+            <span className="text-2xl capitalize">{user}</span>
+          </div>
         </div>
-        <span className="text-2xl capitalize">{user}</span>
+        <Button
+          bg={`${isScrolled ? "bg-[#a6de9b]" : "bg-[#ffffff]"}`}
+          paddingY="py-[0.8rem]"
+          paddingX="px-[1.6rem]"
+          text="text-3xl md:text-2xl"
+          font="font-bold"
+          color="text-primary border-none "
+          content="logout"
+          isScrolled={isScrolled}
+          onClick={onclick}
+        />
       </div>
-      <Button
-        bg={`${isScrolled ? "bg-[#a6de9b]" : "bg-[#ffffff]"}`}
-        paddingY="py-[0.8rem]"
-        paddingX="px-[1.6rem]"
-        text="text-2xl"
-        font="font-bold"
-        color="text-primary border-none "
-        content="logout"
-        isScrolled={isScrolled}
-        onClick={onclick}
-      />
     </>
   );
 };
 
 const Header = ({ customBG }) => {
+  const { userType, token, updateUserType } = useVerification();
   const [isScrolled, setIsScrolled] = useState(false);
   const [hamClick, sethamClick] = useState(false);
   const navigate = useNavigate();
-  const [userType, setUserType] = useState(null);
   const [farmer, setFarmer] = useState("");
   const [student, setStudent] = useState(null);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState("");
 
   const handleLogout = useCallback(() => {
     localStorage.removeItem("token");
     localStorage.removeItem("userType");
-    setUserType(null);
+    updateUserType(null);
     setFarmer("");
     navigate("/login");
   }, [navigate]);
@@ -73,23 +78,26 @@ const Header = ({ customBG }) => {
   }, [customBG]);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const storedUserType = localStorage.getItem("userType");
+    // const token = localStorage.getItem("token");
+    // const userType = localStorage.getItem("userType");
 
-    if (storedUserType === "farmer") {
+    if (userType === "farmer") {
       const farmerDets = decodeToken(token);
       setFarmer(farmerDets.fullName);
-      setUserType(storedUserType || null);
-    } else if (storedUserType === "student") {
+      updateUserType(userType || null);
+    } else if (userType === "student") {
       const studentDets = decodeToken(token);
       setStudent(studentDets.fullName);
-      setUserType(storedUserType || null);
-    } else if (storedUserType === "user") {
-      const usertDets = decodeToken(token);
-      setUser(usertDets.email);
-      setUserType(storedUserType || null);
+      updateUserType(userType || null);
+    } else if (userType === "user") {
+      if (token) {
+        const usertDets = decodeToken(token);
+        setUser(usertDets.email);
+      }
+
+      updateUserType(userType || null);
     } else {
-      setUserType(null);
+      updateUserType(null);
     }
   }, []);
 
@@ -99,7 +107,7 @@ const Header = ({ customBG }) => {
         return (
           <RegisteredSection
             icon={assets.userNavIcon}
-            user={user.slice(0, user.indexOf('@'))}
+            user={user.slice(0, user.indexOf("@"))}
             isScrolled={isScrolled}
             onclick={handleLogout}
           />
@@ -145,6 +153,66 @@ const Header = ({ customBG }) => {
               color="text-primary border-none"
               content="Get Started"
               isScrolled={isScrolled}
+              navigateTo="/signup"
+            />
+          </>
+        );
+      default:
+        return null;
+    }
+  };
+
+  const renderUserResponsiveNav = () => {
+    switch (userType) {
+      case "user":
+        return (
+          <RegisteredSection
+            icon={assets.userNavIcon}
+            user={user.slice(0, user.indexOf("@"))}
+            isScrolled={isScrolled}
+            onclick={handleLogout}
+          />
+        );
+      case "farmer":
+        return (
+          <RegisteredSection
+            icon={assets.farmerIcon}
+            user={farmer}
+            isScrolled={isScrolled}
+            onclick={handleLogout}
+          />
+        );
+      case "student":
+        return (
+          <RegisteredSection
+            icon={assets.studentNavIcon}
+            user={student}
+            isScrolled={isScrolled}
+            onclick={handleLogout}
+          />
+        );
+      case null:
+        return (
+          <>
+            <Button
+              bg="bg-none"
+              paddingY="py-[1.6rem]"
+              paddingX="px-[1.6rem]"
+              text="text-4xl"
+              isScrolled={true}
+              font="font-bold"
+              color="text-primary"
+              content="Login"
+              navigateTo="/login"
+            />
+            <Button
+              bg="bg-[#a6de9b]"
+              paddingY="py-[1.6rem]"
+              paddingX="px-[1.6rem]"
+              text="text-4xl"
+              font="font-bold"
+              color="text-primary border-none"
+              content="Get Started"
               navigateTo="/signup"
             />
           </>
@@ -219,27 +287,7 @@ const Header = ({ customBG }) => {
                 <li>Therapist Jobs</li>
                 <li>Contact</li>
               </ul>
-              <Button
-                bg="bg-none"
-                paddingY="py-[1.6rem]"
-                paddingX="px-[1.6rem]"
-                text="text-4xl"
-                isScrolled={true}
-                font="font-bold"
-                color="text-primary"
-                content="Login"
-                navigateTo="/login"
-              />
-              <Button
-                bg="bg-[#a6de9b]"
-                paddingY="py-[1.6rem]"
-                paddingX="px-[1.6rem]"
-                text="text-4xl"
-                font="font-bold"
-                color="text-primary border-none"
-                content="Get Started"
-                navigateTo="/signup"
-              />
+              {renderUserResponsiveNav()}
             </div>
           </div>
         )}

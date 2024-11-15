@@ -1,4 +1,5 @@
 import { VerificationProvider } from "./context/VerificationContext";
+import { VerificationContextProvider } from "./context/verifyToken";
 import HomePage from "./containers/HomePage";
 import LoginPage from "./containers/LoginPage";
 import SignupPage from "./containers/SignupPage";
@@ -35,6 +36,7 @@ export const url = "http://localhost:3000";
 function App() {
   return (
     <VerificationProvider>
+      <VerificationContextProvider>
       <main className="w-full min-h-screen bg-slate-100 overflow-hidden">
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -70,6 +72,7 @@ function App() {
           <Route path="/admin/editGroup/:id" element={<EditGroup />} />
         </Routes>
       </main>
+      </VerificationContextProvider>
     </VerificationProvider>
   );
 }

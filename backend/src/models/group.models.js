@@ -75,14 +75,8 @@ const GroupSchema = new Schema({
     ref: 'Admin'  // Reference to Admin model if you have one
   },
   members: [{
-    member: {
-      type: Schema.Types.ObjectId,
-      refPath: 'members.memberType'  // Dynamic reference
-    },
-    memberType: {
-      type: String,
-      enum: ['User', 'Farmer', 'Student']  // Possible member types
-    }
+      type: mongoose.Schema.Types.ObjectId,
+      ref:'Member'  
   }]
 }, { timestamps: true });
 

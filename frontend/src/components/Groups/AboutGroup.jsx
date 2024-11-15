@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useParams } from "react-router-dom";
 import { GoArrowLeft } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
@@ -7,35 +9,85 @@ import GroupItems from "./GroupItems";
 import Header from "../Header";
 import Footer from "../Footer/Footer";
 import Button from "../Button";
-import axios from "axios";
-import { url } from "../../App";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchGroups } from "../../store/slice/GroupSlice";
+import { useVerification } from "../../context/verifyToken";
+import { addMember } from "../../api/groupApi";
+import { jwtDecode } from "jwt-decode";
 
 const AboutGroup = () => {
-  const [mentalHealthGroups, setmentalHealthGroups] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { token ,userType} = useVerification();
+  const { groups } = useSelector((state) => state.groups);
+  // const [memberToken, setMemberToken] = useState(null);
+  const [memberId, setMemberId] = useState(null);
+  const [group, setGroup] = useState(null);
+  const [isMember, setIsMember] = useState(false);
 
   useEffect(() => {
-    const fetchGroups = async () => {
-      try {
-        const response = await axios.get(`${url}/api/groups`);
-        setmentalHealthGroups(response.data.groups);
-      } catch (error) {
-        console.error("Error fetching groups:", error);
+    dispatch(fetchGroups());
+  }, [dispatch]);
+
+  useEffect(() => {
+    const foundGroup = groups.find((g) => g._id === id);
+    if (foundGroup) {
+      setGroup(foundGroup);
+    }
+    const storedMemberToken = localStorage.getItem("memberToken");
+    // setMemberToken(storedMemberToken);
+    if (storedMemberToken) {
+      const mem = jwtDecode(storedMemberToken);
+      setMemberId(mem._id);
+      // console.log(foundGroup);
+      setIsMember(
+        foundGroup
+          ? foundGroup.members.some((member) => member === memberId)
+          : false
+      );
+      // console.log(memberId);
+    }
+  }, [groups, id]);
+
+  const onHandleJoin = async () => {
+    if (!token) {
+      // console.log(token);
+      navigate("/login");
+      return; // Exit if not logged in
+    }
+    if (isMember) {
+      navigate(`/groups/join/${id}`);
+      return;
+    }
+
+    try {
+      const decodedToken = jwtDecode(token);
+      const userId = decodedToken._id;
+
+      const result = await addMember(userId, userType, id);
+      if (result.data.success) {
+        localStorage.setItem("memberToken", result.data.memberToken);
+        setIsMember(true);
+        toast.success("Successfully joined the group!");
       }
-    };
-
-    fetchGroups();
-  }, []);
-
-  const group = mentalHealthGroups.find(group => group._id === id);
+    } catch (error) {
+      console.error("Error adding member:", error);
+      if (error.response) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("An unexpected error occurred.");
+      }
+    }
+  };
 
   if (!group) {
-    return <div>Group not found</div>;
+    return <div className="text-4xl text-center pt-5">Group not found</div>;
   }
 
   return (
     <>
+      <ToastContainer className="text-2xl font-semibold" />
       <Header customBG="true" />
       <section className="w-full min-h-screen bg-[#f0e9e0] flex pt-[9rem] pb-24 ">
         <section
@@ -65,7 +117,7 @@ const AboutGroup = () => {
               </h1>
               <div className="hidden md:flex items-center gap-4 text-3xl">
                 <h1 className="capitalize tracking-tighter font-tertiary text-2xl md:text-[1.8rem]">
-                  {group.members} members
+                  {group.members.length} members
                 </h1>
                 <IoShareSocialOutline className="text-2xl" />
               </div>
@@ -79,12 +131,13 @@ const AboutGroup = () => {
                 hoverbg="hover:bg-[#f0e9e0] hover:text-[#21332a]"
                 font="font-bold"
                 color="text-textPrimary"
-                content="Join Group"
-                navigateTo={`/groups/join/${id}`}
+                content={`${isMember ? "Visit" : "Join Group"}`}
+                onClick={onHandleJoin}
                 isScrolled="true"
               />
             </div>
           </aside>
+          {/* Additional content sections */}
           <aside className="mb-4">
             <div className="flex gap-7 mb-7">
               <section className="w-[50%] flex flex-col justify-between col-span-2 px-3 py-4 my-4 bg-hero-texture bg-[#a75d00] rounded-md">
@@ -99,9 +152,7 @@ const AboutGroup = () => {
                 <h5 className="text-[3.5rem] text-[#efefef] tracking-tight font-overpass font-light mb-4 lg:leading-[5.6rem] lg:text-[4rem]">
                   Purpose :
                 </h5>
-                <p className="text-[1.9rem] text-[#efefef]">
-                  {group.groupFor}
-                </p>
+                <p className="text-[1.9rem] text-[#efefef]">{group.groupFor}</p>
               </section>
             </div>
             <section className="px-3 py-4 bg-hero-texture bg-[#397a4a] rounded-md flex flex-col my-7">
@@ -109,20 +160,18 @@ const AboutGroup = () => {
                 {group.groupFocus.name}
               </p>
               <dl className="my-4">
-                {group["groupFocus"]["points"].map(
-                  (groups) => {
-                    return (
-                      <GroupItems
-                        title={groups.heading}
-                        colort="text-[#a6de9b]"
-                        colord="text-[#efefef]"
-                        key={groups.heading}
-                      >
-                        {groups.description}
-                      </GroupItems>
-                    );
-                  }
-                )}
+                {group["groupFocus"]["points"].map((groups) => {
+                  return (
+                    <GroupItems
+                      title={groups.heading}
+                      colort="text-[#a6de9b]"
+                      colord="text-[#efefef]"
+                      key={groups.heading}
+                    >
+                      {groups.description}
+                    </GroupItems>
+                  );
+                })}
               </dl>
             </section>
             <section className="my-14">
@@ -156,20 +205,14 @@ const AboutGroup = () => {
                       colort="text-[#ffca0b]"
                       colord="text-[#efefef] font-semibold"
                     >
-                      {
-                        group["meetingStructure"]
-                          .weeklyDiscussions
-                      }
+                      {group["meetingStructure"].weeklyDiscussions}
                     </GroupItems>
                     <GroupItems
                       title="Expert Sessions"
                       colort="text-[#ffca0b]"
                       colord="text-[#efefef] font-semibold"
                     >
-                      {
-                        group["meetingStructure"]
-                          .expertSessions
-                      }
+                      {group["meetingStructure"].expertSessions}
                     </GroupItems>
                   </>
                 }
@@ -185,7 +228,7 @@ const AboutGroup = () => {
                 hoverbg="hover:bg-[#f0e9e0] hover:text-[#8a4909]"
                 font="font-bold"
                 color="text-primary"
-                content="Join Group"
+                content={`${isMember ? "Visit" : "Join Group"}`}
                 navigateTo={`/groups/join/${id}`}
               />
             </div>

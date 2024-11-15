@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import GroupCards from "./GroupCards";
-import { mentalHealthGroups } from "../../assets/assets";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchGroups } from "../../store/slice/GroupSlice";
 
 const AllGroups = () => {
+  const dispatch = useDispatch();
+  const { groups, loading, error } = useSelector((state) => state.groups);
+  useEffect(() => {
+    dispatch(fetchGroups);
+  }, [dispatch]);
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
   return (
     <section className="min-h-screen bg-[#fffcf6] py-16 px-20">
       <h2 className="text-5xl text-[#4a4d4a] text-center pb-5">
@@ -12,7 +20,7 @@ const AllGroups = () => {
         Join a supportive community tailored to your needs
       </h2>
       <section className="pt-16 flex  gap-5 flex-wrap justify-center">
-        {mentalHealthGroups.map((data) => {
+        {groups.map((data) => {
           const { title, members, isPublic, id, image_url } = data;
           return (
             <GroupCards
@@ -26,7 +34,6 @@ const AllGroups = () => {
           );
         })}
       </section>
- 
     </section>
   );
 };

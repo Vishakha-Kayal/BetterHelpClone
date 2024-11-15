@@ -3,41 +3,56 @@ import { useNavigate, useParams } from "react-router-dom";
 import MembersUi from "./MembersUi";
 import Feeds from "./Feeds";
 import Comments from "./Comments";
-import axios from "axios";
-import { url } from "../../App";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchGroups } from "../../store/slice/GroupSlice";
+import { postReview } from "../../api/groupApi";
+import { jwtDecode } from "jwt-decode";
 
 const GroupJoined = () => {
-  const [mentalHealthGroups, setmentalHealthGroups] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  const [review, setReview] = useState("");
+  const { groups, error, loading } = useSelector((state) => state.groups);
+  const memberToken = localStorage.getItem("memberToken");
+  useEffect(() => {
+    dispatch(fetchGroups());
+  }, [dispatch]);
   const [showCommentDiv, setshowCommentDiv] = useState(false);
+
   const onHandleShowComments = () => {
     setshowCommentDiv(!showCommentDiv);
   };
   const [isInputClicked, setIsInputClicked] = useState(false);
 
-  useEffect(() => {
-    const fetchGroups = async () => {
-      try {
-        const response = await axios.get(`${url}/api/groups`);
-        setmentalHealthGroups(response.data.groups);
-      } catch (error) {
-        console.error("Error fetching groups:", error);
-      }
-    };
-
-    fetchGroups();
-  }, []);
-
-  const group = mentalHealthGroups.find((group) => group._id === id);
+  const group = groups.find((group) => group._id === id);
 
   if (!group) {
     return <div>Group not found</div>;
   }
 
   const { image_url, title, description, members } = group;
+  const onCheckUserLoggedin = async (e) => {
+    e.preventDefault();
+    let memId;
+    if (memberToken) {
+      memId = jwtDecode(memberToken)._id;
+    }
+    console.log(memId, id, review);
 
+    try {
+      const result = await postReview(memId, id, review);
+      if (result.data.success) {
+        setReview("");
+      }
+    } catch (error) {
+      console.error("Token decode error:", error);
+
+      localStorage.removeItem("token");
+      localStorage.removeItem("userType");
+      navigate("/login");
+    }
+  };
   return (
     <main className="w-full min-h-screen bg-[#f0e9e0] pb-24">
       <section className="w-full h-[53vh] relative">
@@ -77,7 +92,7 @@ const GroupJoined = () => {
           <div className="flex gap-4 items-center">
             <h3 className="text-[1.6rem] py-3 px-5 border-x-[2px] ">Public</h3>
             <h3 className="text-[1.6rem] py-3 px-5 border-r-[2px]">
-              {members} Members
+              {members?.length} Members
             </h3>
           </div>
         </aside>
@@ -94,19 +109,18 @@ const GroupJoined = () => {
                 type="text"
                 placeholder="Write Something to the group ✍️"
                 className="px-4 py-8 w-[85%] outline-none bg-[#f9f6f3]"
+                value={review}
+                onChange={(e) => setReview(e.target.value)}
               />
               <button
                 type="submit"
                 className="bg-secondary px-11 text-textPrimary cursor-pointer"
+                onClick={onCheckUserLoggedin}
               >
                 Send
               </button>
             </section>
             <div className="flex flex-col gap-6">
-              <Feeds onHandleShowComments={onHandleShowComments} />
-              <Feeds onHandleShowComments={onHandleShowComments} />
-              <Feeds onHandleShowComments={onHandleShowComments} />
-              <Feeds onHandleShowComments={onHandleShowComments} />
               <Feeds onHandleShowComments={onHandleShowComments} />
             </div>
           </aside>
@@ -164,7 +178,7 @@ const GroupJoined = () => {
           <aside className="w-[30%]">
             <div className="border-b-[1.5px] border-[#9797967b] flex justify-between items-center">
               <h3 className="text-[1.6rem] py-3 px-5 font-bold">
-                {members} Members
+                {members?.length} Members
               </h3>
               <p className="text-[1.6rem] py-3 px-5 text-[#457777] font-bold">
                 See All

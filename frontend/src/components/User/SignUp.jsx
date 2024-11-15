@@ -24,8 +24,7 @@ const SignUp = () => {
     formDataToSend.append("password", password);
     if (profileImage) {
       formDataToSend.append("profileImage", profileImage);
-      console.log("profileImage",profileImage);
-      
+      console.log("profileImage", profileImage);
     }
     console.log("Form data to send:", formDataToSend);
 
@@ -77,7 +76,6 @@ const SignUp = () => {
         profileFile: URL.createObjectURL(file), // For preview
         profileImage: file,
       }));
-
     }
   };
 
@@ -86,14 +84,14 @@ const SignUp = () => {
       <ToastContainer className="text-2xl font-semibold" />
       <main className="flex flex-col justify-between  w-full min-h-[100vh] bg-[#5b7568] ">
         <Header customBG={true} />
-        <section className="w-full py-24 md:py-0 px-[3rem] md:px-[11rem] flex flex-col md:flex-row my-auto">
+        <section className="w-full py-28 px-[3rem] md:px-[11rem] flex flex-col md:flex-row my-auto">
           <aside className="w-full md:w-[50%] ">
             <p className="text-[3.2rem] w-full md:w-[80%] text-textPrimary font-overpass font-light p-[1rem_0_0_1rem]">
               Sometimes when things are falling apart, they may actually be
               falling into place.
             </p>
           </aside>
-          <aside className="w-full md:w-[50%] bg-white rounded-2xl py-14">
+          <aside className="w-full md:w-[50%] bg-white rounded-2xl py-10">
             <form
               className="flex flex-col gap-8 w-[80%] items-center mx-auto"
               onSubmit={onHandleSubmit}
@@ -122,11 +120,14 @@ const SignUp = () => {
                   accept="image/*"
                 />
                 <span
-                  className="text-[#444444] absolute bottom-[-13%]  right-[-13%] text-5xl cursor-pointer"
+                  className="text-[#444444] absolute bottom-[-6%]  right-[-2%] text-5xl cursor-pointer"
                   onClick={onhandleUpload}
                 >
                   +
                 </span>
+              </div>
+              <div className="flex items-center mt-0">
+                <p className="text-2xl font-semibold">Upload your profilePic</p>
               </div>
 
               <input
@@ -161,7 +162,7 @@ const SignUp = () => {
             </form>
           </aside>
         </section>
-        <section className="w-full h-[15rem] bg-primary relative rounded-[50%_50%_0_0] pt-28">
+        <section className="w-full h-[12rem] bg-primary relative rounded-[50%_50%_0_0] pt-16">
           <p className="text-xl md:text-3xl font-light md:w-[75%] mx-auto text-textPrimary px-[3rem] md:px-[11rem] text-center">
             "Anita is the best! She has helped me grow so much since the first
             time I met her. She always knows exactly to say and has the best

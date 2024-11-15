@@ -39,7 +39,7 @@ const Feeds = ({onHandleShowComments}) => {
           <span className="text-xl">250k</span>
         </div>
         <AiOutlineDislike />
-        <RiShareForwardLine />
+        {/* <RiShareForwardLine /> */}
         <div className="flex items-center gap-2 hover:bg-[#e5e5e5] cursor-pointer rounded-full px-3 py-2" onClick={onHandleShowComments}>
           <MdOutlineComment className="text-[1.6rem]"/>
           <span className="text-lg">202</span>

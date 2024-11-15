@@ -17,7 +17,7 @@ const AdminLogin = () => {
         password,
       });
       if (response.data.success) {
-        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("adminToken", response.data.token);
       }
       setSuccess("Admin loggedin successfully!");
       setError("");

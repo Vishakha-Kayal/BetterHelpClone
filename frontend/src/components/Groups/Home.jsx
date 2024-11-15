@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react";
 import GroupCards from "./GroupCards";
 import { assets, onHandleScroll } from "../../assets/assets";
 import CategoriesInfinity from "../Blog/CategoriesInfinity";
-// import { mentalHealthGroups } from "../../assets/assets";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { url } from "../../App";
+import { fetchGroups } from "../../store/slice/GroupSlice";
 
 const Home = () => {
   const navigate = useNavigate();
-  const [mentalHealthGroups, setmentalHealthGroups] = useState(null);
+  const dispatch = useDispatch();
+  const { groups, loading, error } = useSelector((state) => state.groups);
+
   const [categories] = useState([
     {
       image:
@@ -49,17 +50,11 @@ const Home = () => {
   ]);
 
   useEffect(() => {
-    const fetchGroups = async () => {
-      try {
-        const response = await axios.get(`${url}/api/groups`);
-        setmentalHealthGroups(response.data.groups);
-      } catch (error) {
-        console.error("Error fetching groups:", error);
-      }
-    };
+    dispatch(fetchGroups());
+  }, [dispatch]);
 
-    fetchGroups();
-  }, []);
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <main className="min-h-screen  bg-[#f7f0e6]">
@@ -73,12 +68,12 @@ const Home = () => {
         <div className="absolute w-full h-full bg-[#4f6856] opacity-[30%]"></div>
         <div className="">
           <h1
-            className="text-center text-[#fff] text-[5rem] md:text-[8.9rem] pt-24 z-[9] font-inter leading-[11rem]"
+            className="text-center text-[#fff] text-[5rem] md:text-[6rem] lg:text-[8.9rem] pt-24 z-[9] font-inter lg:leading-[11rem]"
             style={{ textShadow: "8px 8px 4px #21332a" }}
           >
             Welcome to India's most trusted Anonymous Groups
           </h1>
-          <p className="text-center text-white text-[2.4rem] w-[40%] z-[3] font-sans mx-auto mt-12">
+          <p className="text-center text-white text-[2.4rem] w-[95%] lg:w-[76%] z-[3] font-sans mx-auto mt-12">
             Groups are a great way of connecting to people or organisations you
             want , share your queries , have conversations comments and more..
           </p>
@@ -100,14 +95,14 @@ const Home = () => {
           Join a supportive community tailored to your needs
         </h2>
         <section className="pt-16 flex  gap-5 flex-wrap justify-center">
-          {mentalHealthGroups?.slice(0, 10).map((data) => {
+          {groups?.slice(0, 10).map((data) => {
             const { title, members, isPublic, _id, image_url } = data;
             return (
               <GroupCards
                 title={title}
+                key={title}
                 members={members}
                 isPublic={isPublic}
-                key={_id}
                 id={_id}
                 image_url={image_url}
               />

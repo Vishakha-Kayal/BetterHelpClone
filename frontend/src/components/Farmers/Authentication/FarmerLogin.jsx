@@ -7,9 +7,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { url } from "../../../App";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useVerification } from "../../../context/verifyToken";
 
 const FarmerLogin = () => {
   const navigate=useNavigate();
+  const { updateToken, updateUserType } = useVerification();
   const [loginForm, setLoginForm] = useState({
     aadharNumber: "",
     phoneNumber: "",
@@ -38,6 +40,8 @@ const FarmerLogin = () => {
       if(response.data.token){
         localStorage.setItem("token", response.data.token);    
         localStorage.setItem("userType","farmer")  
+        updateToken(response.data.token);
+        updateUserType("farmer");
         navigate("/")      
       }
     } else {

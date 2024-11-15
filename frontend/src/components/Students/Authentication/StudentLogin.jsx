@@ -6,9 +6,11 @@ import axios from "axios";
 import { url } from "../../../App";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useVerification } from "../../../context/verifyToken";
 
 const StudentLogin = () => {
   const navigate=useNavigate();
+  const { updateToken, updateUserType } = useVerification();
   const [loginForm, setLoginForm] = useState({
     aadharNumber: "",
     phoneNumber: "",
@@ -35,7 +37,9 @@ const StudentLogin = () => {
       toast.success("Student loggedin Successfully");
       if(response.data.token){
         localStorage.setItem("token", response.data.token);    
-        localStorage.setItem("userType","student")       
+        localStorage.setItem("userType","student")  
+        updateToken(response.data.token);
+        updateUserType("student");  
         navigate("/") 
       }
     }

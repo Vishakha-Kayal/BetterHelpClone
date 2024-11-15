@@ -6,10 +6,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { url } from "../../App";
 import Header from "../Header";
+import { useVerification } from "../../context/verifyToken";
 
 const SignIn = () => {
   const navigate = useNavigate();
-
+  const { updateToken, updateUserType } = useVerification();
   const [formData, setformData] = useState({
     email: "",
     password: "",
@@ -31,8 +32,10 @@ const SignIn = () => {
         console.log("logged success");
         const resData = response.data.data.accessToken;
         if (resData) {
-          localStorage.setItem("token", resData);
-          localStorage.setItem("userType", "user");
+          const value = localStorage.setItem("token", resData);
+          const typeOfUser = localStorage.setItem("userType", "user");
+          updateToken(resData);
+          updateUserType("user");
         }
         navigate("/");
       }
