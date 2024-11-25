@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchGroups } from "../../store/slice/GroupSlice";
 import { useVerification } from "../../context/verifyToken";
 import { addMember } from "../../api/groupApi";
-import { jwtDecode } from "jwt-decode";
+import { decodeToken } from "../../utils/decodeToken";
 
 const AboutGroup = () => {
   const { id } = useParams();
@@ -31,30 +31,23 @@ const AboutGroup = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    const foundGroup = groups.find((g) => g._id === id);
+    const foundGroup = groups.find((g) => g._id == id);
     if (foundGroup) {
       setGroup(foundGroup);
-    }
-    const storedMemberToken = localStorage.getItem("memberToken");
-    // setMemberToken(storedMemberToken);
-    if (storedMemberToken) {
-      const mem = jwtDecode(storedMemberToken);
-      setMemberId(mem._id);
-      // console.log(foundGroup);
-      setIsMember(
-        foundGroup
-          ? foundGroup.members.some((member) => member === memberId)
-          : false
-      );
-      // console.log(memberId);
+      if(token){
+        const loggedInuser=decodeToken(token)
+        const isUserMember=foundGroup['members'].find((g)=>g.refId==loggedInuser._id)    
+        if(isUserMember){
+          setIsMember(true)
+        }
+      }
     }
   }, [groups, id]);
 
   const onHandleJoin = async () => {
     if (!token) {
-      // console.log(token);
       navigate("/login");
-      return; // Exit if not logged in
+      return; 
     }
     if (isMember) {
       navigate(`/groups/join/${id}`);
@@ -62,7 +55,7 @@ const AboutGroup = () => {
     }
 
     try {
-      const decodedToken = jwtDecode(token);
+      const decodedToken = decodeToken(token);
       const userId = decodedToken._id;
 
       const result = await addMember(userId, userType, id);

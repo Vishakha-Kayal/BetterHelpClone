@@ -3,8 +3,9 @@ import { ApiError } from "../utils/ApiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import mongoose from "mongoose";
 import { Review } from "../models/review.models.js";
-import { Member } from "../models/member.models.js";
-import jwt from "jsonwebtoken"
+import { User } from "../models/user.models.js"
+import { Farmer } from "../models/farmer.models.js"
+import { Student } from "../models/student.models.js";
 
 const getGroups = asyncHandler(async (req, res) => {
   const group = await Group.find();
@@ -38,7 +39,7 @@ const editGroup = asyncHandler(async (req, res) => {
 });
 
 const addReview = asyncHandler(async (req, res) => {
-  const { createdBy,content,group} = req.body;
+  const { createdBy, content, group } = req.body;
 
   try {
     const reviewObj = new Review({
@@ -47,7 +48,7 @@ const addReview = asyncHandler(async (req, res) => {
       group,
       likes: [],
       disLikes: [],
-      comments:[]
+      comments: []
     });
 
     const savedReview = await reviewObj.save();
@@ -66,64 +67,57 @@ const addReview = asyncHandler(async (req, res) => {
   }
 });
 
-const getReviews=asyncHandler(async(req,res)=>{
-  const reviews=await Review.find();
-  if(reviews.length==0){
-    throw new ApiError(404,"no reviews found on this group.")
+const getReviews = asyncHandler(async (req, res) => {
+  const reviews = await Review.find();
+  if (reviews.length == 0) {
+    throw new ApiError(404, "no reviews found on this group.")
   }
   res.json({
-    reviews:reviews
+    reviews: reviews
   })
 })
 
 const addMembers = asyncHandler(async (req, res) => {
   const { userId, userType, groupId } = req.body;
 
-  // Validate groupId
   if (!mongoose.Types.ObjectId.isValid(groupId)) {
     return res.status(400).json({ message: "Invalid group ID" });
   }
 
-  // Capitalize first letter for enum matching
   const formattedUserType = userType.charAt(0).toUpperCase() + userType.slice(1);
+  const group = await Group.findById(groupId);
+  if (!group) {
+    throw new ApiError(400, "Group does not exist");
+  }
+
+  if (group.members.some(member => member.refId === userId)) {
+    throw new ApiError("User already is a member");
+  }
 
   try {
-    // Check if the user is already a member of the group
-    const existingMember = await Member.findOne({
-      group: groupId,
-      'member.userId': userId
-    });
+    const modelMap = {
+      User: User,
+      Farmer: Farmer,
+      Student: Student
+    };
 
-    if (existingMember) {
-      return res.status(400).json({ message: "User is already a member" });
+    const Model = modelMap[formattedUserType];
+    if (!Model) {
+      throw new ApiError(500, "Invalid user type");
     }
 
-    // Create a new member
-    const member = new Member({
-      member: [
-        {
-          userId: new mongoose.Types.ObjectId(userId),
-          userType: formattedUserType,
-        },
-      ],
-      group: groupId,
-    });
-
-    const savedMember = await member.save();
-    if (savedMember) {
-      const group = await Group.findById(groupId);
-      group.members.push(member._id);
-      await group.save();
-      const memberToken = jwt.sign(
-        { _id: member._id },
-        process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: "5h" }
-      );
-      console.log(memberToken)
-      res.status(200).json({success:true,memberToken:memberToken})
-    } else {
-      res.status(500).json({ success: false, message: "Failed to save member" });
+    const user = await Model.findById(userId);
+    if (!user) {
+      throw new ApiError(404, "User not found");
     }
+
+    user.groupJoined.push(groupId);
+    await user.save();
+
+    group.members.push({ refId: userId, refType: formattedUserType });
+    await group.save();
+
+    res.status(200).json({ success: true });
   } catch (error) {
     console.error("Error creating member:", error);
     res.status(500).json({
@@ -135,4 +129,4 @@ const addMembers = asyncHandler(async (req, res) => {
 });
 
 
-export { getGroups, editGroup, addReview,getReviews, addMembers };
+export { getGroups, editGroup, addReview, getReviews, addMembers };

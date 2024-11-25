@@ -40,7 +40,7 @@ const RegisteredSection = ({ icon, user, isScrolled, onclick }) => {
 };
 
 const Header = ({ customBG }) => {
-  const { userType, token, updateUserType } = useVerification();
+  const { userType, token, updateUserType ,updateToken} = useVerification();
   const [isScrolled, setIsScrolled] = useState(false);
   const [hamClick, sethamClick] = useState(false);
   const navigate = useNavigate();
@@ -51,6 +51,7 @@ const Header = ({ customBG }) => {
   const handleLogout = useCallback(() => {
     localStorage.removeItem("token");
     localStorage.removeItem("userType");
+    updateToken(null)
     updateUserType(null);
     setFarmer("");
     navigate("/login");

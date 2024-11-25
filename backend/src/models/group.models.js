@@ -72,25 +72,34 @@ const GroupSchema = new Schema({
   },
   createdBy: {
     type: Schema.Types.ObjectId,
-    ref: 'Admin'  // Reference to Admin model if you have one
+    ref: 'Admin'   
   },
   members: [{
+    _id: false,
+    refId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref:'Member'  
+      required: true,
+      refPath: "createdBy.userType",
+    },
+    refType: {
+      type: String,
+      required: true,
+      enum: ["User", "Student", "Farmer"],
+    },
   }]
 }, { timestamps: true });
 
 // Add indexes for better query performance
 GroupSchema.index({ title: 'text', description: 'text' });
 
-GroupSchema.methods.addMember = function(userId) {
+GroupSchema.methods.addMember = function (userId) {
   if (!this.members.includes(userId)) {
     this.members.push(userId);
   }
   return this.save();
 };
 
-GroupSchema.statics.findPublicGroups = function() {
+GroupSchema.statics.findPublicGroups = function () {
   return this.find({ isPublic: true });
 };
 

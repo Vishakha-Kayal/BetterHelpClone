@@ -3,24 +3,24 @@ import mongoose, { Schema } from "mongoose";
 const reviewSchema = new Schema(
   {
     createdBy: {
-      type:mongoose.Schema.Types.ObjectId,
-      ref:"Member"
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "createdBy.userType"
     },
     content: {
       type: String,
       required: true,
     },
-    group:{
-      type:mongoose.Schema.Types.ObjectId,
-      ref:'Group'
-  }  ,
+    group: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Group'
+    },
     likes: [{
-      type:mongoose.Schema.Types.ObjectId,
-      ref:"Member"
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "createdBy.userType"
     }],
     disLikes: [{
-      type:mongoose.Schema.Types.ObjectId,
-      ref:"Member"
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "createdBy.userType"
     }],
     comments: [{
       content: {
@@ -29,7 +29,7 @@ const reviewSchema = new Schema(
       },
       createdBy: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Member",
+        ref: "createdBy.userType",
         required: true,
       },
       createdAt: {
@@ -38,11 +38,11 @@ const reviewSchema = new Schema(
       },
       likes: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Member"
+        ref: "createdBy.userType"
       }],
       disLikes: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Member"
+        ref: "createdBy.userType"
       }]
     }]
   },

@@ -6,15 +6,17 @@ import Comments from "./Comments";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchGroups } from "../../store/slice/GroupSlice";
 import { postReview } from "../../api/groupApi";
-import { jwtDecode } from "jwt-decode";
+import { decodeToken } from "../../utils/decodeToken";
+import { useVerification } from "../../context/verifyToken";
 
 const GroupJoined = () => {
   const { id } = useParams();
+  const { token ,userType} = useVerification();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [review, setReview] = useState("");
   const { groups, error, loading } = useSelector((state) => state.groups);
-  const memberToken = localStorage.getItem("memberToken");
+  // const memberToken = localStorage.getItem("memberToken");
   useEffect(() => {
     dispatch(fetchGroups());
   }, [dispatch]);
@@ -35,23 +37,24 @@ const GroupJoined = () => {
   const onCheckUserLoggedin = async (e) => {
     e.preventDefault();
     let memId;
-    if (memberToken) {
-      memId = jwtDecode(memberToken)._id;
+    // console.log(token)
+    if (token) {
+      memId = decodeToken(token);
     }
-    console.log(memId, id, review);
+    console.log(memId._id, id, review);
 
-    try {
-      const result = await postReview(memId, id, review);
-      if (result.data.success) {
-        setReview("");
-      }
-    } catch (error) {
-      console.error("Token decode error:", error);
+    // try {
+    //   const result = await postReview(memId, id, review);
+    //   if (result.data.success) {
+    //     setReview("");
+    //   }
+    // } catch (error) {
+    //   console.error("Token decode error:", error);
 
-      localStorage.removeItem("token");
-      localStorage.removeItem("userType");
-      navigate("/login");
-    }
+    //   localStorage.removeItem("token");
+    //   localStorage.removeItem("userType");
+    //   navigate("/login");
+    // }
   };
   return (
     <main className="w-full min-h-screen bg-[#f0e9e0] pb-24">

@@ -30,6 +30,10 @@ const studentSchema = new Schema(
       type: String,
       required: [true, "Password is required"],
     },
+    groupJoined: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Group'
+    },
   },
   {
     timestamps: true,

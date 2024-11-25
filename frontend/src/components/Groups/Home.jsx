@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import GroupCards from "./GroupCards";
 import { assets, onHandleScroll } from "../../assets/assets";
-import CategoriesInfinity from "../Blog/CategoriesInfinity";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchGroups } from "../../store/slice/GroupSlice";
+const CategoriesInfinity = React.lazy(() => import('../Blog/CategoriesInfinity'))
 
 const Home = () => {
   const navigate = useNavigate();
@@ -118,7 +118,9 @@ const Home = () => {
           </button>
         </div>
       </section>
-      <CategoriesInfinity categories={categories} heading="Explore Groups 😀" />
+      <Suspense fallback={<div>Loading...</div>}>
+        <CategoriesInfinity categories={categories} heading="Explore Groups 😀" />
+      </Suspense>
     </main>
   );
 };

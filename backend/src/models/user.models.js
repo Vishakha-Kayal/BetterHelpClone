@@ -23,11 +23,15 @@ const userSchema = new Schema(
       type: String,
       required: false,
     },
+    groupJoined: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Group'
+    }],
   },
   { timestamps: true }
 );
 
-userSchema.pre("save", async function(next) {
+userSchema.pre("save", async function (next) {
   console.log("pre-hook triggered");
   if (!this.isModified('password')) return next();
   const salt = await bcryptjs.genSalt(7);
@@ -35,11 +39,11 @@ userSchema.pre("save", async function(next) {
   next();
 });
 
-userSchema.methods.isPasswordCorrect = async function(password) {
+userSchema.methods.isPasswordCorrect = async function (password) {
   return await bcryptjs.compare(password, this.password);
 };
 
-userSchema.methods.generateAccessToken = function() {
+userSchema.methods.generateAccessToken = function () {
   return jwt.sign(
     {
       _id: this._id,
@@ -52,7 +56,7 @@ userSchema.methods.generateAccessToken = function() {
   );
 };
 
-userSchema.methods.generateRefreshToken = function() {
+userSchema.methods.generateRefreshToken = function () {
   return jwt.sign(
     {
       _id: this._id,
