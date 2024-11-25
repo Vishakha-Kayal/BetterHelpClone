@@ -144,5 +144,22 @@ const addMembers = asyncHandler(async (req, res) => {
   }
 });
 
+const addComments = asyncHandler(async (req, res) => {
+  const { reviewId, content, createdBy } = req.body; // Assume createdBy is the user ID
+  console.log(req.body)
+  try {
+    const review = await Review.findById(reviewId);
+    if (!review) {
+      return res.status(404).json({ message: "Review not found" });
+    }
 
-export { getGroups, editGroup, addReview, getReviews, addMembers };
+    review.comments.push({ content, createdBy });
+    await review.save();
+
+    res.status(200).json({ success: true, review });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+export { getGroups, editGroup, addReview, getReviews, addMembers, addComments };

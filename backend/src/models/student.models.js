@@ -34,6 +34,10 @@ const studentSchema = new Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Group'
     }],
+    isPublic:{
+      type:Boolean,
+      default:false
+    }
   },
   {
     timestamps: true,

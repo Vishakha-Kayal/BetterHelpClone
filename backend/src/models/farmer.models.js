@@ -34,22 +34,27 @@ const farmerSchema = new Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Group'
     }],
+    isPublic: {
+      type: Boolean,
+      default: false
+    }
   },
+
   {
     timestamps: true,
   }
 );
 
-farmerSchema.pre('save', async function(next) {
-    if (!this.isModified('password')) return next();
-    const salt = await bcryptjs.genSalt(10);
-    this.password = await bcryptjs.hash(this.password, salt);
-    next();
+farmerSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next();
+  const salt = await bcryptjs.genSalt(10);
+  this.password = await bcryptjs.hash(this.password, salt);
+  next();
 });
 
 // Method to compare passwords
-farmerSchema.methods.isPasswordCorrect = async function(password) {
-    return await bcryptjs.compare(password, this.password);
+farmerSchema.methods.isPasswordCorrect = async function (password) {
+  return await bcryptjs.compare(password, this.password);
 };
 
 export const Farmer = mongoose.model('Farmer', farmerSchema);

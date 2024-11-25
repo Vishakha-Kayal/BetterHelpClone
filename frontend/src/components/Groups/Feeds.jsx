@@ -17,7 +17,7 @@ const Feeds = ({ onHandleShowComments, data }) => {
 
       <div className="flex flex-col ">
         <div className="flex items-center gap-3">
-          <h3 className="text-xl">{data.createdBy?.email || "Anonymous"}</h3>
+          <h3 className="text-xl">{data.createdBy?.email || data.createdBy?.fullName || "Anonymous"}</h3>
           <h3 className="text-lg">3 hours ago</h3>
         </div>
         <div>
@@ -34,7 +34,7 @@ const Feeds = ({ onHandleShowComments, data }) => {
           {/* <RiShareForwardLine /> */}
           <div
             className="flex items-center gap-2 hover:bg-[#e5e5e5] cursor-pointer rounded-full px-3 py-2"
-            onClick={onHandleShowComments}
+            onClick={()=>onHandleShowComments(data._id)}
           >
             <MdOutlineComment className="text-[1.6rem]" />
             <span className="text-lg">{data.comments.length}</span>

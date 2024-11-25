@@ -5,19 +5,27 @@ import Feeds from "./Feeds";
 import Comments from "./Comments";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchGroups } from "../../store/slice/GroupSlice";
-import { getReviews, postReview } from "../../api/groupApi";
+import { getReviews, postReview, postComment } from "../../api/groupApi";
 import { decodeToken } from "../../utils/decodeToken";
 import { useVerification } from "../../context/verifyToken";
 
 const GroupJoined = () => {
   const [reviews, setReviews] = useState([]);
+  const [commentid, setcommentid] = useState(null)
+  const [commentInput, setcommentinput] = useState("")
   const { id } = useParams();
   const { token, userType, logout } = useVerification();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [review, setReview] = useState("");
   const { groups, error, loading } = useSelector((state) => state.groups);
-
+  const onHandleCommentPost = async () => {
+    if(token){
+      const createdBy=decodeToken(token)._id
+      console.log(commentid, commentInput,createdBy)
+      const result = await postComment(commentid, commentInput,createdBy)
+    }
+  }
   useEffect(() => {
     dispatch(fetchGroups());
   }, [dispatch]);
@@ -37,8 +45,9 @@ const GroupJoined = () => {
     fetchReviews();
   }, [id]);
 
-  const onHandleShowComments = () => {
+  const onHandleShowComments = (reviewid) => {
     setshowCommentDiv(!showCommentDiv);
+    setcommentid(reviewid)
   };
 
   const [isInputClicked, setIsInputClicked] = useState(false);
@@ -124,11 +133,10 @@ const GroupJoined = () => {
         </aside>
         <section className="flex px-8 py-5 gap-12">
           <aside
-            className={`${
-              showCommentDiv
-                ? "hidden"
-                : "block w-[70%] h-full border-r-[1.5px] border-[#9797967b] ml-2"
-            }`}
+            className={`${showCommentDiv
+              ? "hidden"
+              : "block w-[70%] h-full border-r-[1.5px] border-[#9797967b] ml-2"
+              }`}
           >
             <section className="text-2xl w-[100%] px-4 py-5 flex gap-4">
               <input
@@ -157,11 +165,10 @@ const GroupJoined = () => {
             </div>
           </aside>
           <aside
-            className={`${
-              showCommentDiv
-                ? "block w-[70%] h-full border-r-[1.5px] border-[#9797967b]"
-                : "hidden"
-            }`}
+            className={`${showCommentDiv
+              ? "block w-[70%] h-full border-r-[1.5px] border-[#9797967b]"
+              : "hidden"
+              }`}
           >
             <section className="text-2xl w-[100%] px-4 py-5">
               <p className="text-3xl font-bold mb-4">356 Comments</p>
@@ -171,11 +178,10 @@ const GroupJoined = () => {
                 </div>
                 <div className="w-[80%] flex flex-col gap-4 items-end">
                   <div
-                    className={`${
-                      isInputClicked
-                        ? "w-full border-b-[2px] border-[#000000e3]"
-                        : "w-full border-b-[1.5px] border-[#9797967b]"
-                    }`}
+                    className={`${isInputClicked
+                      ? "w-full border-b-[2px] border-[#000000e3]"
+                      : "w-full border-b-[1.5px] border-[#9797967b]"
+                      }`}
                   >
                     <input
                       onClick={() => {
@@ -184,6 +190,8 @@ const GroupJoined = () => {
                       type="text"
                       placeholder="Add a comment"
                       className="w-full outline-none bg-[#f0e9e0] p-2"
+                      value={commentInput}
+                      onChange={(e) => { setcommentinput(e.target.value) }}
                     />
                   </div>
                   {isInputClicked && (
@@ -194,7 +202,9 @@ const GroupJoined = () => {
                       >
                         Cancel
                       </div>
-                      <div className="bg-[#397a4a] text-textPrimary px-5 py-3 rounded-full">
+                      <div className="bg-[#397a4a] text-textPrimary px-5 py-3 rounded-full"
+                        onClick={onHandleCommentPost}
+                      >
                         Comment
                       </div>
                     </div>

@@ -36,6 +36,13 @@ export const postReview=async(userId,userType, id, review)=>{
   }
 }
 
+export const postComment = async({reviewId,content, createdBy})=>{
+const data={
+  reviewId,content, createdBy
+}
+return response = await axios.post(`${url}/api/groups/review/comments`,{data})
+}
+
 export const getReviews = async()=>{
   try {
     const response = await axios.get(`${url}/api/groups/review`);
