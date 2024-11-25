@@ -1,7 +1,5 @@
 import mongoose, { Schema } from "mongoose";
 
-const userTypeRef = "createdBy.userType";
-
 const commentSchema = new Schema({
   content: {
     type: String,
@@ -9,8 +7,13 @@ const commentSchema = new Schema({
   },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: userTypeRef,
+    refPath: 'comments.createdByModel',
     required: true,
+  },
+  createdByModel: {
+    type: String,
+    required: true,
+    enum: ['User', 'Farmer', 'Student'], // List all possible models
   },
   createdAt: {
     type: Date,
@@ -18,18 +21,34 @@ const commentSchema = new Schema({
   },
   likes: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: userTypeRef
+    refPath: 'comments.likesModel'
   }],
+  likesModel: {
+    type: String,
+    required: true,
+    enum: ['User', 'Farmer', 'Student'],
+  },
   disLikes: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: userTypeRef
-  }]
+    refPath: 'comments.disLikesModel'
+  }],
+  disLikesModel: {
+    type: String,
+    required: true,
+    enum: ['User', 'Farmer', 'Student'],
+  }
 });
 
 const reviewSchema = new Schema({
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: userTypeRef
+    refPath: 'createdByModel',
+    required: true,
+  },
+  createdByModel: {
+    type: String,
+    required: true,
+    enum: ['User', 'Farmer', 'Student'], 
   },
   content: {
     type: String,
@@ -41,12 +60,22 @@ const reviewSchema = new Schema({
   },
   likes: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: userTypeRef
+    refPath: 'likesModel'
   }],
+  likesModel: {
+    type: String,
+    required: true,
+    enum: ['User', 'Farmer', 'Student'],
+  },
   disLikes: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: userTypeRef
+    refPath: 'disLikesModel'
   }],
+  disLikesModel: {
+    type: String,
+    required: true,
+    enum: ['User', 'Farmer', 'Student'],
+  },
   comments: [commentSchema]
 }, { timestamps: true });
 

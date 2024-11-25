@@ -3,7 +3,7 @@ import bcryptjs from 'bcryptjs';
 
 const farmerSchema = new Schema(
   {
-    farmerPhoto: {
+    profileImage: {
       type: String,
       required: true,
     },
@@ -30,10 +30,10 @@ const farmerSchema = new Schema(
       type: String,
       required: [true, "Password is required"],
     },
-    groupJoined: {
+    groupJoined: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Group'
-    },
+    }],
   },
   {
     timestamps: true,

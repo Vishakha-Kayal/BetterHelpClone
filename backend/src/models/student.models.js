@@ -3,7 +3,7 @@ import bcryptjs from 'bcryptjs';
 
 const studentSchema = new Schema(
   {
-    studentPhoto: {
+    profileImage: {
       type: String,
       required: true,
     },
@@ -30,10 +30,10 @@ const studentSchema = new Schema(
       type: String,
       required: [true, "Password is required"],
     },
-    groupJoined: {
+    groupJoined: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Group'
-    },
+    }],
   },
   {
     timestamps: true,

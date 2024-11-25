@@ -34,7 +34,7 @@ const registerFarmer = asyncHandler(async (req, res) => {
     phoneNumber,
     password,
     identityCard: identityCardUrl,
-    farmerPhoto: farmerPhotoUrl,
+    profileImage: farmerPhotoUrl,
   });
 
   try {

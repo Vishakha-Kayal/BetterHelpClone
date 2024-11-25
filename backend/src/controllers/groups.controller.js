@@ -59,21 +59,19 @@ const addReview = asyncHandler(async (req, res) => {
 
     // Create a new review
     const review = new Review({
-      createdBy: {
-        _id: createdBy,
-        ref: formattedUserType
-      },
+      createdBy,
+      createdByModel: formattedUserType,
       content,
       group: groupId,
       likes: [],
+      likesModel: formattedUserType, // Set the model type for likes
       disLikes: [],
+      disLikesModel: formattedUserType, // Set the model type for dislikes
       comments: []
     });
 
     // Save the review
     await review.save();
-
-
 
     res.status(201).json({ success: true, review });
   } catch (error) {
@@ -85,9 +83,8 @@ const addReview = asyncHandler(async (req, res) => {
     });
   }
 });
-
 const getReviews = asyncHandler(async (req, res) => {
-  const reviews = await Review.find();
+  const reviews = await Review.find().populate('createdBy');
   if (reviews.length == 0) {
     throw new ApiError(404, "no reviews found on this group.")
   }

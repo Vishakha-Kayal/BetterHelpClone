@@ -56,7 +56,7 @@ const registerStudent = asyncHandler(async (req, res) => {
     phoneNumber,
     password,
     identityCard: identityCardUrl,
-    studentPhoto: studentPhotoUrl,
+    profileImage: studentPhotoUrl,
   });
 
   try {

@@ -38,8 +38,8 @@ export const postReview=async(userId,userType, id, review)=>{
 
 export const getReviews = async()=>{
   try {
-    const response = await axios.get(`${url}/api/groups/reviews`);
-    return response.data.groups
+    const response = await axios.get(`${url}/api/groups/review`);
+    return response
   } catch (error) {
     console.error("Error fetching groups:", error);
   }
