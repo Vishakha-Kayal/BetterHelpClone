@@ -21,20 +21,26 @@ export const addMember=async(userId,userType,groupId)=>{
 
 }
 
-export const postReview=async(memId, id, review)=>{
+export const postReview=async(userId,userType, id, review)=>{
   try {
     const data={
-      createdBy:memId,
+      createdBy:userId,
+      userType,
       content:review,
-      group:id
+      groupId:id
     }
     const response = await axios.post(`${url}/api/groups/review`,data);
-    return response.data.groups
+    return response;
   } catch (error) {
     console.error("Error fetching groups:", error);
   }
 }
 
 export const getReviews = async()=>{
-  
+  try {
+    const response = await axios.get(`${url}/api/groups/reviews`);
+    return response.data.groups
+  } catch (error) {
+    console.error("Error fetching groups:", error);
+  }
 }

@@ -39,29 +39,48 @@ const editGroup = asyncHandler(async (req, res) => {
 });
 
 const addReview = asyncHandler(async (req, res) => {
-  const { createdBy, content, group } = req.body;
+  const { createdBy, userType, content, groupId } = req.body;
+
+  // Validate input
+  if (!mongoose.Types.ObjectId.isValid(groupId)) {
+    return res.status(400).json({ message: "Invalid group ID" });
+  }
+  if (!content || typeof content !== 'string') {
+    return res.status(400).json({ message: "Content is required and must be a string" });
+  }
+  const formattedUserType = userType.charAt(0).toUpperCase() + userType.slice(1);
 
   try {
-    const reviewObj = new Review({
-      createdBy,
+    // Check if the group exists
+    const group = await Group.findById(groupId);
+    if (!group) {
+      return res.status(404).json({ message: "Group not found" });
+    }
+
+    // Create a new review
+    const review = new Review({
+      createdBy: {
+        _id: createdBy,
+        ref: formattedUserType
+      },
       content,
-      group,
+      group: groupId,
       likes: [],
       disLikes: [],
       comments: []
     });
 
-    const savedReview = await reviewObj.save();
+    // Save the review
+    await review.save();
 
-    res.status(201).json({
-      success: true,
-      data: savedReview,
-      message: `Review created by ${createdBy} successfully`,
-    });
+
+
+    res.status(201).json({ success: true, review });
   } catch (error) {
+    console.error("Error adding review:", error);
     res.status(500).json({
       success: false,
-      message: "Failed to create review",
+      message: "Failed to add review",
       error: error.message,
     });
   }

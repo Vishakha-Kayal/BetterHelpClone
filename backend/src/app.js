@@ -26,15 +26,15 @@ import adminRouter from "./routes/admin.routes.js";
 app.use("/api/admin", adminRouter);
 
 import blogRouter from "./routes/blogs.routes.js"
-app.use("/api",blogRouter)
+app.use("/api", blogRouter)
 
 import farmerRouter from "./routes/farmer.routes.js"
-app.use("/api/farmers",farmerRouter)
+app.use("/api/farmers", farmerRouter)
 
 import studentRouter from "./routes/student.routes.js"
-app.use("/api/students",studentRouter)
+app.use("/api/students", studentRouter)
 
 import groupRouter from "./routes/groups.routes.js"
-app.use("/api/groups",groupRouter)
+app.use("/api/groups", groupRouter)
 
 export { app };

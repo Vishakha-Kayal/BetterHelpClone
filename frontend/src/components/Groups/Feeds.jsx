@@ -3,6 +3,7 @@ import { RiShareForwardLine } from "react-icons/ri";
 import { MdOutlineComment } from "react-icons/md";
 
 const Feeds = ({onHandleShowComments}) => {
+  
   return (
     <section className="bg-[#f9f6f3] mx-4 w-[93%] flex p-4 gap-5">
     <div className="">

@@ -11,12 +11,11 @@ import { useVerification } from "../../context/verifyToken";
 
 const GroupJoined = () => {
   const { id } = useParams();
-  const { token ,userType} = useVerification();
+  const { token, userType, logout } = useVerification();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [review, setReview] = useState("");
   const { groups, error, loading } = useSelector((state) => state.groups);
-  // const memberToken = localStorage.getItem("memberToken");
   useEffect(() => {
     dispatch(fetchGroups());
   }, [dispatch]);
@@ -41,20 +40,25 @@ const GroupJoined = () => {
     if (token) {
       memId = decodeToken(token);
     }
-    console.log(memId._id, id, review);
+    // console.log(memId._id, id, review);
 
-    // try {
-    //   const result = await postReview(memId, id, review);
-    //   if (result.data.success) {
-    //     setReview("");
-    //   }
-    // } catch (error) {
-    //   console.error("Token decode error:", error);
+    try {
+      if (!review) {
+        return
+      }
+      const userId = memId._id;
 
-    //   localStorage.removeItem("token");
-    //   localStorage.removeItem("userType");
-    //   navigate("/login");
-    // }
+      const result = await postReview(userId, userType, id, review);
+      console.log("result",result)
+      if (result.data.success) {
+        setReview("");
+      }
+    } catch (error) {
+      console.error("Token decode error:", error);
+
+      // logout()
+      // navigate("/login");
+    }
   };
   return (
     <main className="w-full min-h-screen bg-[#f0e9e0] pb-24">
@@ -101,11 +105,10 @@ const GroupJoined = () => {
         </aside>
         <section className="flex px-8 py-5 gap-12">
           <aside
-            className={`${
-              showCommentDiv
+            className={`${showCommentDiv
                 ? "hidden"
                 : "block w-[70%] h-full border-r-[1.5px] border-[#9797967b] ml-2"
-            }`}
+              }`}
           >
             <section className="text-2xl w-[100%] px-4 py-5 flex gap-4">
               <input
@@ -128,11 +131,10 @@ const GroupJoined = () => {
             </div>
           </aside>
           <aside
-            className={`${
-              showCommentDiv
+            className={`${showCommentDiv
                 ? "block w-[70%] h-full border-r-[1.5px] border-[#9797967b]"
                 : "hidden"
-            }`}
+              }`}
           >
             <section className="text-2xl w-[100%] px-4 py-5">
               <p className="text-3xl font-bold mb-4">356 Comments</p>
@@ -142,11 +144,10 @@ const GroupJoined = () => {
                 </div>
                 <div className="w-[80%] flex flex-col gap-4 items-end">
                   <div
-                    className={`${
-                      isInputClicked
+                    className={`${isInputClicked
                         ? "w-full border-b-[2px] border-[#000000e3]"
                         : "w-full border-b-[1.5px] border-[#9797967b]"
-                    }`}
+                      }`}
                   >
                     <input
                       onClick={() => {
