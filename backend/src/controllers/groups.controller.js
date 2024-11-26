@@ -41,19 +41,19 @@ const editGroup = asyncHandler(async (req, res) => {
 
 const addMembers = asyncHandler(async (req, res) => {
   const { userId, userType, groupId } = req.body;
-
+  console.log("Received userType:", userType);
   if (!mongoose.Types.ObjectId.isValid(groupId)) {
     return res.status(400).json({ message: "Invalid group ID" });
   }
 
-  const formattedUserType = userType.charAt(0).toUpperCase() + userType.slice(1);
+  const formattedUserType = userType?.charAt(0).toUpperCase() + userType?.slice(1);
   const group = await Group.findById(groupId);
   if (!group) {
     throw new ApiError(400, "Group does not exist");
   }
 
   if (group.members.some(member => member.refId === userId)) {
-    throw new ApiError("User already is a member");
+    throw new ApiError(400,"User already is a member");
   }
 
   try {
@@ -89,6 +89,42 @@ const addMembers = asyncHandler(async (req, res) => {
     });
   }
 });
+const getMembers = asyncHandler(async (req, res) => {
+  const { groupId } = req.body;
 
+  try {
+    const group = await Group.findById(groupId).select('members');
+    if (!group) {
+      return res.status(404).json({ success: false, message: "Group not found" });
+    }
 
-export { getGroups, editGroup,addMembers};
+    // Map refType to the corresponding model
+    const modelMap = {
+      User: User,
+      Student: Student,
+      Farmer: Farmer
+    };
+
+    // Fetch all members concurrently
+    const populatedMembers = await Promise.all(
+      group.members.map(async (member) => {
+        const Model = modelMap[member.refType];
+        if (!Model) {
+          throw new Error(`Model not found for refType: ${member.refType}`);
+        }
+        const populatedMember = await Model.findById(member.refId).select('profileImage'); // Adjust fields as needed
+        return {
+          ...member.toObject(),
+          refId: populatedMember
+        };
+      })
+    );
+
+    res.json({ success: true, members: populatedMembers });
+  } catch (error) {
+    console.error("Error fetching members:", error);
+    res.status(500).json({ success: false, message: "Failed to fetch members" });
+  }
+});
+
+export { getGroups, editGroup, addMembers,getMembers };

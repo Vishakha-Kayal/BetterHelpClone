@@ -79,7 +79,7 @@ const GroupSchema = new Schema({
     refId: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      refPath: "createdBy.userType",
+      refPath: "refType",
     },
     refType: {
       type: String,

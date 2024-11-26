@@ -78,8 +78,6 @@ const Header = ({ customBG }) => {
   }, [customBG]);
 
   useEffect(() => {
-    // const token = localStorage.getItem("token");
-    // const userType = localStorage.getItem("userType");
 
     if (userType === "farmer") {
       const farmerDets = decodeToken(token);

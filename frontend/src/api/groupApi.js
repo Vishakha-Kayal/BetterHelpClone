@@ -44,6 +44,15 @@ export const getReviews = async () => {
     console.error("Error fetching groups:", error);
   }
 }
+export const getMembers = async ({groupId}) => {
+  try {
+    const response = await axios.post(`${url}/api/groups/allMembers`,{groupId});
+    return response
+  } catch (error) {
+    console.error("Error fetching groups:", error);
+  }
+}
+
 export const postComment = async ({ reviewId, content, createdBy,createdByModel }) => {
   const data = {
     reviewId, content, createdBy,createdByModel

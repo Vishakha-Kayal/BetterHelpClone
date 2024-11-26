@@ -5,7 +5,7 @@ import Feeds from "./Feeds";
 import Comments from "./Comments";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchGroups } from "../../store/slice/GroupSlice";
-import { getReviews, postReview, postComment, fetchComments } from "../../api/groupApi";
+import { getReviews, postReview, postComment, fetchComments, getMembers } from "../../api/groupApi";
 import { decodeToken } from "../../utils/decodeToken";
 import { useVerification } from "../../context/verifyToken";
 
@@ -13,6 +13,7 @@ const GroupJoined = () => {
   const [reviews, setReviews] = useState([]);
   const [commentid, setcommentid] = useState(null);
   const [comments, setComments] = useState([]);
+  const [memberList, setMemberList] = useState([]);
   const [selectedReviewId, setSelectedReviewId] = useState(null);
   const [commentInput, setcommentinput] = useState("");
   const { id } = useParams();
@@ -68,6 +69,18 @@ const GroupJoined = () => {
     };
     fetchReviews();
   }, [id]);
+
+  useEffect(() => {
+    const fetchMembers = async () => {
+      const resp = await getMembers({ groupId: id });
+      if (resp.data.success) {
+        console.log(resp.data.members)
+        setMemberList(resp.data.members);
+      }
+
+    }
+    fetchMembers();
+  }, [id])
 
   const onHandleShowComments = (reviewid) => {
     setshowCommentDiv(!showCommentDiv);

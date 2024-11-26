@@ -39,7 +39,7 @@ const AddGroup = () => {
   const [whoCanJoinPoints, setwhoCanJoinPoints] = useState([{ id: 1 }]);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("adminToken");
   const handleAddPoint = () => {
     setgroupPoints((prev) => [...prev, { id: prev.length + 1 }]);
     setFormData((prev) => ({
