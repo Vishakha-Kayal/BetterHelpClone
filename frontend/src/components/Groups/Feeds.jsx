@@ -1,8 +1,9 @@
 import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import { RiShareForwardLine } from "react-icons/ri";
 import { MdOutlineComment } from "react-icons/md";
+import { formatDistanceToNow } from "date-fns";
 
-const Feeds = ({ onHandleShowComments, data }) => {
+const Feeds = ({ onHandleShowComments, data ,postLike,postDislike}) => {
   return (
     <section className="bg-[#f9f6f3] mx-4 w-[93%] flex p-4 gap-5">
       <div className="">
@@ -18,7 +19,7 @@ const Feeds = ({ onHandleShowComments, data }) => {
       <div className="flex flex-col ">
         <div className="flex items-center gap-3">
           <h3 className="text-xl">{data.createdBy?.email || data.createdBy?.fullName || "Anonymous"}</h3>
-          <h3 className="text-lg">3 hours ago</h3>
+          <h3 className="text-lg"> {formatDistanceToNow(new Date(data.createdAt), { addSuffix: true })}</h3>
         </div>
         <div>
           <p className="text-xl">
@@ -27,10 +28,10 @@ const Feeds = ({ onHandleShowComments, data }) => {
         </div>
         <div className="flex gap-6 text-4xl items-center w-full mt-5">
           <div className="flex items-center gap-2">
-            <AiOutlineLike />
+            <AiOutlineLike onClick={()=>{postLike(data._id)}}/>
             <span className="text-xl">{data.likes.length}</span>
           </div>
-          <AiOutlineDislike />
+          <AiOutlineDislike onClick={()=>{postDislike(data._id)}}/>
           {/* <RiShareForwardLine /> */}
           <div
             className="flex items-center gap-2 hover:bg-[#e5e5e5] cursor-pointer rounded-full px-3 py-2"

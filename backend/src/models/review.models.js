@@ -25,7 +25,6 @@ const commentSchema = new Schema({
   }],
   likesModel: {
     type: String,
-    required: true,
     enum: ['User', 'Farmer', 'Student'],
   },
   disLikes: [{
@@ -34,7 +33,6 @@ const commentSchema = new Schema({
   }],
   disLikesModel: {
     type: String,
-    required: true,
     enum: ['User', 'Farmer', 'Student'],
   }
 });
@@ -64,7 +62,6 @@ const reviewSchema = new Schema({
   }],
   likesModel: {
     type: String,
-    required: true,
     enum: ['User', 'Farmer', 'Student'],
   },
   disLikes: [{
@@ -72,8 +69,7 @@ const reviewSchema = new Schema({
     refPath: 'disLikesModel'
   }],
   disLikesModel: {
-    type: String,
-    required: true,
+    type: String, 
     enum: ['User', 'Farmer', 'Student'],
   },
   comments: [commentSchema]

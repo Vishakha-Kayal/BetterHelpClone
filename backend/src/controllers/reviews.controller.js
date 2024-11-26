@@ -7,8 +7,6 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import mongoose from "mongoose";
 import { Review } from "../models/review.models.js";
 
-
-
 const addComments = asyncHandler(async (req, res) => {
     const { reviewId, content, createdBy, createdByModel } = req.body;
     try {
@@ -72,9 +70,7 @@ const addReview = asyncHandler(async (req, res) => {
             content,
             group: groupId,
             likes: [],
-            likesModel: formattedUserType,
             disLikes: [],
-            disLikesModel: formattedUserType,
             comments: []
         });
         await review.save();
@@ -89,9 +85,86 @@ const addReview = asyncHandler(async (req, res) => {
         });
     }
 });
+const likeReview = asyncHandler(async (req, res) => {
+    const { userId, userType, reviewId } = req.body;
+    console.log(req.body);
+
+    try {
+        const review = await Review.findById(reviewId);
+        console.log(review);
+
+        if (!review) {
+            throw new ApiError(500, "Cannot find review");
+        }
+
+        // Ensure userId is a valid ObjectId
+        if (!mongoose.Types.ObjectId.isValid(userId)) {
+            return res.status(400).json({ success: false, message: "Invalid user ID" });
+        }
+
+        // Check if the user has already liked the review
+        const hasLiked = review.likes.some(like => like.equals(userId));
+        if (hasLiked) {
+            // Remove the user from likes
+            review.likes = review.likes.filter(like => !like.equals(userId));
+        } else {
+            // Add the user to likes
+            review.likes.push(new mongoose.Types.ObjectId(userId));
+            review.likesModel = userType;
+            // Remove the user from dislikes if they had disliked
+            review.disLikes = review.disLikes.filter(dislike => !dislike.equals(userId));
+        }
+
+        await review.save();
+
+        res.json({ review: review, success: true });
+    } catch (error) {
+        console.error("Error liking review:", error);
+        res.status(500).json({ success: false, message: "Failed to like review" });
+    }
+});
+
+const dislikeReview = asyncHandler(async (req, res) => {
+    const { userId, userType, reviewId } = req.body;
+    console.log(req.body);
+
+    try {
+        const review = await Review.findById(reviewId);
+        console.log(review);
+
+        if (!review) {
+            throw new ApiError(500, "Cannot find review");
+        }
+
+        // Ensure userId is a valid ObjectId
+        if (!mongoose.Types.ObjectId.isValid(userId)) {
+            return res.status(400).json({ success: false, message: "Invalid user ID" });
+        }
+
+        // Check if the user has already disliked the review
+        const hasDisliked = review.disLikes.some(dislike => dislike.equals(userId));
+        if (hasDisliked) {
+            // Remove the user from dislikes
+            review.disLikes = review.disLikes.filter(dislike => !dislike.equals(userId));
+        } else {
+            // Add the user to dislikes
+            review.disLikes.push(new mongoose.Types.ObjectId(userId));
+            review.disLikesModel=userType;
+            // Remove the user from likes if they had liked
+            review.likes = review.likes.filter(like => !like.equals(userId));
+        }
+
+        await review.save();
+
+        res.json({ review: review, success: true });
+    } catch (error) {
+        console.error("Error disliking review:", error);
+        res.status(500).json({ success: false, message: "Failed to dislike review" });
+    }
+});
 
 const getReviews = asyncHandler(async (req, res) => {
-    const reviews = await Review.find().populate('createdBy');
+    const reviews = await Review.find().populate('createdBy comments.createdBy');
     if (reviews.length == 0) {
         throw new ApiError(404, "no reviews found on this group.")
     }
@@ -101,5 +174,5 @@ const getReviews = asyncHandler(async (req, res) => {
 })
 
 export {
-    addComments, getComments, addReview, getReviews
+    addComments, getComments, addReview, getReviews, likeReview,dislikeReview
 }
