@@ -36,6 +36,14 @@ export const postReview = async (userId, userType, id, review) => {
   }
 }
 
+export const getReviews = async () => {
+  try {
+    const response = await axios.get(`${url}/api/groups/review`);
+    return response
+  } catch (error) {
+    console.error("Error fetching groups:", error);
+  }
+}
 export const postComment = async ({ reviewId, content, createdBy,createdByModel }) => {
   const data = {
     reviewId, content, createdBy,createdByModel
@@ -51,11 +59,3 @@ export const fetchComments = async (reviewId) => {
   return await axios.post(`${url}/api/groups/reviews/fetchComments`,{reviewId});
 };
 
-export const getReviews = async () => {
-  try {
-    const response = await axios.get(`${url}/api/groups/review`);
-    return response
-  } catch (error) {
-    console.error("Error fetching groups:", error);
-  }
-}

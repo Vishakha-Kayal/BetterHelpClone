@@ -1,6 +1,7 @@
-import { getGroups,editGroup,addReview,addMembers ,getReviews,addComments, getComments} from "../controllers/groups.controller.js";
-import {Router} from 'express';
-const router=Router();
+import { getGroups, editGroup, addMembers } from "../controllers/groups.controller.js";
+import { addReview, getReviews, addComments, getComments } from "../controllers/reviews.controller.js";
+import { Router } from 'express';
+const router = Router();
 
 router.route("/").get(getGroups)
 router.route("/:id").put(editGroup)
