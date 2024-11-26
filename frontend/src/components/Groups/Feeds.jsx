@@ -1,9 +1,21 @@
 import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
-import { RiShareForwardLine } from "react-icons/ri";
 import { MdOutlineComment } from "react-icons/md";
 import { formatDistanceToNow } from "date-fns";
+import { useEffect, useState } from "react";
 
-const Feeds = ({ onHandleShowComments, data ,postLike,postDislike}) => {
+const Feeds = ({ onHandleShowComments, data, postLike, postDislike, userId }) => {
+  const [isUserLiked, setUserLiked] = useState(false);
+
+  // Check if the user has liked the review when the component mounts or when data changes
+  useEffect(() => {
+    setUserLiked(data.likes.includes(userId));
+  }, [data.likes, userId]);
+
+  const handleLikeClick = () => {
+    postLike(data._id);
+    setUserLiked(!isUserLiked); // Toggle the like state
+  };
+
   return (
     <section className="bg-[#f9f6f3] mx-4 w-[93%] flex p-4 gap-5">
       <div className="">
@@ -11,7 +23,7 @@ const Feeds = ({ onHandleShowComments, data ,postLike,postDislike}) => {
           <img
             src={data.createdBy?.profileImage}
             alt=""
-            className="w-full h-full "
+            className="w-full h-full"
           />
         </div>
       </div>
@@ -28,14 +40,16 @@ const Feeds = ({ onHandleShowComments, data ,postLike,postDislike}) => {
         </div>
         <div className="flex gap-6 text-4xl items-center w-full mt-5">
           <div className="flex items-center gap-2">
-            <AiOutlineLike onClick={()=>{postLike(data._id)}}/>
-            <span className="text-xl">{data.likes.length}</span>
+            <AiOutlineLike
+              onClick={handleLikeClick}
+              className={isUserLiked ? 'text-blue-500' : ''}
+            />
+            <span className="text-xl">{isUserLiked?'Liked':data.likes.length}</span>
           </div>
-          <AiOutlineDislike onClick={()=>{postDislike(data._id)}}/>
-          {/* <RiShareForwardLine /> */}
+          <AiOutlineDislike onClick={() => { postDislike(data._id); }} />
           <div
             className="flex items-center gap-2 hover:bg-[#e5e5e5] cursor-pointer rounded-full px-3 py-2"
-            onClick={()=>onHandleShowComments(data._id)}
+            onClick={() => onHandleShowComments(data._id)}
           >
             <MdOutlineComment className="text-[1.6rem]" />
             <span className="text-lg">{data.comments.length}</span>

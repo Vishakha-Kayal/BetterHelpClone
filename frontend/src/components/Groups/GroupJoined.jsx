@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useMemo,useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import MembersUi from "./MembersUi";
 import Feeds from "./Feeds";
@@ -24,6 +24,13 @@ const GroupJoined = () => {
   const [review, setReview] = useState("");
   const { groups, error, loading } = useSelector((state) => state.groups);
 
+  // console.log("Parent userId:", userId);
+  // console.log("Token:", token);
+  useEffect(() => {
+    console.log("Reviews:", reviews);
+    // console.log("Comments:", comments);
+    // console.log("Member List:", memberList);
+  }, [reviews]);
   const onHandleCommentPost = async () => {
     if (token) {
       const decodedToken = decodeToken(token);
@@ -53,11 +60,21 @@ const GroupJoined = () => {
       console.error("Failed to fetch comments:", error);
     }
   };
-  useEffect(() => {
+  const decodedUserId = useMemo(() => {
     if (token) {
-      setUserId(decodeToken(token)._id)
+      const decoded = decodeToken(token);
+      return decoded ? decoded._id : null;
     }
-  }, [token, userType, userId])
+    return null;
+  }, [token]);
+
+  useEffect(() => {
+    // console.log("Token:", token); // Log the token to see if it changes frequently
+    const decodedUserId = decodeToken(token)?._id; // Decode the token safely
+    if (decodedUserId) {
+        setUserId(decodedUserId);
+    }
+}, [token]); // Add token as a dependency // Add token as a dependency
   useEffect(() => {
     dispatch(fetchGroups());
   }, [dispatch]);
@@ -74,21 +91,54 @@ const GroupJoined = () => {
     };
     fetchReviews();
   }, [id]);
+  const updateReviewLikes = (reviewId, userId, action) => {
+    setReviews((prevReviews) =>
+      prevReviews.map((review) => {
+        if (review._id === reviewId) {
+          const updatedLikes = action === 'like'
+            ? [...new Set([...review.likes, userId])] // Add userId if not already present
+            : review.likes.filter((like) => like !== userId); // Remove userId if present
+          return { ...review, likes: updatedLikes };
+        }
+        return review;
+      })
+    );
+  };
+
   const onHandlePostLike = useCallback(async (reviewId) => {
-    console.log("entered")
+    const formattedUsertype = userType.charAt(0).toUpperCase() + userType.slice(1);
+    
+    // Optimistically update the UI
+    updateReviewLikes(reviewId, userId, 'like');
 
-    console.log("userid", userId)
-    const formattedUsertype = userType.charAt(0).toUpperCase() + userType.slice(1)
-    await postReviewLikes({ userId, formattedUsertype, reviewId })
+    // Call the API to post the like
+    const result = await postReviewLikes({ userId, formattedUsertype, reviewId });
+    
+    // Check if the API call was successful
+    if (!result.data.success) {
+        // If not successful, revert the optimistic update
+        updateReviewLikes(reviewId, userId, 'dislike');
+    }
+}, [userId, userType]);
 
-  })
   const onHandlePostDisLike = useCallback(async (reviewId) => {
+    const formattedUsertype = userType.charAt(0).toUpperCase() + userType.slice(1);
+    
+    // Optimistically update the UI
+    setReviews((prevReviews) =>
+      prevReviews.map((review) => {
+        if (review._id === reviewId) {
+          const updatedDislikes = [...review.disLikes, userId];
+          return { ...review, disLikes: updatedDislikes };
+        }
+        return review;
+      })
+    );
 
-    const formattedUsertype = userType.charAt(0).toUpperCase() + userType.slice(1)
-    const response = await postReviewDisLikes({ userId, formattedUsertype, reviewId })
-    console.log(response)
+    // Call the API to post the dislike
+    await postReviewDisLikes({ userId, formattedUsertype, reviewId });
+  }, [userId, userType]);
 
-  })
   //fetchmembers
   useEffect(() => {
     const fetchMembers = async () => {
@@ -98,7 +148,7 @@ const GroupJoined = () => {
       }
     }
     fetchMembers();
-  }, [id, onHandlePostDisLike, onHandlePostLike])
+  }, [id])
 
   const onHandleShowComments = (reviewid) => {
     setshowCommentDiv(!showCommentDiv);
@@ -220,6 +270,7 @@ const GroupJoined = () => {
                     onHandleShowComments={onHandleShowComments}
                     postLike={onHandlePostLike}
                     postDislike={onHandlePostDisLike}
+                    userId={userId}
                     data={data}
                   />
                 ))}
