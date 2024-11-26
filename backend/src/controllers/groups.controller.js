@@ -18,6 +18,7 @@ const getGroups = asyncHandler(async (req, res) => {
 const editGroup = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const updateData = req.body;
+  console.log(updateData)
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ message: "Invalid group ID" });
   }

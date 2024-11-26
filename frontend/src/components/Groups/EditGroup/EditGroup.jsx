@@ -1,14 +1,16 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { url } from "../../../App";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import EditPoint from "./EditPoint";
 import { assets } from "../../../assets/assets";
+import { fetchGroups } from "../../../store/slice/GroupSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const EditGroup = () => {
   const navigate = useNavigate();
-  const {id}=useParams()
+  const { id } = useParams()
 
   const [formData, setFormData] = useState({
     title: "",
@@ -42,17 +44,24 @@ const EditGroup = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const token = localStorage.getItem("token");
-  const [isPublicChecked, setIsPublicChecked] = useState(formData.isPublic);
+  const dispatch = useDispatch();
+  const { groups, loading } = useSelector((state) => state.groups);
+  const group = useMemo(() => groups.find(g => g._id === id), [groups, id]);
+  const [isPublicChecked, setIsPublicChecked] = useState(true);
 
+
+  console.log("is public",isPublicChecked)
   useEffect(() => {
-    setIsPublicChecked(formData.isPublic);
-  }, [formData.isPublic]);
-
+    setIsPublicChecked(group.isPublic);
+  }, [group.isPublic]);
+  useEffect(() => {
+    dispatch(fetchGroups());
+  }, [dispatch]);
   const handleCheckboxChange = () => {
     setIsPublicChecked((prev) => !prev);
     setFormData((prev) => ({
       ...prev,
-      isPublic: !prev.isPublic, 
+      isPublic: !prev.isPublic,
     }));
   };
   const handleAddPoint = () => {
@@ -149,19 +158,19 @@ const EditGroup = () => {
       if (topics) data.topics = topics;
       if (image_url) data.image_url = image_url;
       if (typeof formData.isPublic === "boolean") {
-        data.isPublic = formData.isPublic; 
+        data.isPublic = isPublicChecked;
       }
 
       if (meetingStructure.weeklyDiscussions) {
-        data.meetingStructure = data.meetingStructure || {}; 
+        data.meetingStructure = data.meetingStructure || {};
         data.meetingStructure.weeklyDiscussions =
           meetingStructure.weeklyDiscussions;
       }
 
-      
+
       if (formData.groupFocus.points.length > 0) {
         const validPoints = formData.groupFocus.points.filter(
-          (point) => point.heading && point.description 
+          (point) => point.heading && point.description
         );
 
         if (validPoints.length > 0) {
@@ -174,10 +183,10 @@ const EditGroup = () => {
         }
       }
 
-      
+
       if (formData.whoCanJoin.length > 0) {
         const validWhoCanJoin = formData.whoCanJoin.filter(
-          (points) => points.category && points.description 
+          (points) => points.category && points.description
         );
 
         if (validWhoCanJoin.length > 0) {
@@ -429,12 +438,12 @@ const EditGroup = () => {
                     formData.whoCanJoin.map((point, index) => (
                       <EditPoint
                         key={index}
-                        id={index + 1} 
-                        heading={point.category} 
-                        description={point.description} 
+                        id={index + 1}
+                        heading={point.category}
+                        description={point.description}
                         handleInputChange={handleInputChange}
-                        inputHeadingName={`whoCanJoin-${index}-category`} 
-                        inputDescName={`whoCanJoin-${index}-description`} 
+                        inputHeadingName={`whoCanJoin-${index}-category`}
+                        inputDescName={`whoCanJoin-${index}-description`}
                       />
                     ))}
                 </div>
