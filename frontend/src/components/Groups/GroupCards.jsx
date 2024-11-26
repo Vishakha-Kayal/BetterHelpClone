@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { assets } from "../../assets/assets";
 import { useNavigate } from "react-router-dom";
 
-const GroupCards = ({ title, members, isPublic, id, image_url }) => {
+const GroupCards = ({ title, members, isPublic, keyValue,id, image_url }) => {
   const navigate = useNavigate();
   const token = localStorage.getItem("adminToken");
   const [admin, setAdmin] = useState(false);
@@ -12,7 +12,7 @@ const GroupCards = ({ title, members, isPublic, id, image_url }) => {
     }
   }, [token, navigate]);
   return (
-    <div key={id} className="w-[24rem] h-[24rem] rounded-md shadow-md bg-[#c3d7ca] hover:bg-[#9bbaa7] hover:shadow-inner cursor-pointer gap-2 flex flex-col items-center relative p-3">
+    <div key={keyValue} className="w-[24rem] h-[24rem] rounded-md shadow-md bg-[#c3d7ca] hover:bg-[#9bbaa7] hover:shadow-inner cursor-pointer gap-2 flex flex-col items-center relative p-3">
       <p className="text-[1.2rem] absolute right-4 font-semibold ">
         {isPublic ? "Public" : "Private"}
       </p>

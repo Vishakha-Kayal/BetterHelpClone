@@ -21,14 +21,15 @@ const AllGroups = () => {
       </h2>
       <section className="pt-16 flex  gap-5 flex-wrap justify-center">
         {groups.map((data) => {
-          const { title, members, isPublic, id, image_url } = data;
+          const { title, members, isPublic, _id, image_url } = data;
+          console.log(data)
           return (
             <GroupCards
               title={title}
               members={members}
               isPublic={isPublic}
-              key={id}
-              id={id}
+              keyValue={data._id}
+              id={_id}
               image_url={image_url}
             />
           );

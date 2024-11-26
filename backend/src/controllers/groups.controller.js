@@ -153,13 +153,12 @@ const addComments = asyncHandler(async (req, res) => {
       return res.status(404).json({ message: "Review not found" });
     }
 
-    // Add the required fields for the comment
     review.comments.push({
       content,
       createdBy,
       createdByModel,
-      likesModel: createdByModel, // Assuming the same model type for likes
-      disLikesModel: createdByModel // Assuming the same model type for dislikes
+      likesModel: createdByModel, 
+      disLikesModel: createdByModel 
     });
 
     await review.save();
@@ -182,4 +181,5 @@ const getComments = asyncHandler(async(req,res)=>{
     res.status(500).json({ success: false, message: error.message });
   }
 })
+
 export { getGroups, editGroup, addReview, getReviews, addMembers, addComments ,getComments};
