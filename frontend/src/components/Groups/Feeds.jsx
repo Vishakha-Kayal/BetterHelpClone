@@ -8,7 +8,7 @@ const Feeds = ({ onHandleShowComments, data }) => {
       <div className="">
         <div className="w-[6rem] h-[6rem] rounded-full overflow-hidden">
           <img
-            src={data.createdBy.profileImage}
+            src={data.createdBy?.profileImage}
             alt=""
             className="w-full h-full "
           />

@@ -2,7 +2,7 @@ import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import { RiShareForwardLine } from "react-icons/ri";
 import { MdOutlineComment } from "react-icons/md";
 
-const Comments = () => {
+const Comments = ({comment}) => {
   return (
     <section className="w-[93%] flex py-9 gap-5">
       <div className="">
@@ -24,10 +24,7 @@ const Comments = () => {
         </div>
         <div>
           <p className="text-xl">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
-            veritatis dolor molestiae iste aliquam ea neque aut totam quam quod,
-            accusantium corrupti hic soluta doloremque incidunt consectetur
-            provident? Molestias dolorum facilis at ab in quod!
+         {comment.content}
           </p>
         </div>
       </div>

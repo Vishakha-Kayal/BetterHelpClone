@@ -5,32 +5,56 @@ import Feeds from "./Feeds";
 import Comments from "./Comments";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchGroups } from "../../store/slice/GroupSlice";
-import { getReviews, postReview, postComment } from "../../api/groupApi";
+import { getReviews, postReview, postComment, fetchComments } from "../../api/groupApi";
 import { decodeToken } from "../../utils/decodeToken";
 import { useVerification } from "../../context/verifyToken";
 
 const GroupJoined = () => {
   const [reviews, setReviews] = useState([]);
-  const [commentid, setcommentid] = useState(null)
-  const [commentInput, setcommentinput] = useState("")
+  const [commentid, setcommentid] = useState(null);
+  const [comments, setComments] = useState([]);
+  const [selectedReviewId, setSelectedReviewId] = useState(null);
+  const [commentInput, setcommentinput] = useState("");
   const { id } = useParams();
   const { token, userType, logout } = useVerification();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [review, setReview] = useState("");
   const { groups, error, loading } = useSelector((state) => state.groups);
+
   const onHandleCommentPost = async () => {
-    if(token){
-      const createdBy=decodeToken(token)._id
-      console.log(commentid, commentInput,createdBy)
-      const result = await postComment(commentid, commentInput,createdBy)
+    if (token) {
+      const decodedToken = decodeToken(token);
+      const createdBy = decodedToken._id;
+      const createdByModel = userType.charAt(0).toUpperCase() + userType.slice(1);
+      console.log(commentid, commentInput, createdBy, createdByModel);
+      const result = await postComment({
+        reviewId: commentid,
+        content: commentInput,
+        createdBy: createdBy,
+        createdByModel: createdByModel
+      });
+      if (result.data.success) {
+        setcommentinput("");
+        fetchCommentsForReview(commentid);
+      }
     }
-  }
+  };
+
+  const fetchCommentsForReview = async (reviewId) => {
+    try {
+      const response = await fetchComments(reviewId);
+      if (response.data.success) {
+        setComments(response.data.comments);
+      }
+    } catch (error) {
+      console.error("Failed to fetch comments:", error);
+    }
+  };
+
   useEffect(() => {
     dispatch(fetchGroups());
   }, [dispatch]);
-
-  const [showCommentDiv, setshowCommentDiv] = useState(false);
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -47,9 +71,11 @@ const GroupJoined = () => {
 
   const onHandleShowComments = (reviewid) => {
     setshowCommentDiv(!showCommentDiv);
-    setcommentid(reviewid)
+    setcommentid(reviewid);
+    fetchCommentsForReview(reviewid);
   };
 
+  const [showCommentDiv, setshowCommentDiv] = useState(false);
   const [isInputClicked, setIsInputClicked] = useState(false);
 
   const group = groups.find((group) => group._id === id);
@@ -171,7 +197,7 @@ const GroupJoined = () => {
               }`}
           >
             <section className="text-2xl w-[100%] px-4 py-5">
-              <p className="text-3xl font-bold mb-4">356 Comments</p>
+              <p className="text-3xl font-bold mb-4">Comments</p>
               <div className="flex gap-5 items-center">
                 <div className="bg-[#db8200] w-24 h-24 flex justify-center items-center rounded-full">
                   <span className="text-5xl text-white">V</span>
@@ -211,10 +237,9 @@ const GroupJoined = () => {
                   )}
                 </div>
               </div>
-              <Comments />
-              <Comments />
-              <Comments />
-              <Comments />
+              {comments.map((comment) => (
+                <Comments key={comment._id} comment={comment} />
+              ))}
             </section>
           </aside>
           <aside className="w-[30%]">

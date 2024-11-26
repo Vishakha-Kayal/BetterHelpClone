@@ -145,15 +145,23 @@ const addMembers = asyncHandler(async (req, res) => {
 });
 
 const addComments = asyncHandler(async (req, res) => {
-  const { reviewId, content, createdBy } = req.body; // Assume createdBy is the user ID
-  console.log(req.body)
+  const { reviewId, content, createdBy, createdByModel } = req.body; 
+
   try {
     const review = await Review.findById(reviewId);
     if (!review) {
       return res.status(404).json({ message: "Review not found" });
     }
 
-    review.comments.push({ content, createdBy });
+    // Add the required fields for the comment
+    review.comments.push({
+      content,
+      createdBy,
+      createdByModel,
+      likesModel: createdByModel, // Assuming the same model type for likes
+      disLikesModel: createdByModel // Assuming the same model type for dislikes
+    });
+
     await review.save();
 
     res.status(200).json({ success: true, review });
@@ -162,4 +170,16 @@ const addComments = asyncHandler(async (req, res) => {
   }
 });
 
-export { getGroups, editGroup, addReview, getReviews, addMembers, addComments };
+const getComments = asyncHandler(async(req,res)=>{
+  try {
+    const { reviewId } = req.body;
+    const review = await Review.findById(reviewId).populate('comments.createdBy');
+    if (!review) {
+      return res.status(404).json({ message: "Review not found" });
+    }
+    res.status(200).json({ success: true, comments: review.comments });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+})
+export { getGroups, editGroup, addReview, getReviews, addMembers, addComments ,getComments};
