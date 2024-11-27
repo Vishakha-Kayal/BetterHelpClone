@@ -167,7 +167,6 @@ const EditGroup = () => {
           meetingStructure.weeklyDiscussions;
       }
 
-
       if (formData.groupFocus.points.length > 0) {
         const validPoints = formData.groupFocus.points.filter(
           (point) => point.heading && point.description
