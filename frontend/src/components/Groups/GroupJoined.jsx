@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo,useEffect, useState } from "react";
+import React, { useCallback, useMemo, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import MembersUi from "./MembersUi";
 import Feeds from "./Feeds";
@@ -24,13 +24,7 @@ const GroupJoined = () => {
   const [review, setReview] = useState("");
   const { groups, error, loading } = useSelector((state) => state.groups);
 
-  // console.log("Parent userId:", userId);
-  // console.log("Token:", token);
-  useEffect(() => {
-    console.log("Reviews:", reviews);
-    // console.log("Comments:", comments);
-    // console.log("Member List:", memberList);
-  }, [reviews]);
+
   const onHandleCommentPost = async () => {
     if (token) {
       const decodedToken = decodeToken(token);
@@ -63,18 +57,18 @@ const GroupJoined = () => {
   const decodedUserId = useMemo(() => {
     if (token) {
       const decoded = decodeToken(token);
-      return decoded ? decoded._id : null;
+      const firstLetter = decoded.fullName.slice(0, 1)
+      return decoded ? firstLetter : null;
     }
     return null;
   }, [token]);
 
   useEffect(() => {
-    // console.log("Token:", token); // Log the token to see if it changes frequently
-    const decodedUserId = decodeToken(token)?._id; // Decode the token safely
+    const decodedUserId = decodeToken(token)?._id;
     if (decodedUserId) {
-        setUserId(decodedUserId);
+      setUserId(decodedUserId);
     }
-}, [token]); // Add token as a dependency // Add token as a dependency
+  }, [token]);
   useEffect(() => {
     dispatch(fetchGroups());
   }, [dispatch]);
@@ -107,23 +101,21 @@ const GroupJoined = () => {
 
   const onHandlePostLike = useCallback(async (reviewId) => {
     const formattedUsertype = userType.charAt(0).toUpperCase() + userType.slice(1);
-    
-    // Optimistically update the UI
+
     updateReviewLikes(reviewId, userId, 'like');
 
-    // Call the API to post the like
     const result = await postReviewLikes({ userId, formattedUsertype, reviewId });
-    
+
     // Check if the API call was successful
     if (!result.data.success) {
-        // If not successful, revert the optimistic update
-        updateReviewLikes(reviewId, userId, 'dislike');
+      // If not successful, revert the optimistic update
+      updateReviewLikes(reviewId, userId, 'dislike');
     }
-}, [userId, userType]);
+  }, [userId, userType]);
 
   const onHandlePostDisLike = useCallback(async (reviewId) => {
     const formattedUsertype = userType.charAt(0).toUpperCase() + userType.slice(1);
-    
+
     // Optimistically update the UI
     setReviews((prevReviews) =>
       prevReviews.map((review) => {
@@ -286,7 +278,7 @@ const GroupJoined = () => {
                 <p className="text-3xl font-bold mb-4">Comments</p>
                 <div className="flex gap-5 items-center">
                   <div className="bg-[#db8200] w-24 h-24 flex justify-center items-center rounded-full">
-                    <span className="text-5xl text-white">V</span>
+                    <span className="text-5xl text-white uppercase">{decodedUserId}</span>
                   </div>
                   <div className="w-[80%] flex flex-col gap-4 items-end">
                     <div

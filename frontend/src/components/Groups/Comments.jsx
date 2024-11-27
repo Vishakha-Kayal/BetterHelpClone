@@ -10,7 +10,7 @@ const Comments = ({comment}) => {
         {" "}
         <div className="w-[6rem] h-[6rem] rounded-full overflow-hidden">
           <img
-            src="https://cdn-icons-png.flaticon.com/128/3011/3011270.png"
+            src={comment.createdBy.profileImage}
             alt=""
             className="w-full h-full "
           />
