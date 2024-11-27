@@ -10,49 +10,18 @@ const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { groups, loading, error } = useSelector((state) => state.groups);
-
-  const [categories] = useState([
-    {
-      image:
-        "http://res.cloudinary.com/dpis1vmne/image/upload/v1728894714/v6iot9baxhyww95vu8lw.jpg",
-      name: "bullying",
-    },
-    {
-      image:
-        "http://res.cloudinary.com/dpis1vmne/image/upload/v1728897965/bonvzqfmfea2an0evkhb.jpg",
-      name: "depression",
-    },
-    {
-      image:
-        "http://res.cloudinary.com/dpis1vmne/image/upload/v1728898055/blazjq9zjwfycclxqw3g.jpg",
-      name: "general",
-    },
-    {
-      image:
-        "https://res.cloudinary.com/dpis1vmne/image/upload/v1728557204/nzpuokitqkrf1elpdb8b.jpg",
-      name: "friendship",
-    },
-    {
-      image:
-        "https://res.cloudinary.com/dpis1vmne/image/upload/v1728557290/bzqnljskahbtsfwh2esv.jpg",
-      name: "therapy",
-    },
-    {
-      image:
-        "https://res.cloudinary.com/dpis1vmne/image/upload/v1728557565/lukdagjklxdi40oynaps.jpg",
-      name: "anxiety",
-    },
-    {
-      image:
-        "https://res.cloudinary.com/dpis1vmne/image/upload/v1728557682/a0ne0moflyzzrwhjuuwr.jpg",
-      name: "willpower",
-    },
-  ]);
-
+  const [categories, setCategories] = useState([]);
   useEffect(() => {
     dispatch(fetchGroups());
   }, [dispatch]);
-
+  useEffect(() => {
+    if (groups && groups.length > 0) {
+      setCategories(groups.map(group => ({
+        name: group.title,
+        image: group.image_url,
+      })));
+    }
+  }, [groups]);
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 

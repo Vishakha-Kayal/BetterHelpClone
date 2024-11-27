@@ -7,8 +7,7 @@ import Button from "../Button";
 gsap.registerPlugin(ScrollTrigger);
 
 const CategoriesInfinity = ({categories,heading}) => {
-  const categoriesContainerRef = useRef(null); // Create a ref for the categories container
-
+  const categoriesContainerRef = useRef(null); 
 
   useEffect(() => {
     const categoriesContainer = categoriesContainerRef.current; 
@@ -35,9 +34,9 @@ const CategoriesInfinity = ({categories,heading}) => {
           {categories.map((category, index) => (
             <Category key={index} image={category.image} name={category.name} />
           ))}
-          {categories.map((category, index) => (
+          {/* {categories.map((category, index) => (
             <Category key={`clone-${index}`} image={category.image} name={category.name} />
-          ))}
+          ))} */}
         </div>
       </section>
 

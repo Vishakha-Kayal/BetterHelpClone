@@ -47,7 +47,7 @@ const adminLogin = asyncHandler(async (req, res) => {
   const token = jwt.sign(
     { _id: admin._id, email: admin.email },
     process.env.ACCESS_TOKEN_SECRET,
-    { expiresIn: "1h" } // Token expiration time
+    { expiresIn: "1d" } // Token expiration time
   );
 
   return res.status(200).json({ token, success: true });

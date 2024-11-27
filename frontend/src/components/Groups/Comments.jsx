@@ -3,7 +3,7 @@ import { formatDistanceToNow } from "date-fns";
 import { RiShareForwardLine } from "react-icons/ri";
 import { MdOutlineComment } from "react-icons/md";
 
-const Comments = ({comment}) => {
+const Comments = ({comment,id}) => {
   return (
     <section className="w-[93%] flex py-9 gap-5">
       <div className="">
@@ -21,7 +21,9 @@ const Comments = ({comment}) => {
       <div className="flex flex-col ">
         <div className="flex items-center gap-3">
           <h3 className="text-xl">@{comment.createdBy?.email || comment.createdBy?.fullName || "Anonymous"}</h3>
-          <h3 className="text-lg">{formatDistanceToNow(new Date(comment.createdBy.createdAt), { addSuffix: true })}</h3>
+          <h3 className="text-lg">
+            {formatDistanceToNow(new Date(comment?.createdBy?.createdAt), { addSuffix: true })}
+          </h3>
         </div>
         <div>
           <p className="text-xl">

@@ -315,8 +315,8 @@ const GroupJoined = () => {
                     )}
                   </div>
                 </div>
-                {comments.map((comment) => (
-                  <Comments key={comment._id} comment={comment} />
+                {comments.map((comment,id) => (
+                  <Comments key={comment._id} comment={comment} id={id}/>
                 ))}
               </section>
             </aside>
