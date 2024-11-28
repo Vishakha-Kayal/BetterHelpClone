@@ -44,7 +44,7 @@ const Feeds = ({ onHandleShowComments, data, postLike, postDislike, userId }) =>
               onClick={handleLikeClick}
               className={isUserLiked ? 'text-blue-500' : ''}
             />
-            <span className="text-xl">{isUserLiked?'Liked':data.likes.length}</span>
+            <span className="text-xl">{data.likes.length}</span>
           </div>
           <AiOutlineDislike onClick={() => { postDislike(data._id); }} />
           <div

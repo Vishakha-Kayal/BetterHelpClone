@@ -31,8 +31,8 @@ import AddGroup from "./components/Groups/AddGroup/AddGroup";
 import EditGroup from "./components/Groups/EditGroup/EditGroup"
 import AllGroupCategories from "./components/Groups/AllGroupCategories";
 
-export const url = "http://localhost:3000";
-// export const url = "https://betterhelpclonebackend.onrender.com";
+// export const url = "http://localhost:3000";
+export const url = "https://betterhelpclonebackend.onrender.com";
 
 function App() {
   return (

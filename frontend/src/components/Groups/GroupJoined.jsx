@@ -124,7 +124,6 @@ const GroupJoined = () => {
   const onHandlePostDisLike = useCallback(async (reviewId) => {
     const formattedUsertype = userType.charAt(0).toUpperCase() + userType.slice(1);
 
-    // Optimistically update the UI
     setReviews((prevReviews) =>
       prevReviews.map((review) => {
         if (review._id === reviewId) {
@@ -134,8 +133,6 @@ const GroupJoined = () => {
         return review;
       })
     );
-
-    // Call the API to post the dislike
     await postReviewDisLikes({ userId, formattedUsertype, reviewId });
   }, [userId, userType]);
 
@@ -290,7 +287,7 @@ const GroupJoined = () => {
             </p>
           </section>
         </section>
-        <section className="min-h-screen">
+        <section className="">
           <aside className="flex justify-between bg-[#fdfdff] border-b-[2.5px] border-[#9797967b] text-[#102316] font-semibold">
             <div className="flex gap-4">
               <h3 className="text-[1.6rem] py-3 px-8 border-r-[#e5e5e3] border-r-[2px] border-b-[3.3px] border-b-[#457777]">
@@ -406,6 +403,7 @@ const GroupJoined = () => {
                       id={id}
                       postCommentLike={onHandleCommentPostLike}
                       postCommentDislike={onHandleCommentPostDisLike}
+                      userId={userId}
                     />
                   ))}
               </section>
