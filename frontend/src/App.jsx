@@ -29,6 +29,7 @@ import GroupJoined from "./components/Groups/GroupJoined";
 import AllGroups from "./components/Groups/AllGroups";
 import AddGroup from "./components/Groups/AddGroup/AddGroup";
 import EditGroup from "./components/Groups/EditGroup/EditGroup"
+import AllGroupCategories from "./components/Groups/AllGroupCategories";
 
 // export const url = "http://localhost:3000";
 export const url = "https://betterhelpclonebackend.onrender.com";
@@ -69,6 +70,7 @@ function App() {
           <Route path="/groups/visit/:id" element={<AboutGroup />} />
           <Route path="/groups/join/:id" element={<GroupJoined />} />
           <Route path="/groups/allGroups" element={<AllGroups />} />
+          <Route path="/groups/allGroupCategories" element={<AllGroupCategories />} />
           <Route path="/admin/editGroup/:id" element={<EditGroup />} />
         </Routes>
       </main>

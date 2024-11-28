@@ -6,7 +6,7 @@ import Button from "../Button";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const CategoriesInfinity = ({categories,heading}) => {
+const CategoriesInfinity = ({categories,heading,isGroup}) => {
   const categoriesContainerRef = useRef(null); 
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const CategoriesInfinity = ({categories,heading}) => {
         font="font-bold"
         color="text-textPrimary border-none"
         content="Show More"
-        navigateTo="/"
+        navigateTo={isGroup?"/groups/allGroupCategories":""}
       />
     </section>
   );

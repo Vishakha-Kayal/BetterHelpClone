@@ -88,7 +88,7 @@ const Home = () => {
         </div>
       </section>
       <Suspense fallback={<div>Loading...</div>}>
-        <CategoriesInfinity categories={categories} heading="Explore Groups 😀" />
+        <CategoriesInfinity categories={categories} isGroup={true} heading="Explore Groups 😀" />
       </Suspense>
     </main>
   );
