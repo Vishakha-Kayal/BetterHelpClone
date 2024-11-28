@@ -28,7 +28,7 @@ const AllGroupCategories = () => {
     );
 
     return (
-        <main className=" bg-[#f7f0e6] pt-24">
+        <main className="min-h-screen bg-[#f7f0e6] pt-24">
             <div className="w-[75%] mx-auto">
                 <h1 className="text-6xl text-primary  text-center font-bold mb-4 pb-4 font-overpass">All Group Categories</h1>
                 <input
@@ -38,6 +38,11 @@ const AllGroupCategories = () => {
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="p-5 border border-gray-300 rounded mb-4 w-full text-2xl outline-none"
                 />
+                {
+                    (filteredCategories.length===0) && (
+                        <h1 className="text-4xl text-center mt-7 font-semibold">No groups found</h1>
+                    )
+                }
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {filteredCategories.map((category, index) => (
                         <div key={index} className="p-4 border border-gray-200 rounded shadow cursor-pointer"

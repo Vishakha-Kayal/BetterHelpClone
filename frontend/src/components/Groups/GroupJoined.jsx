@@ -5,7 +5,7 @@ import Feeds from "./Feeds";
 import Comments from "./Comments";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchGroups } from "../../store/slice/GroupSlice";
-import { getReviews, postReview, postComment, fetchComments, getMembers, postReviewLikes, postReviewDisLikes } from "../../api/groupApi";
+import { getReviews, postReview, postComment, fetchComments, getMembers, postReviewLikes, postReviewDisLikes, postCommentLikes, postCommentDisLikes } from "../../api/groupApi";
 import { decodeToken } from "../../utils/decodeToken";
 import { useVerification } from "../../context/verifyToken";
 import { ToastContainer, toast } from "react-toastify";
@@ -48,16 +48,26 @@ const GroupJoined = () => {
     try {
       const response = await fetchComments(reviewId);
       if (response.data.success) {
-        setComments(response.data.comments);
+        // Add reviewId to each comment object
+        const commentsWithReviewId = response.data.comments.map(comment => ({
+          ...comment,
+          reviewId: reviewId
+        }));
+        setComments(commentsWithReviewId);
       }
     } catch (error) {
       console.error("Failed to fetch comments:", error);
     }
   };
+
   const decodedUserId = useMemo(() => {
     if (token) {
       const decoded = decodeToken(token);
-      const firstLetter = decoded.fullName.slice(0, 1)
+      // console.log(decoded)
+      let firstLetter = "";
+      if (decoded) {
+        firstLetter = decoded?.fullName?.slice(0, 1) || decoded.email.slice(0, 1)
+      }
       return decoded ? firstLetter : null;
     }
     return null;
@@ -85,6 +95,7 @@ const GroupJoined = () => {
     };
     fetchReviews();
   }, [id]);
+
   const updateReviewLikes = (reviewId, userId, action) => {
     setReviews((prevReviews) =>
       prevReviews.map((review) => {
@@ -103,10 +114,7 @@ const GroupJoined = () => {
     const formattedUsertype = userType.charAt(0).toUpperCase() + userType.slice(1);
 
     updateReviewLikes(reviewId, userId, 'like');
-
     const result = await postReviewLikes({ userId, formattedUsertype, reviewId });
-
-    // Check if the API call was successful
     if (!result.data.success) {
       // If not successful, revert the optimistic update
       updateReviewLikes(reviewId, userId, 'dislike');
@@ -130,6 +138,76 @@ const GroupJoined = () => {
     // Call the API to post the dislike
     await postReviewDisLikes({ userId, formattedUsertype, reviewId });
   }, [userId, userType]);
+
+  const updateCommentLikes = (reviewId, commentId, userId, action) => {
+    setReviews((prevReviews) =>
+      prevReviews.map((review) => {
+        if (review._id === reviewId) {
+          const updatedComments = review.comments.map((comment) => {
+            if (comment._id === commentId) {
+              const updatedLikes = action === 'like'
+                ? [...new Set([...comment.likes, userId])] // Add userId if not already present
+                : comment.likes.filter((like) => like !== userId); // Remove userId if present
+              return { ...comment, likes: updatedLikes };
+            }
+            return comment;
+          });
+          return { ...review, comments: updatedComments };
+        }
+        return review;
+      })
+    );
+  };
+
+  const onHandleCommentPostLike = useCallback(async (reviewId, commentId) => {
+    const formattedUsertype = userType.charAt(0).toUpperCase() + userType.slice(1);
+    updateCommentLikes(reviewId, commentId, userId, 'like');
+    console.log(formattedUsertype)
+    const result = await postCommentLikes({ userId, formattedUsertype, reviewId, commentId });
+    if (!result.data.success) {
+      // If not successful, revert the optimistic update
+      updateCommentLikes(reviewId, commentId, userId, 'dislike');
+    }
+  }, [userId]);
+
+  const onHandleCommentPostDisLike = useCallback(async (reviewId, commentId) => {
+    const formattedUsertype = userType.charAt(0).toUpperCase() + userType.slice(1);
+    setReviews((prevReviews) =>
+      prevReviews.map((review) => {
+        if (review._id === reviewId) {
+          const updatedComments = review.comments.map((comment) => {
+            if (comment._id === commentId) {
+              const updatedDislikes = [...new Set([...comment.disLikes, userId])]; // Add userId if not already present
+              return { ...comment, disLikes: updatedDislikes };
+            }
+            return comment;
+          });
+          return { ...review, comments: updatedComments };
+        }
+        return review;
+      })
+    );
+
+    const result = await postCommentDisLikes({ userId, formattedUsertype, reviewId, commentId });
+    if (!result.data.success) {
+      // If not successful, revert the optimistic update
+      setReviews((prevReviews) =>
+        prevReviews.map((review) => {
+          if (review._id === reviewId) {
+            const updatedComments = review.comments.map((comment) => {
+              if (comment._id === commentId) {
+                const updatedDislikes = comment.disLikes.filter((dislike) => dislike !== userId); // Remove userId if present
+                return { ...comment, disLikes: updatedDislikes };
+              }
+              return comment;
+            });
+            return { ...review, comments: updatedComments };
+          }
+          return review;
+        })
+      );
+    }
+  }, [userId]);
 
   //fetchmembers
   useEffect(() => {
@@ -157,7 +235,7 @@ const GroupJoined = () => {
     return <div>Group not found</div>;
   }
 
-  const { image_url, title, description, members } = group;
+  const { image_url, title, description, groupDescription, members } = group;
 
   const onCheckUserLoggedin = async (e) => {
     e.preventDefault();
@@ -256,16 +334,19 @@ const GroupJoined = () => {
                 </button>
               </section>
               <div className="flex flex-col gap-6">
-                {reviews.map((data) => (
-                  <Feeds
-                    key={data._id}
-                    onHandleShowComments={onHandleShowComments}
-                    postLike={onHandlePostLike}
-                    postDislike={onHandlePostDisLike}
-                    userId={userId}
-                    data={data}
-                  />
-                ))}
+                {reviews
+                  .slice() // Create a shallow copy of the reviews array
+                  .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // Sort by createdAt in descending order
+                  .map((data) => (
+                    <Feeds
+                      key={data._id}
+                      onHandleShowComments={onHandleShowComments}
+                      postLike={onHandlePostLike}
+                      postDislike={onHandlePostDisLike}
+                      userId={userId}
+                      data={data}
+                    />
+                  ))}
               </div>
             </aside>
             <aside
@@ -315,9 +396,18 @@ const GroupJoined = () => {
                     )}
                   </div>
                 </div>
-                {comments.map((comment,id) => (
-                  <Comments key={comment._id} comment={comment} id={id}/>
-                ))}
+                {comments
+                  .slice()
+                  .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                  .map((comment, id) => (
+                    <Comments
+                      key={comment._id}
+                      comment={comment}
+                      id={id}
+                      postCommentLike={onHandleCommentPostLike}
+                      postCommentDislike={onHandleCommentPostDisLike}
+                    />
+                  ))}
               </section>
             </aside>
             <aside className="w-[30%]">
@@ -361,7 +451,7 @@ const GroupJoined = () => {
                   DESCRIPTION
                 </h3>{" "}
               </div>
-              <p className="px-5 py-3 text-[1.55rem]">{description}</p>
+              <p className="px-5 py-3 text-[1.55rem]">{groupDescription}</p>
             </aside>
           </section>
         </section>

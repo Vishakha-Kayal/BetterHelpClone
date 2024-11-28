@@ -3,7 +3,8 @@ import { formatDistanceToNow } from "date-fns";
 import { RiShareForwardLine } from "react-icons/ri";
 import { MdOutlineComment } from "react-icons/md";
 
-const Comments = ({comment,id}) => {
+const Comments = ({comment,id,postCommentLike,postCommentDislike}) => {
+  // console.log("comments = ",comment)
   return (
     <section className="w-[93%] flex py-9 gap-5">
       <div className="">
@@ -22,7 +23,7 @@ const Comments = ({comment,id}) => {
         <div className="flex items-center gap-3">
           <h3 className="text-xl">@{comment.createdBy?.email || comment.createdBy?.fullName || "Anonymous"}</h3>
           <h3 className="text-lg">
-            {formatDistanceToNow(new Date(comment?.createdBy?.createdAt), { addSuffix: true })}
+            {formatDistanceToNow(new Date(comment?.createdAt), { addSuffix: true })}
           </h3>
         </div>
         <div>
@@ -33,10 +34,12 @@ const Comments = ({comment,id}) => {
       </div>
       <div className="flex gap-6 text-4xl items-center w-full mt-5">
         <div className="flex items-center gap-2">
-          <AiOutlineLike />
+          <AiOutlineLike
+          onClick={()=>{postCommentLike(comment.reviewId,comment._id)}}
+          />
           <span className="text-xl">{comment.likes.length}</span>
         </div>
-        <AiOutlineDislike />
+        <AiOutlineDislike onClick={()=>{postCommentDislike(comment.reviewId,comment._id)}}/>
       </div>
 
       </div>

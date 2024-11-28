@@ -59,7 +59,7 @@ const Register = () => {
       setError("Phone number must be exactly 10 digits.");
       return false;
     }
-    if (aadharNumber.length !== 12) {
+    if (studentsData.aadharNumber.length !== 12) {
       setError("Aadhar number must be exactly 12 digits.");
       return false;
     }
