@@ -7,14 +7,17 @@ import { useVerification } from "../../context/verifyToken";
 const Feeds = ({ onHandleShowComments, data, postLike, postDislike, userId }) => {
   const [isUserLiked, setUserLiked] = useState(false);
   const { isPrivate, getPrivateFromServer } = useVerification();
+  const [visibilityFetched, setVisibilityFetched] = useState(false); // State to track if visibility has been fetched
 
   useEffect(() => {
     const fetchVisibility = async () => {
-      await getPrivateFromServer();
+      if (!visibilityFetched) {
+        await getPrivateFromServer();
+        setVisibilityFetched(true); 
+      }
     };
     fetchVisibility();
-  }, [getPrivateFromServer]);
-
+  }, [getPrivateFromServer, visibilityFetched]);
   useEffect(() => {
     setUserLiked(data.likes.includes(userId));
   }, [data.likes, userId]);
