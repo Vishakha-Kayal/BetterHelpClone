@@ -10,6 +10,7 @@ import { decodeToken } from "../../utils/decodeToken";
 import { useVerification } from "../../context/verifyToken";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 const GroupJoined = () => {
   const [reviews, setReviews] = useState([]);
   const [commentid, setcommentid] = useState(null);
@@ -17,13 +18,35 @@ const GroupJoined = () => {
   const [memberList, setMemberList] = useState([]);
   const [commentInput, setcommentinput] = useState("");
   const { id } = useParams();
-  const { token, userType, logout } = useVerification();
+  const { token, userType} = useVerification();
   const [userId, setUserId] = useState(null)
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [review, setReview] = useState("");
   const { groups, error, loading } = useSelector((state) => state.groups);
 
+  useEffect(() => {
+    const decodedUserId = decodeToken(token)?._id;
+    if (decodedUserId) {
+      setUserId(decodedUserId);
+    }
+  }, [token]);
+  useEffect(() => {
+    dispatch(fetchGroups());
+  }, [dispatch]);
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const resp = await getReviews();
+        const reviews = resp.data.reviews.filter((r) => r.group === id);
+        setReviews(reviews);
+      } catch (error) {
+        console.error("Failed to fetch reviews:", error);
+      }
+    };
+    fetchReviews();
+  }, [id]);
 
   const onHandleCommentPost = async () => {
     if (token) {
@@ -72,29 +95,6 @@ const GroupJoined = () => {
     }
     return null;
   }, [token]);
-
-  useEffect(() => {
-    const decodedUserId = decodeToken(token)?._id;
-    if (decodedUserId) {
-      setUserId(decodedUserId);
-    }
-  }, [token]);
-  useEffect(() => {
-    dispatch(fetchGroups());
-  }, [dispatch]);
-
-  useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const resp = await getReviews();
-        const reviews = resp.data.reviews.filter((r) => r.group === id);
-        setReviews(reviews);
-      } catch (error) {
-        console.error("Failed to fetch reviews:", error);
-      }
-    };
-    fetchReviews();
-  }, [id]);
 
   const updateReviewLikes = (reviewId, userId, action) => {
     setReviews((prevReviews) =>

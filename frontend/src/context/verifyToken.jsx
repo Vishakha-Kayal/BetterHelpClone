@@ -49,13 +49,18 @@ export const VerificationContextProvider = ({ children }) => {
 
   const getPrivateFromServer = async () => {
     if (token) {
-      const decodedToken = decodeToken(token)
-      const userId = decodedToken._id;
-      const formattedUserType = userType?.charAt(0).toUpperCase() + userType?.slice(1)
-      const response = await axios.post(`${url}/api/users/getVisibility`, { userId, userType: formattedUserType })
-      setIsPrivate(response.data.data)
+        try {
+            console.log("tok", token);
+            const decodedToken = decodeToken(token);
+            const userId = decodedToken._id;
+            const formattedUserType = userType?.charAt(0).toUpperCase() + userType?.slice(1);
+            const response = await axios.post(`${url}/api/users/getVisibility`, { userId, userType: formattedUserType });
+            setIsPrivate(response.data.data);
+        } catch (error) {
+            console.error("Error fetching visibility:", error);
+        }
     }
-  }
+}
   return (
     <VerificationContext.Provider
       value={{

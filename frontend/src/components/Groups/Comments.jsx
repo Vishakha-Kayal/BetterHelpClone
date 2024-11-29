@@ -1,22 +1,26 @@
 import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import { formatDistanceToNow } from "date-fns";
 import { useState, useEffect } from "react";
+import { useVerification } from "../../context/verifyToken";
 
 const Comments = ({ comment, id, postCommentLike, postCommentDislike, userId }) => {
   const [isUserLiked, setUserLiked] = useState(false);
   const [isUserDisliked, setUserDisliked] = useState(false);
-
-  // Check if the user has liked or disliked the comment when the component mounts or when comment changes
+  const { isPrivate, getPrivateFromServer } = useVerification()
+  useEffect(() => {
+    getPrivateFromServer();
+  }, [isPrivate])
+  
   useEffect(() => {
     setUserLiked(comment.likes.includes(userId));
     setUserDisliked(comment.disLikes.includes(userId));
-  }, [userId,comment.likes]);
+  }, [userId, comment.likes]);
 
   const handleLikeClick = () => {
     postCommentLike(comment.reviewId, comment._id);
     setUserLiked(!isUserLiked);
     if (isUserDisliked) {
-      setUserDisliked(false); // Remove dislike if it was previously disliked
+      setUserDisliked(false); 
     }
   };
 
@@ -24,7 +28,7 @@ const Comments = ({ comment, id, postCommentLike, postCommentDislike, userId }) 
     postCommentDislike(comment.reviewId, comment._id);
     setUserDisliked(!isUserDisliked);
     if (isUserLiked) {
-      setUserLiked(false); // Remove like if it was previously liked
+      setUserLiked(false); 
     }
   };
 
@@ -40,7 +44,7 @@ const Comments = ({ comment, id, postCommentLike, postCommentDislike, userId }) 
 
       <div className="flex flex-col">
         <div className="flex items-center gap-3">
-          <h3 className="text-xl">@{comment.createdBy?.email || comment.createdBy?.fullName || "Anonymous"}</h3>
+          <h3 className="text-xl">@{comment.createdBy._id == userId && isPrivate ? "Anonymous" : comment.createdBy?.email || comment.createdBy?.fullName}</h3>
           <h3 className="text-lg">
             {formatDistanceToNow(new Date(comment?.createdAt), { addSuffix: true })}
           </h3>

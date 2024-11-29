@@ -9,7 +9,7 @@ router.route("/resetPsswd").post(checkUser);
 router.route("/changePsswd").post(editUser);
 router.route("/toggleAccess").post(toggleAccess);
 router.route("/").get(getAllUsers);
-router.route("/getVisibility").get(getVisibility)
+router.route("/getVisibility").post(getVisibility)
 router.route("/setVisibilty").post(setVisibilty)
 
 export default router;

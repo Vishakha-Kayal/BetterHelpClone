@@ -2,11 +2,15 @@ import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import { MdOutlineComment } from "react-icons/md";
 import { formatDistanceToNow } from "date-fns";
 import { useEffect, useState } from "react";
-import UserAccessToggle from "../UserAccessToggle";
+import { useVerification } from "../../context/verifyToken";
 
 const Feeds = ({ onHandleShowComments, data, postLike, postDislike, userId }) => {
   const [isUserLiked, setUserLiked] = useState(false);
-
+  const { isPrivate, getPrivateFromServer } = useVerification()
+  useEffect(() => {
+    getPrivateFromServer();
+    console.log("isddd", isPrivate);
+  }, [])
   // Check if the user has liked the review when the component mounts or when data changes
   useEffect(() => {
     setUserLiked(data.likes.includes(userId));
@@ -14,7 +18,7 @@ const Feeds = ({ onHandleShowComments, data, postLike, postDislike, userId }) =>
 
   const handleLikeClick = () => {
     postLike(data._id);
-    setUserLiked(!isUserLiked); 
+    setUserLiked(!isUserLiked);
   };
 
   return (
@@ -31,7 +35,7 @@ const Feeds = ({ onHandleShowComments, data, postLike, postDislike, userId }) =>
 
       <div className="flex flex-col ">
         <div className="flex items-center gap-3">
-          <h3 className="text-xl">{data.createdBy?.email || data.createdBy?.fullName || "Anonymous"}</h3>
+          <h3 className="text-xl">{data.createdBy._id == userId && isPrivate ? "Anonymous" : data.createdBy?.email || data.createdBy?.fullName}</h3>
           <h3 className="text-lg"> {formatDistanceToNow(new Date(data.createdAt), { addSuffix: true })}</h3>
         </div>
         <div>

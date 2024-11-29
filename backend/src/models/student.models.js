@@ -34,7 +34,7 @@ const studentSchema = new Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Group'
     }],
-    isPublic:{
+    isPrivate:{
       type:Boolean,
       default:false
     }

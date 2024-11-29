@@ -163,13 +163,14 @@ const setVisibilty = asyncHandler(async (req, res) => {
   if(!user){
     throw new ApiError(404,"User not found")
   }
-  user.isPublic=isPrivate
+  user.isPrivate=isPrivate
   await user.save()
   return res.json(new ApiResponse(200,user,"Visibility set successfully"))
 })
 
 const getVisibility = asyncHandler(async (req,res)=>{
   const {userId,userType}=req.body;
+  console.log(req.body)
   const modelMap={
     User:User,
     Farmer:Farmer,
@@ -183,7 +184,7 @@ const getVisibility = asyncHandler(async (req,res)=>{
   if(!user){
     throw new ApiError(404,"User not found")
   }
-  const isPrivate=user.isPublic
+  const isPrivate=user.isPrivate
   return res.json(new ApiResponse(200,isPrivate,"Visibility fetched successfully"))
 })
 export { registerUser, loginUser, checkUser, editUser ,toggleAccess,getAllUsers,setVisibilty,getVisibility};
