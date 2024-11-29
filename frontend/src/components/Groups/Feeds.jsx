@@ -2,6 +2,7 @@ import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import { MdOutlineComment } from "react-icons/md";
 import { formatDistanceToNow } from "date-fns";
 import { useEffect, useState } from "react";
+import UserAccessToggle from "../UserAccessToggle";
 
 const Feeds = ({ onHandleShowComments, data, postLike, postDislike, userId }) => {
   const [isUserLiked, setUserLiked] = useState(false);
@@ -13,7 +14,7 @@ const Feeds = ({ onHandleShowComments, data, postLike, postDislike, userId }) =>
 
   const handleLikeClick = () => {
     postLike(data._id);
-    setUserLiked(!isUserLiked); // Toggle the like state
+    setUserLiked(!isUserLiked); 
   };
 
   return (

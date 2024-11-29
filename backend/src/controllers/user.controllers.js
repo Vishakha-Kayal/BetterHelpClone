@@ -3,6 +3,8 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { User } from "../models/user.models.js";
+import { Farmer } from "../models/farmer.models.js";
+import { Student } from "../models/student.models.js";
 
 const generateRefreshAndAcessToken = async userId => {
   try {
@@ -137,4 +139,51 @@ const editUser = asyncHandler(async (req, res) => {
   await user.save()
   return res.json({success:true})
 });
-export { registerUser, loginUser, checkUser, editUser };
+
+const toggleAccess = asyncHandler(async (req, res) => {})
+
+const getAllUsers = asyncHandler(async (req, res) => {
+  const users = await User.find({}).select("-password -refreshToken")
+  console.log(users)
+  return res.json(new ApiResponse(200, users, "Users fetched successfully"))
+})
+
+const setVisibilty = asyncHandler(async (req, res) => {
+  const {userId,userType,isPrivate}=req.body;
+  const modelMap={
+    User:User,
+    Farmer:Farmer,
+    Student:Student
+  }
+  const Model = modelMap[userType]
+  if(!Model){
+    throw new ApiError(500,"Invalid user type")
+  }
+  const user=await Model.findById(userId)
+  if(!user){
+    throw new ApiError(404,"User not found")
+  }
+  user.isPublic=isPrivate
+  await user.save()
+  return res.json(new ApiResponse(200,user,"Visibility set successfully"))
+})
+
+const getVisibility = asyncHandler(async (req,res)=>{
+  const {userId,userType}=req.body;
+  const modelMap={
+    User:User,
+    Farmer:Farmer,
+    Student:Student
+  }
+  const Model=modelMap[userType]
+  if(!Model){
+    throw new ApiError(500,"Invalid user type")
+  }
+  const user=await Model.findById(userId)
+  if(!user){
+    throw new ApiError(404,"User not found")
+  }
+  const isPrivate=user.isPublic
+  return res.json(new ApiResponse(200,isPrivate,"Visibility fetched successfully"))
+})
+export { registerUser, loginUser, checkUser, editUser ,toggleAccess,getAllUsers,setVisibilty,getVisibility};

@@ -1,12 +1,15 @@
 import { createContext, useContext, useState } from "react";
-
+import { decodeToken } from "../utils/decodeToken";
+import axios from "axios";
+import {url} from "../App"
 const VerificationContext = createContext();
 
 export const VerificationContextProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [userType, setUserType] = useState(localStorage.getItem("userType"));
+  const [isPrivate, setIsPrivate] = useState(false)
   const updateToken = (newToken) => {
-  
+
     setToken(newToken);
     if (newToken) {
       localStorage.setItem("token", newToken);
@@ -23,12 +26,36 @@ export const VerificationContextProvider = ({ children }) => {
       localStorage.removeItem("userType");
     }
   };
+
   const logout = () => {
     setToken(null);
     setUserType(null);
     localStorage.removeItem("token");
     localStorage.removeItem("userType");
   };
+
+  const updateisPrivate = (newIsprivate) => {
+    setIsPrivate(newIsprivate)
+  }
+
+  const setIsPrivateToServer = async (newIsPrivate) => {
+    if (token) {
+      const decodedToken = decodeToken(token)
+      const userId = decodedToken._id;
+      const formattedUserType = userType?.charAt(0).toUpperCase() + userType?.slice(1);
+      await axios.post(`${url}/api/users/setVisibilty`, { userId, userType: formattedUserType, isPrivate: newIsPrivate })
+    }
+  }
+
+  const getPrivateFromServer = async () => {
+    if (token) {
+      const decodedToken = decodeToken(token)
+      const userId = decodedToken._id;
+      const formattedUserType = userType?.charAt(0).toUpperCase() + userType?.slice(1)
+      const response = await axios.post(`${url}/api/users/getVisibility`, { userId, userType: formattedUserType })
+      setIsPrivate(response.data.data)
+    }
+  }
   return (
     <VerificationContext.Provider
       value={{
@@ -37,6 +64,10 @@ export const VerificationContextProvider = ({ children }) => {
         userType,
         updateToken,
         updateUserType,
+        isPrivate,
+        updateisPrivate,
+        setIsPrivateToServer,
+        getPrivateFromServer
       }}
     >
       {children}
@@ -44,9 +75,9 @@ export const VerificationContextProvider = ({ children }) => {
   );
 };
 export const useVerification = () => {
-    const context = useContext(VerificationContext);
-    if (!context) {
-        throw new Error("useVerification must be used within a VerificationContextProvider");
-    }
-    return context;
+  const context = useContext(VerificationContext);
+  if (!context) {
+    throw new Error("useVerification must be used within a VerificationContextProvider");
+  }
+  return context;
 };

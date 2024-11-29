@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { decodeToken } from "../utils/decodeToken.js";
 import { useVerification } from "../context/verifyToken";
+import UserAccessToggle from "./UserAccessToggle.jsx";
 
 const RegisteredSection = ({ icon, user, isScrolled, onclick }) => {
   return (
@@ -20,9 +21,10 @@ const RegisteredSection = ({ icon, user, isScrolled, onclick }) => {
             <div className="w-14 h-full rounded-full bg-secondary flex justify-center items-center">
               <img src={icon} alt="" className="w-[90%] h-[90%]" />
             </div>
-            <span className="text-2xl capitalize">{user}</span>
+            <span className="text-2xl">{user}</span>
           </div>
         </div>
+        <UserAccessToggle/>
         <Button
           bg={`${isScrolled ? "bg-[#a6de9b]" : "bg-[#ffffff]"}`}
           paddingY="py-[0.8rem]"
@@ -40,7 +42,7 @@ const RegisteredSection = ({ icon, user, isScrolled, onclick }) => {
 };
 
 const Header = ({ customBG }) => {
-  const { userType, token, updateUserType ,logout} = useVerification();
+  const { userType, token, updateUserType, logout } = useVerification();
   const [isScrolled, setIsScrolled] = useState(false);
   const [hamClick, sethamClick] = useState(false);
   const navigate = useNavigate();
@@ -226,17 +228,15 @@ const Header = ({ customBG }) => {
 
   return (
     <header
-      className={`z-[4] fixed top-0 w-screen h-[6.4rem] md:px-14 md:py-6 lg:py-7 transition-all duration-300 ${
-        isScrolled
-          ? "bg-white text-primary shadow-md"
-          : "bg-primary text-textPrimary"
-      }`}
+      className={`z-[4] fixed top-0 w-screen h-[6.4rem] md:px-14 md:py-6 lg:py-7 transition-all duration-300 ${isScrolled
+        ? "bg-white text-primary shadow-md"
+        : "bg-primary text-textPrimary"
+        }`}
     >
       {/* Header content */}
       <div
-        className={`w-full flex flex-col justify-between gap-3 lg:hidden ${
-          hamClick ? "bg-white" : ""
-        }`}
+        className={`w-full flex flex-col justify-between gap-3 lg:hidden ${hamClick ? "bg-white" : ""
+          }`}
       >
         {/* Mobile Header */}
         <div className="w-full flex justify-between items-start gap-3 px-4 pt-6">
@@ -271,7 +271,6 @@ const Header = ({ customBG }) => {
             <div className="flex flex-col gap-7">
               <ul className="font-overpass font-medium flex flex-col gap-6 text-[2.3rem] text-[#444444] p-4">
                 <li>Business</li>
-                <li>About</li>
                 <Link to="/faq">
                   <li>FAQ</li>
                 </Link>
@@ -281,8 +280,9 @@ const Header = ({ customBG }) => {
                 <Link to="/programs">
                   <li>Programs</li>
                 </Link>
-                <li>Group</li>
-                <li>Therapist Jobs</li>
+                <Link to="/groups">
+                  <li>Group</li>
+                </Link>
                 <li>Contact</li>
               </ul>
               {renderUserResponsiveNav()}
@@ -304,12 +304,10 @@ const Header = ({ customBG }) => {
           </div>
           <div className="flex gap-7">
             <ul
-              className={`navContent font-overpass font-medium flex items-center gap-6 text-[1.6rem] ${
-                isScrolled ? "text-primary" : "text-textPrimary"
-              }`}
+              className={`navContent font-overpass font-medium flex items-center gap-6 text-[1.6rem] ${isScrolled ? "text-primary" : "text-textPrimary"
+                }`}
             >
               <li>Business</li>
-              <li>About</li>
               <Link to="/faq">
                 <li>FAQ</li>
               </Link>
@@ -320,9 +318,8 @@ const Header = ({ customBG }) => {
                 <li>Programs</li>
               </Link>
               <Link to="/groups">
-                <li>Groups</li>
+                <li>Group</li>
               </Link>
-              <li>Reviews</li>
               <li>Contact</li>
             </ul>
             {renderUserNav()}
