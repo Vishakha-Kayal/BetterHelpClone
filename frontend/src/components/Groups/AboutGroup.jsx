@@ -82,7 +82,9 @@ const AboutGroup = () => {
     <>
       <ToastContainer className="text-2xl font-semibold" />
       <Header customBG="true" />
-      <section className="w-full min-h-screen bg-[#f0e9e0] flex pt-[9rem] pb-24 ">
+      <section className="w-full min-h-screen bg-[#f0e9e0] flex pt-[9rem] pb-24 "
+      style={{ background: 'linear-gradient(to right, rgb(205, 240, 244), rgb(241, 253, 251), rgb(255, 255, 255), rgb(254, 250, 239), rgb(254, 246, 225))' }}
+      >
         <section
           className="w-[15%] h-full flex justify-center text-6xl cursor-pointer"
           onClick={() => {
@@ -117,11 +119,11 @@ const AboutGroup = () => {
             </div>
             <div className="mx-auto w-[12.1%]">
               <Button
-                bg="bg-[#4d9a61]"
+                bg="bg-[#007481]"
                 paddingY="py-[0.8rem]"
                 text="text-[2rem]"
                 borderColor="shadow-[2px_2px_2px_1.3px_#2b5035]"
-                hoverbg="hover:bg-[#f0e9e0] hover:text-[#21332a]"
+                hoverbg="hover:bg-[#0057e8]"
                 font="font-bold"
                 color="text-textPrimary"
                 content={`${isMember ? "Visit" : "Join Group"}`}
@@ -133,7 +135,7 @@ const AboutGroup = () => {
           {/* Additional content sections */}
           <aside className="mb-4">
             <div className="flex gap-7 mb-7">
-              <section className="w-[50%] flex flex-col justify-between col-span-2 px-3 py-4 my-4 bg-hero-texture bg-[#a75d00] rounded-md">
+              <section className="w-[50%] flex flex-col justify-between col-span-2 px-3 py-4 my-4  bg-[#007481] rounded-md">
                 <h5 className="text-[3.5rem] text-[#efefef] tracking-tight font-overpass font-light mb-4 lg:leading-[5.6rem] lg:text-[4rem]">
                   Overview :
                 </h5>
@@ -141,15 +143,15 @@ const AboutGroup = () => {
                   {group.groupDescription}
                 </p>
               </section>
-              <section className="w-[50%] px-3 py-4 bg-hero-texture bg-[#457777] rounded-md my-4">
+              <section className="w-[50%] px-3 py-4  bg-[#00a6c7] rounded-md my-4">
                 <h5 className="text-[3.5rem] text-[#efefef] tracking-tight font-overpass font-light mb-4 lg:leading-[5.6rem] lg:text-[4rem]">
                   Purpose :
                 </h5>
                 <p className="text-[1.9rem] text-[#efefef]">{group.groupFor}</p>
               </section>
             </div>
-            <section className="px-3 py-4 bg-hero-texture bg-[#397a4a] rounded-md flex flex-col my-7">
-              <p className="text-[3.5rem] text-[#efefef] tracking-tight font-overpass font-light lg:leading-[5.6rem] lg:text-[4rem]">
+            <section className="px-3 py-4  bg-[#ffb304] rounded-md flex flex-col my-7">
+              <p className="text-[3.5rem] opacity-[0.7] tracking-tight font-overpass font-light lg:leading-[5.6rem] lg:text-[4rem]">
                 {group.groupFocus.name}
               </p>
               <dl className="my-4">
@@ -157,8 +159,8 @@ const AboutGroup = () => {
                   return (
                     <GroupItems
                       title={groups.heading}
-                      colort="text-[#a6de9b]"
-                      colord="text-[#efefef]"
+                      colort="text-[#00000] opacity-[0.8]"
+                      colord="text-[#344545]"
                       key={groups.heading}
                     >
                       {groups.description}
@@ -186,7 +188,7 @@ const AboutGroup = () => {
                 })}
               </dl>
             </section>
-            <section className="bg-[#397a4a] px-3 py-4 bg-hero-texture rounded-md my-7">
+            <section className="bg-[#007481] px-3 py-4 rounded-md my-7">
               <h5 className="text-[3.5rem] text-[#efefef] tracking-tight font-overpass font-light mb-4 lg:leading-[5.6rem] lg:text-[4rem]">
                 Meeting Structure
               </h5>
@@ -213,12 +215,12 @@ const AboutGroup = () => {
             </section>
             <div className="absolute right-0 w-[12.1%]">
               <Button
-                bg="bg-[#a65d00] text-textPrimary"
+                bg="bg-[#007481] text-textPrimary"
                 paddingY="py-[0.8rem]"
                 isScrolled="true"
                 text="text-[2rem]"
                 borderColor="shadow-[2px_2px_2px_1.3px_#000]"
-                hoverbg="hover:bg-[#f0e9e0] hover:text-[#8a4909]"
+                hoverbg="hover:bg-[#0057e8] hover:text-[#8a4909]"
                 font="font-bold"
                 color="text-primary"
                 content={`${isMember ? "Visit" : "Join Group"}`}

@@ -12,20 +12,20 @@ const GroupCards = ({ title, members, isPublic, keyValue,id, image_url }) => {
     }
   }, [token, navigate]);
   return (
-    <div key={keyValue} className="w-[24rem] h-[24rem] rounded-md shadow-md bg-[#c3d7ca] hover:bg-[#9bbaa7] hover:shadow-inner cursor-pointer gap-2 flex flex-col items-center relative p-3">
+    <div key={keyValue} className="w-[25rem] h-[25rem] rounded-md shadow-md hover:bg-[#008590] bg-[#0095b3e6] hover:shadow-inner cursor-pointer gap-2 flex flex-col items-center relative p-3 text-white">
       <p className="text-[1.2rem] absolute right-4 font-semibold ">
         {isPublic ? "Public" : "Private"}
       </p>
       <div className="w-[11.5rem] h-[11.5rem] rounded-full overflow-hidden mt-7">
         <img src={image_url} alt="" className="w-full h-full object-cover" />
       </div>
-      <h4 className="text-3xl font-inter text-[#4a4d4a] font-semibold truncate">
+      <h4 className="text-3xl font-inter text-[#d9f4f6] font-semibold truncate">
         {title.length > 24 ? title.slice(0, 23) + "..." : title}
       </h4>
       <h5 className="text-xl">{members?.length} members</h5>
       <div className="flex gap-4">
         <button
-          className="text-white text-[1.2rem] bg-[#4f7a63] px-7 py-2 rounded-[4rem] shadow-xl z-[6] hover:bg-[#6f9880] hover:text-black transition ease-in"
+          className="text-white text-[1.2rem]  bg-[#007481e9] px-7 py-2 rounded-[4rem] shadow-xl z-[6] hover:bg-[#0095b3] hover:text-white transition ease-in"
           onClick={() => {            
             navigate(`/groups/visit/${id}`);
           }}
@@ -36,7 +36,7 @@ const GroupCards = ({ title, members, isPublic, keyValue,id, image_url }) => {
         <button
           className={`${
             admin
-              ? "block text-[1.2rem] border-[2px] border-[#4f7a63] px-7 py-2 rounded-[4rem] shadow-xl z-[6] hover:bg-white hover:text-black transition ease-in"
+              ? "block text-[1.2rem] border-[2px] border-[#4f7a63] px-7 py-2 rounded-[4rem] shadow-xl z-[6] hover:bg-white  hover:text-black transition ease-in"
               : "hidden"
           }`}
           onClick={() => {

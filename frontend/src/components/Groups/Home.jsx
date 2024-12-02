@@ -26,7 +26,9 @@ const Home = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <main className="min-h-screen  bg-[#f7f0e6]">
+    <main className="min-h-screen  bg-[#fefaf0]"
+    style={{ background: 'linear-gradient(to right, rgb(205, 240, 244), rgb(241, 253, 251), rgb(255, 255, 255), rgb(254, 250, 239), rgb(254, 246, 225))' }}
+    >
       <section
         className="h-screen relative flex flex-col justify-between"
         style={{
@@ -34,8 +36,8 @@ const Home = () => {
           backgroundSize: "100% 100%",
         }}
       >
-        <div className="absolute w-full h-full bg-[#4f6856] opacity-[30%]"></div>
-        <div className="">
+        <div className="absolute w-full h-full bg-[#007481] opacity-[35%]"></div>
+        <div className="relative">
           <h1
             className="text-center text-[#fff] text-[5rem] md:text-[6rem] lg:text-[8.9rem] pt-24 z-[9] font-inter lg:leading-[11rem]"
             style={{ textShadow: "8px 8px 4px #21332a" }}
@@ -56,7 +58,8 @@ const Home = () => {
           />
         </div>
       </section>
-      <section className="min-h-screen bg-[#fffcf6] py-16 px-20">
+      <section className="min-h-screen bg-[#fffcf6] py-16 px-20"
+        style={{ background: 'linear-gradient(to right, rgb(205, 240, 244), rgb(241, 253, 251), rgb(255, 255, 255), rgb(254, 250, 239), rgb(254, 246, 225))' }}>
         <h2 className="text-5xl text-[#4a4d4a] text-center pb-5">
           Explore Anonymous Groups
         </h2>
@@ -80,7 +83,7 @@ const Home = () => {
         </section>
         <div className="flex justify-center items-center">
           <button
-            className=" text-white text-4xl bg-[#4f7a63] px-8 py-5 mt-12 rounded-[4rem] shadow-xl z-[6] hover:bg-[#6f9880] hover:text-black transition ease-in"
+            className=" text-white text-4xl bg-[#0095b3] px-8 py-5 mt-12 rounded-[4rem] shadow-xl z-[6] hover:bg-[#007481e9] transition ease-in"
             onClick={() => navigate("/groups/allGroups")}
           >
             See More{" "}

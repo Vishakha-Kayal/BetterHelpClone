@@ -10,7 +10,7 @@ const TherapyOption = () => {
         const { id, name, desc, defaultImg, movementImg, bgColor } = options;
         return (
           <div
-            className="md:bg-auto therapyOption cursor-pointer hover:border-[1px] border-white transition-all ease-in  w-full h-[12.3rem] md:w-[65.3rem] md:h-[11.8rem] lg:w-[34.4rem] lg:h-[28rem] rounded-[1rem] overflow-hidden relative "
+            className="md:bg-auto therapyOption cursor-pointer hover:border-[1px] border-white text-white transition-all ease-in  w-full h-[12.3rem] md:w-[65.3rem] md:h-[11.8rem] lg:w-[34.4rem] lg:h-[28rem] rounded-[1rem] overflow-hidden relative "
             key={id}
             style={{
               "--default-img": `url(${defaultImg})`,

@@ -41,7 +41,7 @@ const CategoriesInfinity = ({categories,heading,isGroup}) => {
       </section>
 
       <Button
-        bg="bg-[#4f7a63]"
+        bg="bg-[#0095b3]"
         paddingY="py-[1.4rem]"
         paddingX="px-[1.6rem] w-[15rem] m-auto"
         text="text-4xl "
