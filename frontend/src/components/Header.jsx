@@ -7,25 +7,44 @@ import { Link, useNavigate } from "react-router-dom";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { decodeToken } from "../utils/decodeToken.js";
 import { useVerification } from "../context/verifyToken";
+import { MdOutlineLightMode, MdLightMode } from "react-icons/md";
 import UserAccessToggle from "./UserAccessToggle.jsx";
 
 const RegisteredSection = ({ icon, user, isScrolled, onclick }) => {
+  const [showSettings, setShowSettings] = useState(false);
+  const toggleSettings = () => {
+    setShowSettings(!showSettings);
+  };
   return (
     <>
-      <div className="flex flex-col md:flex-row gap-6">
-        <div className="flex justify-center md:justify-start gap-6">
-          <div className="w-14 h-14 bg-textPrimary rounded-full flex justify-center items-center">
+      <div className="h-full flex flex-col md:flex-row gap-6">
+        <div className="flex justify-center md:justify-start gap-6 relative ">
+          {/* <div className="w-14 h-14 bg-textPrimary rounded-full flex justify-center items-center">
             <IoIosNotificationsOutline className="text-5xl text-primary" />
-          </div>
-          <div className="h-14 flex justify-center items-center gap-3 rounded">
-            <div className="w-14 h-full rounded-full bg-secondary flex justify-center items-center">
+          </div> */}
+          <div className="flex justify-center items-center gap-3 border-b-[3px] border-transparent hover:border-b-[#007481] hover:border-l-[#007481]"
+          onClick={toggleSettings}
+          >
+            <div className="w-16 h-16 rounded-full bg-[#007481] flex justify-center items-center">
               <img src={icon} alt="" className="w-[90%] h-[90%]" />
             </div>
             <span className="text-2xl">{user}</span>
           </div>
+          <div className={`${showSettings?"w-full absolute top-24 mt-2 px-6 py-2 border border-gray-300 rounded bg-white shadow-md":'hidden'}`}
+          
+          >
+            <ul className="text-[1.4rem] ">
+             <Link to={"/user/AccountSettings"}> <li className="py-1 hover:font-medium cursor-pointer">Account Settings</li></Link>
+              <li className="py-1 hover:font-medium cursor-pointer">My Therapist</li>
+              <li className="py-1 hover:font-medium cursor-pointer">Change Therapist</li>
+              <li className="py-1 hover:font-medium cursor-pointer">Premium</li>
+              <li className="py-1 hover:font-medium cursor-pointer">Personal Information</li>
+              <li className="py-1 hover:font-medium cursor-pointer">Logout</li>
+            </ul>
+          </div>
         </div>
-        <UserAccessToggle/>
-        <Button
+        {/* <UserAccessToggle/> */}
+        {/* <Button
           bg={`${isScrolled ? "bg-[#a6de9b]" : "bg-[#ffffff]"}`}
           paddingY="py-[0.8rem]"
           paddingX="px-[1.6rem]"
@@ -35,13 +54,18 @@ const RegisteredSection = ({ icon, user, isScrolled, onclick }) => {
           content="logout"
           isScrolled={isScrolled}
           onClick={onclick}
-        />
+        /> */}
       </div>
     </>
   );
 };
 
 const Header = ({ customBG }) => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+  };
   const { userType, token, updateUserType, logout } = useVerification();
   const [isScrolled, setIsScrolled] = useState(false);
   const [hamClick, sethamClick] = useState(false);
@@ -228,10 +252,8 @@ const Header = ({ customBG }) => {
 
   return (
     <header
-      className={`z-[4] fixed top-0 w-screen h-[6.4rem] md:px-14 md:py-6 lg:py-7 transition-all duration-300 ${isScrolled
-        ? "bg-white text-primary shadow-md"
-        : "bg-primary text-textPrimary"
-        }`}
+      className={`z-[4] fixed top-0 w-screen h-[8rem] md:px-12 transition-all duration-300 `}
+      style={{ background: 'linear-gradient(to right, rgb(205, 240, 244), rgb(241, 253, 251), rgb(255, 255, 255), rgb(254, 250, 239), rgb(254, 246, 225))' }}
     >
       {/* Header content */}
       <div
@@ -239,14 +261,15 @@ const Header = ({ customBG }) => {
           }`}
       >
         {/* Mobile Header */}
-        <div className="w-full flex justify-between items-start gap-3 px-4 pt-6">
-          <div className="w-[16rem]">
+        <div className="w-full flex justify-between items-center gap-3 px-5 pt-6">
+          <div className="w-16 flex items-center"
+          onClick={onHandleRedirectToHome}>
             <img
-              src={isScrolled ? assets.logo : assets.homelogo}
-              alt=""
-              onClick={onHandleRedirectToHome}
-              className="cursor-pointer"
+              src={assets.freudiaLogo}
+              alt="freudiaLogo"              
+              className="w-full h-full cursor-pointer"
             />
+            <h2 className="text-[3rem] font-mono font-semibold tracking-tighter text-[#007481]">freudia</h2>
           </div>
           <div>
             {hamClick ? (
@@ -267,9 +290,9 @@ const Header = ({ customBG }) => {
           </div>
         </div>
         {hamClick && (
-          <div className="w-full h-[80vh] bg-white px-4">
+          <div className="w-full h-[80vh] px-4">
             <div className="flex flex-col gap-7">
-              <ul className="font-overpass font-medium flex flex-col gap-6 text-[2.3rem] text-[#444444] p-4">
+              <ul className="font-overpass font-medium flex flex-col gap-6 text-[2.3rem] text-[#62676a] p-4">
                 <li>Business</li>
                 <Link to="/faq">
                   <li>FAQ</li>
@@ -292,20 +315,20 @@ const Header = ({ customBG }) => {
       </div>
 
       {/* Desktop Header */}
-      <div className="w-full justify-between hidden lg:flex">
-        <div className="py-1 w-full lg:flex lg:justify-between lg:items-center">
-          <div className="h-full w-[18rem]">
+      <div className="w-full h-full hidden lg:flex">
+        <div className="py-1 w-full flex justify-between items-center">
+          <div className="w-full flex items-center">
             <img
-              src={isScrolled ? assets.logo : assets.homelogo}
-              alt=""
+              src={assets.freudiaLogo}
+              alt="freudiaLogo"
               onClick={onHandleRedirectToHome}
-              className="cursor-pointer"
+              className="w-28 h-full cursor-pointer"
             />
+            <h2 className="text-[4.5rem] font-mono font-semibold tracking-tighter text-[#007481]">freudia</h2>
           </div>
-          <div className="flex gap-7">
+          <div className="w-[45%] h-full flex gap-7">
             <ul
-              className={`navContent font-overpass font-medium flex items-center gap-6 text-[1.6rem] ${isScrolled ? "text-primary" : "text-textPrimary"
-                }`}
+              className={`navContent font-overpass font-medium flex items-center gap-6 text-[1.6rem] text-[#484949]`}
             >
               <li>Business</li>
               <Link to="/faq">
@@ -321,9 +344,16 @@ const Header = ({ customBG }) => {
                 <li>Group</li>
               </Link>
               <li>Contact</li>
+              <button
+                onClick={toggleTheme}
+                className='px-2 rounded text-4xl'
+              >
+                {isDarkMode ? <MdOutlineLightMode /> : <MdLightMode />}
+              </button>
             </ul>
             {renderUserNav()}
           </div>
+
         </div>
       </div>
     </header>

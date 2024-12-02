@@ -5,11 +5,15 @@ const UserAccessToggle = () => {
     const { isPrivate, updateisPrivate, setIsPrivateToServer, getPrivateFromServer } = useVerification()
 
     useEffect(() => {
-        getPrivateFromServer
+        const getvaluefromserver = async () => {
+            await getPrivateFromServer()
+        }
+        getvaluefromserver()
     }, [isPrivate])
     const toggleAccess = () => {
         updateisPrivate(!isPrivate)
         setIsPrivateToServer(!isPrivate)
+        console.log("priv", isPrivate)
     };
     return (
         <div className="flex items-center gap-2">

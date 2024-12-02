@@ -1,3 +1,4 @@
+import freudiaLogo from "./images/freudiaLogo.png"
 import textureImg from "./images/bg-texture.png";
 import logo from "./images/homelogo.png";
 import homelogo from "./images/logoIcon.png";
@@ -50,6 +51,7 @@ import formImage from "./images/form-image.webp";
 
 export const assets = {
   formImage,
+  freudiaLogo,
   textureImg,
   logo,
   homelogo,
@@ -1057,7 +1059,7 @@ export const therapyOptions = [
     desc: "For myself",
     defaultImg: individualDefault,
     movementImg: individualMovement,
-    bgColor: "#397a4a",
+    bgColor: "#007481",
   },
   {
     id: 2,
@@ -1065,7 +1067,7 @@ export const therapyOptions = [
     desc: "For me and my partner",
     defaultImg: coupleDefault,
     movementImg: coupleMovement,
-    bgColor: "#457777",
+    bgColor: "#00a6c7",
   },
   {
     id: 3,
@@ -1073,7 +1075,7 @@ export const therapyOptions = [
     desc: "For my child",
     defaultImg: teenDefault,
     movementImg: teenMovement,
-    bgColor: "#a75d00",
+    bgColor: "#ffb304",
   },
 ];
 

@@ -34,9 +34,9 @@ const CategoriesInfinity = ({categories,heading,isGroup}) => {
           {categories.map((category, index) => (
             <Category key={index} image={category.image} name={category.name} />
           ))}
-          {/* {categories.map((category, index) => (
+          {categories.map((category, index) => (
             <Category key={`clone-${index}`} image={category.image} name={category.name} />
-          ))} */}
+          ))}
         </div>
       </section>
 
