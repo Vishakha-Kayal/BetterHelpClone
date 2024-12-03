@@ -4,6 +4,8 @@ import YourTherapist from './YourTherapist'
 import Notifications from './Notifications/Notifications'
 import EditSessions from './EditSessions'
 import Payment from './Payment'
+import MyProfile from './MyProfile'
+import QuitTherapy from './QuitTherapy'
 
 const Home = () => {
   return (
@@ -14,6 +16,8 @@ const Home = () => {
       <Notifications />
       <EditSessions />
       <Payment />
+      <MyProfile />
+      <QuitTherapy   />
     </div>
   )
 }
