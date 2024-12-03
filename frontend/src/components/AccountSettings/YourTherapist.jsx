@@ -3,11 +3,12 @@ import { assets } from '../../assets/assets'
 import { SiImessage } from "react-icons/si";
 import { FaPhone } from "react-icons/fa6";
 import { IoVideocam } from "react-icons/io5";
+import Heading from './Heading';
 
 const YourTherapist = () => {
     return (
-        <div className='bg-textPrimary my-5 px-7 pt-7 flex flex-col gap-4 rounded-md' >
-            <h2 className='text-[2.1rem] font-semibold'>Your Therapist</h2>
+        <div className='bg-textPrimary my-5 px-9 pt-11  pb6 flex flex-col gap-4 rounded-md' id="#yourTherapist">
+             <Heading content="Your Therapist" />
             <div className="flex items-center w-full h-[7rem] gap-5">
                 <div>
                     <img src={assets.therapistFive} alt="" className='w-[7rem] rounded-full object-cover' />

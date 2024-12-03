@@ -23,25 +23,25 @@ const RegisteredSection = ({ icon, user, isScrolled, onclick }) => {
             <IoIosNotificationsOutline className="text-5xl text-primary" />
           </div> */}
           <div className="flex justify-center items-center gap-3 border-b-[3px] border-transparent hover:border-b-[#007481] hover:border-l-[#007481]"
-          onClick={toggleSettings}
+            onClick={toggleSettings}
           >
             <div className="w-16 h-16 rounded-full bg-[#007481] flex justify-center items-center">
               <img src={icon} alt="" className="w-[90%] h-[90%]" />
             </div>
             <span className="text-2xl">{user}</span>
           </div>
-          <div className={`${showSettings?"w-full absolute top-24 mt-2 px-6 py-2 border border-gray-300 rounded bg-white shadow-md":'hidden'}`}
-          
+          <div className={`${showSettings ? "w-full absolute top-24 mt-2 px-6 py-2 border border-gray-300 rounded bg-white shadow-md" : 'hidden'}`}
+
           >
             <ul className="text-[1.4rem] ">
-             <Link to={"/user/AccountSettings"}> <li className="py-1 hover:font-medium cursor-pointer">Account Settings</li></Link>
-              <li className="py-1 hover:font-medium cursor-pointer">My Therapist</li>
+              <Link to={"/user/AccountSettings"}> <li className="py-1 hover:font-medium cursor-pointer">Account Settings</li></Link>
+              <Link to="/user/AccountSetting#yourTherapist">   <li className="py-1 hover:font-medium cursor-pointer">My Therapist</li></Link>
               <li className="py-1 hover:font-medium cursor-pointer">Change Therapist</li>
               <li className="py-1 hover:font-medium cursor-pointer">Premium</li>
               <li className="py-1 hover:font-medium cursor-pointer">Personal Information</li>
-           <li className="py-1 hover:font-medium cursor-pointer"
-           onClick={onclick}
-           >Logout</li>
+              <li className="py-1 hover:font-medium cursor-pointer"
+                onClick={onclick}
+              >Logout</li>
             </ul>
           </div>
         </div>
@@ -265,10 +265,10 @@ const Header = ({ customBG }) => {
         {/* Mobile Header */}
         <div className="w-full flex justify-between items-center gap-3 px-5 pt-6">
           <div className="w-16 flex items-center"
-          onClick={onHandleRedirectToHome}>
+            onClick={onHandleRedirectToHome}>
             <img
               src={assets.freudiaLogo}
-              alt="freudiaLogo"              
+              alt="freudiaLogo"
               className="w-full h-full cursor-pointer"
             />
             <h2 className="text-[3rem] font-mono font-semibold tracking-tighter text-[#007481]">freudia</h2>

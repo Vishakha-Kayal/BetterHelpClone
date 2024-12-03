@@ -1,9 +1,10 @@
 import Button from "../../Button"
+import Heading from "../Heading"
 import Settings from "./Settings"
 const Notifications = () => {
     return (
-        <div className='bg-textPrimary my-5 px-7 py-7 flex flex-col rounded-md' >
-            <h2 className='text-[2.1rem] font-semibold'>Notifications</h2>
+        <div className='bg-textPrimary my-5 px-9 py-11  flex flex-col rounded-md' >
+            <Heading content="Notifications" />
             <Settings title="Messages from therapist" content="Notifications when you receive a new message from your therapist" />
             <Settings title="Live session reminders" content="Notifications when you have upcoming live sessions" />
             {/* <p  className='text-[1.4rem]'> Push notifications can be updated in the app</p> */}
