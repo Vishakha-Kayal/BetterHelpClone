@@ -26,12 +26,12 @@ const Home = () => {
             </p>
             <div className="w-full z-[50]">
               <Button
-                bg="bg-[#a6de9b]"
+                bg="bg-secondary"
                 paddingY="py-[1.8rem]"
                 paddingX="px-[1.6rem] w-[25rem] m-auto"
                 text="text-4xl z-[99]"
                 font="font-bold"
-                color="text-primary border-none"
+                color="text-white border-none"
                 content="SignUp as a farmer"
                 hoverbg="hover:bg-secondary hover:text-white transition all ease 1s cursor-pointer"
                 navigateTo="/programs/farmers/signup"
@@ -76,12 +76,12 @@ const Home = () => {
             </p>
           </div>
           <Button
-            bg="bg-[#a6de9b]"
+            bg="bg-secondary"
             paddingY="py-[1.8rem]"
             paddingX="px-[1.6rem] w-[25rem] m-auto"
             text="text-4xl z-[99]"
             font="font-bold"
-            color="text-primary border-none"
+            color="text-textPrimary border-none"
             content="Get Help Today"
             hoverbg="hover:bg-secondary hover:text-white transition all ease 1s cursor-pointer"
           />

@@ -12,7 +12,7 @@ const GroupCards = ({ title, members, isPublic, keyValue,id, image_url }) => {
     }
   }, [token, navigate]);
   return (
-    <div key={keyValue} className="w-[25rem] h-[25rem] rounded-md shadow-md hover:bg-[#008590] bg-[#0095b3e6] hover:shadow-inner cursor-pointer gap-2 flex flex-col items-center relative p-3 text-white">
+    <div key={keyValue} className="w-[25rem] h-[25rem] rounded-md shadow-md bg-[#008590] hover:bg-[#0095b3e6] hover:shadow-inner cursor-pointer gap-2 flex flex-col items-center relative p-3 text-white">
       <p className="text-[1.2rem] absolute right-4 font-semibold ">
         {isPublic ? "Public" : "Private"}
       </p>

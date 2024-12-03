@@ -11,13 +11,15 @@ const ProgramPage = () => {
   return (
     <>
       <Header customBG={true} />
-      <section className="w-full h-screen bg-[#f7f0e6] bg-hero-texture relative">
+      <section className="w-full h-screen bg-[#f7f0e6] relative"
+      style={{ background: 'linear-gradient(to right, rgb(205, 240, 244), rgb(241, 253, 251), rgb(255, 255, 255), rgb(254, 250, 239), rgb(254, 246, 225))' }}
+      >
         <main className="w-full h-full flex md:flex-row justify-center gap-20 items-center flex-col relative">
           <h2 className="text-center text-6xl absolute top-[10%] md:top-[20%] text-secondary">
             PROGRAMS
           </h2>
           <aside
-            className="h-[27rem] w-[40rem] md:h-[31rem] rounded-3xl bg-[#397a4a] px-2 relative cursor-pointer hover:border-[3px] border-white transition-all ease-in"
+            className="h-[27rem] w-[40rem] md:h-[31rem] rounded-3xl bg-[#00a6c7] px-2 relative cursor-pointer hover:border-[3px] border-white transition-all ease-in"
             style={{
               backgroundImage: `url(${bgImages[0]})`,
               backgroundSize: "70% 90%",
@@ -36,7 +38,7 @@ const ProgramPage = () => {
             </p>
           </aside>
           <aside
-            className="h-[27rem] w-[40rem] md:h-[31rem] rounded-3xl bg-[#457777] px-2 relative cursor-pointer hover:border-[3px] border-white transition-all ease-in"
+            className="h-[27rem] w-[40rem] md:h-[31rem] rounded-3xl bg-[#007481] px-2 relative cursor-pointer hover:border-[3px] border-white transition-all ease-in"
             style={{
               backgroundImage: `url(${bgImages[1]})`,
               backgroundSize: "60% 90%",

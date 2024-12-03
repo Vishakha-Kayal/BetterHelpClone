@@ -13,7 +13,7 @@ const Feeds = ({ onHandleShowComments, data, postLike, postDislike, userId }) =>
     const fetchVisibility = async () => {
       if (!visibilityFetched) {
         await getPrivateFromServer();
-        setVisibilityFetched(true); 
+        setVisibilityFetched(true);
       }
     };
     fetchVisibility();
@@ -28,17 +28,19 @@ const Feeds = ({ onHandleShowComments, data, postLike, postDislike, userId }) =>
   }, [data._id, postLike]);
 
   return (
-    <section className="bg-[#f9f6f3] mx-4 w-[93%] flex p-4 gap-5">
-      <div className="w-[6rem] h-[6rem] rounded-full overflow-hidden">
-        <img
-          src={data.createdBy?.profileImage}
-          alt=""
-          className="w-full h-full"
-        />
+    <section className="bg-[#f9f6f3] w-[93%] flex p-4 gap-5">
+      <div>
+        <div className="w-[6rem] h-[6rem] bg-slate-500 rounded-full overflow-hidden">
+          <img
+            src={data.createdBy?.profileImage}
+            alt=""
+            className="w-full h-full object-cover"
+          />
+        </div>
       </div>
       <div className="flex flex-col">
         <div className="flex items-center gap-3">
-          <h3 className="text-xl">
+          <h3 className="text-xl lowercase">
             {data.createdBy._id === userId && isPrivate ? "Anonymous" : data.createdBy?.email || data.createdBy?.fullName}
           </h3>
           <h3 className="text-lg">

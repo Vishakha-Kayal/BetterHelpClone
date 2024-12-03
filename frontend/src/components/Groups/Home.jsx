@@ -83,7 +83,7 @@ const Home = () => {
         </section>
         <div className="flex justify-center items-center">
           <button
-            className=" text-white text-4xl bg-[#0095b3] px-8 py-5 mt-12 rounded-[4rem] shadow-xl z-[6] hover:bg-[#007481e9] transition ease-in"
+            className=" text-white text-4xl bg-[#007481e9] hover:bg-[#0095b3] px-8 py-5 mt-12 rounded-[4rem] shadow-xl z-[6] transition ease-in"
             onClick={() => navigate("/groups/allGroups")}
           >
             See More{" "}

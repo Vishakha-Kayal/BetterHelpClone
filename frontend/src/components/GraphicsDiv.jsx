@@ -16,20 +16,20 @@ const GraphicsDiv = () => {
       </svg>
 
       <svg
-        className="w-full h-16 md:hidden"
+        className="w-full h-12 md:hidden"
         preserveAspectRatio="none"
         viewBox="0 0 390 64"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          fill="#7ec16a"
+          fill="#007481"
           d="M62 2.87795C37.1663 5.28371 16 5.44275 0 3.5V64H256V21.9319C186 13.1148 169.806 -7.56579 62 2.87795Z"
         ></path>
         <path
           className="opacity-75"
           d="M62 2.87795C37.1663 5.28371 16 5.44275 0 3.5V64H256V21.9319C186 13.1148 169.806 -7.56579 62 2.87795Z"
-          style={{ fill: "url(#texture)" }}
+          style={{ fill: "#007481" }}
         ></path>
         <path
           className="fill-white"
@@ -45,7 +45,7 @@ const GraphicsDiv = () => {
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          fill="#7ec16a"
+          fill="#007481"
           d="M95.0625 6.61043C58.7791 10.3328 19.4708 7.11671 4 4.53203V72H380V26.9947C277.188 17.562 242.329 -8.49792 95.0625 6.61043Z"
         ></path>
         <path

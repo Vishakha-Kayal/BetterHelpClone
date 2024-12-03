@@ -119,7 +119,7 @@ const AboutGroup = () => {
             </div>
             <div className="mx-auto w-[12.1%]">
               <Button
-                bg="bg-[#007481]"
+                bg="bg-secondary"
                 paddingY="py-[0.8rem]"
                 text="text-[2rem]"
                 borderColor="shadow-[2px_2px_2px_1.3px_#2b5035]"
@@ -135,7 +135,7 @@ const AboutGroup = () => {
           {/* Additional content sections */}
           <aside className="mb-4">
             <div className="flex gap-7 mb-7">
-              <section className="w-[50%] flex flex-col justify-between col-span-2 px-3 py-4 my-4  bg-[#007481] rounded-md">
+              <section className="w-[50%] flex flex-col justify-between col-span-2 px-3 py-4 my-4  bg-secondary rounded-md">
                 <h5 className="text-[3.5rem] text-[#efefef] tracking-tight font-overpass font-light mb-4 lg:leading-[5.6rem] lg:text-[4rem]">
                   Overview :
                 </h5>
@@ -188,7 +188,7 @@ const AboutGroup = () => {
                 })}
               </dl>
             </section>
-            <section className="bg-[#007481] px-3 py-4 rounded-md my-7">
+            <section className="bg-secondary px-3 py-4 rounded-md my-7">
               <h5 className="text-[3.5rem] text-[#efefef] tracking-tight font-overpass font-light mb-4 lg:leading-[5.6rem] lg:text-[4rem]">
                 Meeting Structure
               </h5>
@@ -215,12 +215,12 @@ const AboutGroup = () => {
             </section>
             <div className="absolute right-0 w-[12.1%]">
               <Button
-                bg="bg-[#007481] text-textPrimary"
+                bg="bg-secondary text-textPrimary"
                 paddingY="py-[0.8rem]"
                 isScrolled="true"
                 text="text-[2rem]"
                 borderColor="shadow-[2px_2px_2px_1.3px_#000]"
-                hoverbg="hover:bg-[#0057e8] hover:text-[#8a4909]"
+                hoverbg="hover:bg-[#0057e8] hover:text-textPrimary"
                 font="font-bold"
                 color="text-primary"
                 content={`${isMember ? "Visit" : "Join Group"}`}

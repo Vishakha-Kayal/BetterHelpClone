@@ -10,7 +10,8 @@ export default {
       },
       colors: {
         primary: "#325242",
-        secondary:"#397a4a",
+        secondary:"#007481",
+        tertiary:"#ffb304",
         textPrimary: "#ffffff",
       },
       backgroundImage: {
@@ -32,3 +33,4 @@ export default {
     },
   ],
 };
+// 397a4a

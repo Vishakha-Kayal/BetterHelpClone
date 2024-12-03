@@ -4,8 +4,7 @@ const IntroductionSection = () => (
   <div
     className="mt-11 mb-4 rounded-[19px] overflow-hidden py-2 px-9"
     style={{
-      backgroundImage: `url('https://dz9yg0snnohlc.cloudfront.net/green_curve.png')`,
-      backgroundSize: "cover",
+      background: "linear-gradient(to bottom, transparent 60%, #007481 100%)", 
     }}
   >
     <h2 className="text-[2.1rem] font-overpass text-[#4a4d4a] font-semibold my-4 pt-3">

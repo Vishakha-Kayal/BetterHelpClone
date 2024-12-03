@@ -355,7 +355,7 @@ const GroupJoined = () => {
               <section className="text-2xl w-[100%] px-4 py-5">
                 <p className="text-3xl font-bold mb-4">Comments</p>
                 <div className="flex gap-5 items-center">
-                  <div className="bg-[#db8200] w-24 h-24 flex justify-center items-center rounded-full">
+                  <div className="bg-secondary w-24 h-24 flex justify-center items-center rounded-full">
                     <span className="text-5xl text-white uppercase">{decodedUserId}</span>
                   </div>
                   <div className="w-[80%] flex flex-col gap-4 items-end">
@@ -384,7 +384,7 @@ const GroupJoined = () => {
                         >
                           Cancel
                         </div>
-                        <div className="bg-[#397a4a] text-textPrimary px-5 py-3 rounded-full"
+                        <div className="bg-secondary text-textPrimary px-5 py-3 rounded-full"
                           onClick={onHandleCommentPost}
                         >
                           Comment

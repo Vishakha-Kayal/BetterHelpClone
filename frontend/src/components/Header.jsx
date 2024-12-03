@@ -39,7 +39,9 @@ const RegisteredSection = ({ icon, user, isScrolled, onclick }) => {
               <li className="py-1 hover:font-medium cursor-pointer">Change Therapist</li>
               <li className="py-1 hover:font-medium cursor-pointer">Premium</li>
               <li className="py-1 hover:font-medium cursor-pointer">Personal Information</li>
-              <li className="py-1 hover:font-medium cursor-pointer">Logout</li>
+           <li className="py-1 hover:font-medium cursor-pointer"
+           onClick={onclick}
+           >Logout</li>
             </ul>
           </div>
         </div>
