@@ -158,30 +158,29 @@ const Header = ({ customBG }) => {
         );
       case null:
         return (
-          <>
+          <div className="flex gap-5 h-[100%] items-center">
             <Button
-              bg="bg-none"
-              paddingY="py-[0.8rem]"
-              paddingX="px-[1.6rem]"
+              bg="border-secondary"
+              paddingY="py-[0.5rem]"
+              paddingX="px-[1.8rem]"
               text="text-2xl"
               font="font-bold"
-              color={`${isScrolled ? "text-primary" : "text-white"}`}
+              color="text-secondary"
               content="Login"
-              isScrolled={isScrolled}
               navigateTo="/login"
             />
             <Button
-              bg={`${isScrolled ? "bg-[#a6de9b]" : "bg-[#ffffff]"}`}
+              bg="bg-secondary"
               paddingY="py-[0.8rem]"
               paddingX="px-[1.6rem]"
               text="text-2xl"
               font="font-bold"
-              color="text-primary border-none"
+              color="text-white border-none"
               content="Get Started"
               isScrolled={isScrolled}
               navigateTo="/signup"
             />
-          </>
+          </div>
         );
       default:
         return null;
@@ -319,7 +318,7 @@ const Header = ({ customBG }) => {
       {/* Desktop Header */}
       <div className="w-full h-full hidden lg:flex">
         <div className="py-1 w-full flex justify-between items-center">
-          <div className="w-full flex items-center">
+          <div className="w-[60%] flex items-center">
             <img
               src={assets.freudiaLogo}
               alt="freudiaLogo"
@@ -328,7 +327,7 @@ const Header = ({ customBG }) => {
             />
             <h2 className="text-[4.5rem] font-mono font-semibold tracking-tighter text-[#007481]">freudia</h2>
           </div>
-          <div className="w-[45%] h-full flex gap-7">
+          <div className="w-[50%] h-full flex gap-7">
             <ul
               className={`navContent font-overpass font-medium flex items-center gap-6 text-[1.6rem] text-[#484949]`}
             >

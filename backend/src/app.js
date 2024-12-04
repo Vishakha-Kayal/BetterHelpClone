@@ -23,6 +23,9 @@ app.get("/", async (req, res) => {
 import userRouter from "./routes/users.routes.js";
 app.use("/api/users", userRouter);
 
+import userAccountRouter from "./routes/useraccount.routes.js"
+app.use("/api/userAccount",userAccountRouter)
+
 import adminRouter from "./routes/admin.routes.js";
 app.use("/api/admin", adminRouter);
 

@@ -28,7 +28,6 @@ const generateRefreshAndAcessToken = async userId => {
 };
 
 const registerUser = asyncHandler(async (req, res) => {
-  console.log("register url hit at the backend");
   const { email, password } = req.body;
   if (!email || !password || email.trim() === "" || password.trim() === "") {
     throw new ApiError(400, "All fields are required");
@@ -38,8 +37,6 @@ const registerUser = asyncHandler(async (req, res) => {
   if (user) {
     throw new ApiError(409, "User with this email already exists.");
   }
-
-  console.log("files", req.file);
 
   const profileLocalPath = req.file?.path;
 
@@ -127,7 +124,6 @@ const checkUser = asyncHandler(async (req, res) => {
 
 const editUser = asyncHandler(async (req, res) => {
   const { password, email } = req.body;
-  console.log("req", req.body);
   if (!password) {
     throw new ApiError(400, "Password is required");
   }
@@ -144,7 +140,6 @@ const toggleAccess = asyncHandler(async (req, res) => {})
 
 const getAllUsers = asyncHandler(async (req, res) => {
   const users = await User.find({}).select("-password -refreshToken")
-  console.log(users)
   return res.json(new ApiResponse(200, users, "Users fetched successfully"))
 })
 
@@ -170,7 +165,6 @@ const setVisibilty = asyncHandler(async (req, res) => {
 
 const getVisibility = asyncHandler(async (req,res)=>{
   const {userId,userType}=req.body;
-  console.log(req.body)
   const modelMap={
     User:User,
     Farmer:Farmer,

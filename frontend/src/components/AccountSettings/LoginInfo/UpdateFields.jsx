@@ -1,25 +1,58 @@
 import { IoIosArrowUp } from "react-icons/io";
 import { useState } from "react";
 import Button from "../../Button";
+import { updateEmail } from "../../../api/userAccountsettings";
+import { decodeToken } from "../../../utils/decodeToken";
 
-const UpdateFields = ({ forField }) => {
+const UpdateFields = ({ forField, token, userType, handleLogout }) => {
     const [isOpen, setIsOpen] = useState(forField === "email");
     const [password, setPassword] = useState({
         newPasswd: "",
         reEnteredPsswd: ""
     })
+    const [email, setEmail] = useState("")
+    const [emailError, setEmailError] = useState("")
     const [passwordError, setPasswordError] = useState("")
     const toggleField = () => {
         setIsOpen(!isOpen);
     };
 
+    const validateEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+
+    const onHandleUpdateEmail = async () => {
+        if (!validateEmail(email)) {
+            setEmailError("Please enter a valid email address.");
+            return;
+        }
+        setEmailError("");
+        var userId = null; if (token) userId = decodeToken(token)._id
+        console.log("token", token, userId)
+        const formattedUserType = userType.charAt(0).toUpperCase() + userType.slice(1);
+        const response = await updateEmail({ userId, formattedUserType, email })
+        if (response.data.success==true) {
+            console.log("Calling handleLogout");
+            setEmail("")
+            handleLogout();
+         
+        } else {
+            alert(response?.data?.error || "Something went wrong")
+        }
+    }
     const renderEmail = () => (
         <>
-            <div className="bg-[#f5f5f5] flex flex-col py-10 items-center w-full gap-5">
+            <div className="bg-[#f5f5f5] flex flex-col py-10 w-full gap-5">
                 <div className="flex gap-5 w-full">
                     <label htmlFor="newEmail" className="text-[1.4rem] w-[30%] text-center">Enter new email:</label>
-                    <input type="email" className="h-full py-4 px-3 text-[1.4rem] outline-none w-[80%] md:w-[50%] rounded" />
+                    <input type="email" 
+                    value={email}
+                    className="h-full py-4 px-3 text-[1.4rem] outline-none w-[80%] md:w-[50%] rounded"
+                        onChange={(e) => { setEmail(e.target.value) }}
+                    />
                 </div>
+                {emailError && <p className="text-red-600 px-[13rem] text-xl">{emailError}</p>}
                 <div className="flex gap-5 w-full">
                     <div className="w-[30%]"></div>
                     {/* <button className="text-2xl text-center w-[80%] md:w-[50%] bg-secondary py-4 text-textPrimary rounded">Update Email</button> */}
@@ -32,6 +65,7 @@ const UpdateFields = ({ forField }) => {
                         color="text-textPrimary border-none"
                         content="Update Email"
                         hoverbg="hover:bg-secondary hover:text-white transition all ease 1s cursor-pointer"
+                        onClick={onHandleUpdateEmail}
                     />
                 </div>
             </div>

@@ -17,6 +17,7 @@ import therapistThree from "./images/therapistThree.jpg";
 import therapistFour from "./images/therapistFour.jpeg";
 import therapistFive from "./images/therapistFive.jpeg";
 import therapistSix from "./images/therapistSix.jpeg";
+import therapistSeven from "./images/therapistOne-removebg.png";
 import lineburst from "./images/line-burst.svg";
 import howitworks1 from "./images/how-it-works-1.png";
 import howitworks2 from "./images/how-it-works-2.png";
@@ -62,6 +63,7 @@ export const assets = {
   therapistFour,
   therapistFive,
   therapistSix,
+  therapistSeven,
   lineSquiggle,
   eatingDisorder,
   lineburst,

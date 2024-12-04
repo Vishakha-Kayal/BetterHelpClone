@@ -31,6 +31,7 @@ import AddGroup from "./components/Groups/AddGroup/AddGroup";
 import EditGroup from "./components/Groups/EditGroup/EditGroup"
 import AllGroupCategories from "./components/Groups/AllGroupCategories";
 import AccountHome from "./components/AccountSettings/Home";
+import TherapistDetails from "./components/AccountSettings/TherapistDetails"
 
 // export const url = "http://localhost:3000";
 export const url = "https://betterhelpclonebackend.onrender.com";
@@ -44,6 +45,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/user/signin" element={<SignIn />} />
           <Route path="/user/AccountSettings" element={<AccountHome />} />
+          <Route path="/user/AccountSettings/myTherapist" element={<TherapistDetails />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/groups" element={<GroupsHome />} />
           <Route path="/faq" element={<FaqPage />} />

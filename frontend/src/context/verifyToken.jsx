@@ -2,9 +2,11 @@ import { createContext, useContext, useState } from "react";
 import { decodeToken } from "../utils/decodeToken";
 import axios from "axios";
 import {url} from "../App"
+import { useNavigate } from "react-router-dom";
 const VerificationContext = createContext();
 
 export const VerificationContextProvider = ({ children }) => {
+  const navigate=useNavigate()
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [userType, setUserType] = useState(localStorage.getItem("userType"));
   const [isPrivate, setIsPrivate] = useState(false)
@@ -28,10 +30,12 @@ export const VerificationContextProvider = ({ children }) => {
   };
 
   const logout = () => {
+    console.log("entered in logout ")
     setToken(null);
     setUserType(null);
     localStorage.removeItem("token");
     localStorage.removeItem("userType");
+    navigate("/login")
   };
 
   const updateisPrivate = (newIsprivate) => {

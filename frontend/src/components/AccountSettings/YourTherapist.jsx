@@ -4,18 +4,23 @@ import { SiImessage } from "react-icons/si";
 import { FaPhone } from "react-icons/fa6";
 import { IoVideocam } from "react-icons/io5";
 import Heading from './Heading';
+import { useNavigate } from "react-router-dom"
 
 const YourTherapist = () => {
+    const navigate = useNavigate()
+
     return (
         <div className='bg-textPrimary my-5 px-9 pt-11  pb6 flex flex-col gap-4 rounded-md' id="#yourTherapist">
-             <Heading content="Your Therapist" />
+            <Heading content="Your Therapist" />
             <div className="flex items-center w-full h-[7rem] gap-5">
                 <div>
                     <img src={assets.therapistFive} alt="" className='w-[7rem] rounded-full object-cover' />
                 </div>
                 <div className="flex flex-col md:gap-2">
                     <h1 className='text-xl md:text-[1.6rem] font-semibold'>Rubina Ward,MS,LPC</h1>
-                    <p className='text-lg md:text-[1.3rem] text-secondary'>View full profile</p>
+                    <p className='text-lg md:text-[1.3rem] text-secondary cursor-pointer'
+                        onClick={() => navigate('/user/AccountSettings/myTherapist')}
+                    >View full profile</p>
                 </div>
             </div>
             <div>
@@ -55,7 +60,7 @@ const YourTherapist = () => {
                         <h5 className='text-[1.4rem] uppercase mb-3'>PHONE</h5>
                     </div>
                     <div className="flex flex-col gap-3 items-center">
-                    <IoVideocam />
+                        <IoVideocam />
                         <h5 className='text-[1.4rem] uppercase mb-3'>VIDEO</h5>
                     </div>
                 </div>

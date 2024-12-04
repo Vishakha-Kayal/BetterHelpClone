@@ -15,8 +15,8 @@ const MyProfile = () => {
                     font="font-bold"
                     color="text-secondary rounded-md mt-2"
                     content="Upload An Image"
-                    width="w-[28rem] md:w-[20rem]"
-                    hoverbg="border-secondary hover:bg-secondary hover:text-[#fff] transition all ease 1s cursor-pointer"
+                    width="w-[28rem] md:w-[19rem]"
+                    hoverbg="border-secondary border-[1px] hover:bg-secondary hover:text-[#fff] transition all ease 1s cursor-pointer"
                 />
             </div>
             <Button
@@ -27,7 +27,7 @@ const MyProfile = () => {
                     font="rounded-md"
                     color="text-textPrimary border-none flex items-center"
                     content="Save Changes"
-                    hoverbg="hover:bg-secondary hover:text-white transition all ease 1s cursor-pointer"
+                    hoverbg="hover:bg-secondary  hover:text-white transition all ease 1s cursor-pointer"
                 />
         </div>
     )

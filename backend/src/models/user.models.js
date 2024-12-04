@@ -37,7 +37,6 @@ const userSchema = new Schema(
 );
 
 userSchema.pre("save", async function (next) {
-  console.log("pre-hook triggered");
   if (!this.isModified('password')) return next();
   const salt = await bcryptjs.genSalt(7);
   this.password = await bcryptjs.hash(this.password, salt);
