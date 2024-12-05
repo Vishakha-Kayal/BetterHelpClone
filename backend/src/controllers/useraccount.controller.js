@@ -73,9 +73,42 @@ const updatePassword = asyncHandler(async (req, res) => {
     await user.save();
 
     // Respond with success message
-    res.status(200).json({ success:true,message: "Password updated successfully" });
+    res.status(200).json({ success: true, message: "Password updated successfully" });
 });
 
+const updateNotificationSettings = asyncHandler(async (req, res) => {
+    const { userId, userType, messages } = req.body
+    if (!userId || !userType || !messages) {
+        throw new ApiError(400, "All fields are required");
+    }
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+        return res.status(400).json({ message: "Invalid user ID" });
+    }
+    const modelMap = {
+        User: User,
+        Farmer: Farmer,
+        Student: Student
+    }
+    const Model=modelMap[userType]
+    if (!Model) {
+        throw new ApiError(500, "Invalid user type");
+    }
+    const user = await Model.findById(userId);
+    if (!user) {
+        throw new ApiError(404, "User not found");
+    }
+
+    // Update the user's notification settings
+    user.notifications = {
+        messagesFromTherapist: messages.messagesFromTherapist,
+        liveSessionReminders: messages.liveSessionReminders
+    };
+    await user.save();
+
+    // Respond with success message
+    res.status(200).json({ success: true, message: "Notification settings updated successfully" });
+})
+
 export {
-    updateEmail, updatePassword
+    updateEmail, updatePassword, updateNotificationSettings
 }

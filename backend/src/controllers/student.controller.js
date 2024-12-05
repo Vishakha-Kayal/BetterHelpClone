@@ -31,13 +31,13 @@ const registerStudent = asyncHandler(async (req, res) => {
     file =>
       file?.public_id &&
       req.files.identityCard[0].originalname ===
-        `${file.original_filename}.${file.format}`
+      `${file.original_filename}.${file.format}`
   );
   const studentPhotoFile = uploadedFiles.find(
     file =>
       file?.public_id &&
       req.files.studentPhoto[0].originalname ===
-        `${file.original_filename}.${file.format}`
+      `${file.original_filename}.${file.format}`
   );
 
   const identityCardUrl = identityCardFile ? identityCardFile.secure_url : null;
@@ -90,7 +90,11 @@ const loginStudent = asyncHandler(async (req, res) => {
     const isMatch = await studentExists.isPasswordCorrect(password);
     if (isMatch) {
       const token = jwt.sign(
-        { _id: studentExists._id, fullName: studentExists.fullName ,profileImage:studentExists.profileImage},
+        {
+          _id: studentExists._id, fullName: studentExists.fullName, profileImage: studentExists.profileImage, notifications: studentExists.notifications,
+          paymentStatus: studentExists.paymentStatus,
+          addReminder: studentExists.addReminder
+        },
         process.env.ACCESS_TOKEN_SECRET,
         // { expiresIn: "5h" }
       );

@@ -6,7 +6,7 @@ import Heading from '../Heading'
 const LoginInfo = () => {
   const { token, userType,logout } = useVerification()
   const user = token ? decodeToken(token) : null
-  console.log(userType)
+
   return (
     <div className='bg-textPrimary my-5 px-9 py-11 flex flex-col gap-4 rounded-md'>
       <Heading content="Login Information" />
