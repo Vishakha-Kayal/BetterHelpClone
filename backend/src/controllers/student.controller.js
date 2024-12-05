@@ -90,9 +90,9 @@ const loginStudent = asyncHandler(async (req, res) => {
     const isMatch = await studentExists.isPasswordCorrect(password);
     if (isMatch) {
       const token = jwt.sign(
-        { _id: studentExists._id, fullName: studentExists.fullName },
+        { _id: studentExists._id, fullName: studentExists.fullName ,profileImage:studentExists.profileImage},
         process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: "5h" }
+        // { expiresIn: "5h" }
       );
       const { password, ...studentData } = studentExists.toObject();
       return res.json({ success: true, token, student: studentData });

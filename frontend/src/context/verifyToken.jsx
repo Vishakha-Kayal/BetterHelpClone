@@ -11,7 +11,6 @@ export const VerificationContextProvider = ({ children }) => {
   const [userType, setUserType] = useState(localStorage.getItem("userType"));
   const [isPrivate, setIsPrivate] = useState(false)
   const updateToken = (newToken) => {
-
     setToken(newToken);
     if (newToken) {
       localStorage.setItem("token", newToken);

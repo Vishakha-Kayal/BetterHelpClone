@@ -33,8 +33,8 @@ import AllGroupCategories from "./components/Groups/AllGroupCategories";
 import AccountHome from "./components/AccountSettings/Home";
 import TherapistDetails from "./components/AccountSettings/TherapistDetails"
 
-export const url = "http://localhost:3000";
-// export const url = "https://betterhelpclonebackend.onrender.com";
+// export const url = "http://localhost:3000";
+export const url = "https://betterhelpclonebackend.onrender.com";
 // 
 function App() {
   return (

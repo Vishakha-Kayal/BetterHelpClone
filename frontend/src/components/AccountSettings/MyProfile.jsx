@@ -1,16 +1,19 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 import Heading from './Heading'
 import Button from '../Button'
-
+import { useVerification } from '../../context/verifyToken'
+import { decodeToken } from '../../utils/decodeToken'
 const MyProfile = () => {
+    const { token, userType } = useVerification()
+    const [decodedToken, setDecodedToken] = useState(token ? decodeToken(token) : null)
+    console.log(decodedToken.profileImage)
     return (
         <div className='bg-textPrimary my-5 px-9 py-11  flex flex-col gap-3 rounded-md' >
             <Heading content="My Profile Picture" />
             <div className='flex flex-col items-center mb-4'>
-                <img src="https://th.bing.com/th/id/OIP.Gfp0lwE6h7139625a-r3aAHaHa?w=201&h=200&c=7&r=0&o=5&dpr=1.3&pid=1.7" className='w-48' alt="" />
+                <img src={decodedToken.profileImage} className='w-48 h-48 rounded-full' alt="" />
                 <Button
                     paddingY="py-[0.4rem]"
-                  
                     text="text-[1.8rem]"
                     font="font-bold"
                     color="text-secondary rounded-md mt-2"
@@ -20,15 +23,15 @@ const MyProfile = () => {
                 />
             </div>
             <Button
-                    bg="bg-secondary"
-                    paddingY="py-[0.6rem]"
-                    paddingX="lg:w-[15%]"
-                    text="text-[1.6rem] z-[99]"
-                    font="rounded-md"
-                    color="text-textPrimary border-none flex justify-center items-center"
-                    content="Save Changes"
-                    hoverbg="hover:bg-secondary  hover:text-white transition all ease 1s cursor-pointer"
-                />
+                bg="bg-secondary"
+                paddingY="py-[0.6rem]"
+                paddingX="lg:w-[15%]"
+                text="text-[1.6rem] z-[99]"
+                font="rounded-md"
+                color="text-textPrimary border-none flex justify-center items-center"
+                content="Save Changes"
+                hoverbg="hover:bg-secondary  hover:text-white transition all ease 1s cursor-pointer"
+            />
         </div>
     )
 }
