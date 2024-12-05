@@ -10,10 +10,10 @@ const Payment = () => {
             <Button
                     bg="bg-secondary"
                     paddingY="py-[0.6rem]"
-                    paddingX="px-[2.3rem] w-[11%]"
+                    paddingX="lg:w-[15%]"
                     text="text-[1.6rem] z-[99]"
                     font="rounded-md"
-                    color="text-textPrimary border-none flex items-center"
+                    color="text-textPrimary border-none flex justify-center items-center"
                     content="Subscribe"
                     hoverbg="hover:bg-secondary hover:text-white transition all ease 1s cursor-pointer"
                 />

@@ -16,6 +16,6 @@ export const updatePassword = async ({ userId, formattedUserType, password }) =>
         userType: formattedUserType,
         password
     }
-    const response = await axios.post(`${url}/api/userAccount/email`, data)
+    const response = await axios.post(`${url}/api/userAccount/password`, data)
     return response
 }

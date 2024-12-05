@@ -8,11 +8,11 @@ const Notifications = () => {
             <Settings title="Messages from therapist" content="Notifications when you receive a new message from your therapist" />
             <Settings title="Live session reminders" content="Notifications when you have upcoming live sessions" />
             {/* <p  className='text-[1.4rem]'> Push notifications can be updated in the app</p> */}
-            <div className="w-[20%]">
+            <div className="lg:w-[20%]">
                 <Button
                     bg="bg-secondary"
-                    paddingY="py-[1rem]"
-                    text="text-[1.8rem] z-[99]"
+                    paddingY="py-[0.6rem]"
+                    text="text-[1.6rem] z-[99]"
                     font="font-bold rounded-md"
                     color="text-textPrimary border-none"
                     content="Save Notification Settings"

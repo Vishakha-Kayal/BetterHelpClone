@@ -37,6 +37,27 @@ const farmerSchema = new Schema(
     isPrivate: {
       type: Boolean,
       default: false
+    },
+    notifications: {
+      messagesFromTherapist: {
+        type: String,
+        enum: ["text", "email"],
+        default: "text"
+      },
+      liveSessionReminders: {
+        type: String,
+        enum: ["text", "email"],
+        default: "text"
+      }
+    },
+    addReminder: {
+      type: Boolean,
+      default: false,
+    },
+    paymentStatus: {
+      type: String,
+      enum: ["subscribed", "notSubscribed"],
+      default:"notSubscribed"
     }
   },
 

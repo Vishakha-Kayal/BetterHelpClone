@@ -1,11 +1,11 @@
 import { IoIosArrowUp } from "react-icons/io";
 import { useState } from "react";
 import Button from "../../Button";
-import { updateEmail } from "../../../api/userAccountsettings";
+import { updateEmail, updatePassword } from "../../../api/userAccountsettings";
 import { decodeToken } from "../../../utils/decodeToken";
 
 const UpdateFields = ({ forField, token, userType, handleLogout }) => {
-    const [isOpen, setIsOpen] = useState(forField === "email");
+    const [isOpen, setIsOpen] = useState(forField === "password");
     const [password, setPassword] = useState({
         newPasswd: "",
         reEnteredPsswd: ""
@@ -29,26 +29,26 @@ const UpdateFields = ({ forField, token, userType, handleLogout }) => {
         }
         setEmailError("");
         var userId = null; if (token) userId = decodeToken(token)._id
-        console.log("token", token, userId)
         const formattedUserType = userType.charAt(0).toUpperCase() + userType.slice(1);
         const response = await updateEmail({ userId, formattedUserType, email })
-        if (response.data.success==true) {
+        if (response.data.success == true) {
             console.log("Calling handleLogout");
             setEmail("")
             handleLogout();
-         
+
         } else {
             alert(response?.data?.error || "Something went wrong")
         }
     }
+
     const renderEmail = () => (
         <>
             <div className="bg-[#f5f5f5] flex flex-col py-10 w-full gap-5">
                 <div className="flex gap-5 w-full">
                     <label htmlFor="newEmail" className="text-[1.4rem] w-[30%] text-center">Enter new email:</label>
-                    <input type="email" 
-                    value={email}
-                    className="h-full py-4 px-3 text-[1.4rem] outline-none w-[80%] md:w-[50%] rounded"
+                    <input type="email"
+                        value={email}
+                        className="h-full py-4 px-3 text-[1.4rem] outline-none w-[80%] md:w-[50%] rounded"
                         onChange={(e) => { setEmail(e.target.value) }}
                     />
                 </div>
@@ -85,6 +85,18 @@ const UpdateFields = ({ forField, token, userType, handleLogout }) => {
             setPasswordError(""); // Clear error if valid
         }
     }
+    const onHandleUpdatePassword = async () => {
+        if (!passwordError) {
+            var userId = null; if (token) userId = decodeToken(token)._id
+            const psswd = password['newPasswd'];
+            const formattedUserType = userType.charAt(0).toUpperCase() + userType.slice(1)
+            const response = await updatePassword({ userId, formattedUserType, password: psswd })
+            if (response.data.success == true) {
+                setPassword((prev) => ({ ...prev, newPasswd: "", reEnteredPsswd: "" }))
+                handleLogout()
+            }
+        }
+    }
     const renderPassword = () => (
         <div className="password bg-[#f5f5f5] flex flex-col py-10 items-center w-full gap-5">
 
@@ -93,6 +105,7 @@ const UpdateFields = ({ forField, token, userType, handleLogout }) => {
                 <div className="flex flex-col w-[80%] md:w-[50%] ">
                     <input type="password"
                         name="newPasswd"
+                        value={password.newPasswd}
                         className="h-full py-4 px-3 text-[1.4rem] outline-none rounded"
                         onChange={handlePasswordChange}
                     />
@@ -110,6 +123,7 @@ const UpdateFields = ({ forField, token, userType, handleLogout }) => {
                 <label htmlFor="newPassword" className="text-[1.4rem] w-[30%] text-center">Re-enter new password:</label>
                 <input type="password"
                     name="reEnteredPsswd"
+                    value={password.reEnteredPsswd}
                     className="h-full py-4 px-3 text-[1.4rem] outline-none w-[80%] md:w-[50%] rounded"
                     onChange={handlePasswordChange}
                 />
@@ -125,6 +139,7 @@ const UpdateFields = ({ forField, token, userType, handleLogout }) => {
                     color="text-textPrimary border-none"
                     content="Update Password"
                     hoverbg="hover:bg-secondary hover:text-white transition all ease 1s cursor-pointer"
+                    onClick={onHandleUpdatePassword}
                 />
             </div>
         </div>
@@ -133,10 +148,14 @@ const UpdateFields = ({ forField, token, userType, handleLogout }) => {
     return (
         <>
             <div className="flex items-center gap-2" onClick={toggleField}>
-                <p className='text-[1.4rem] text-secondary font-semibold'>Update {forField === "email" ? "email address" : "password"}</p>
-                <IoIosArrowUp className={`text-xl text-secondary font-bold ${isOpen ? "rotate-0" : "rotate-180"}`} />
+                <p className='text-[1.4rem] text-secondary font-semibold'>
+                    {forField === "email" && userType === "user" ? "Update email address" : forField === "password" ? "Update password" : null}
+                </p>
+                {forField === "email" && userType === "user" && (
+                    <IoIosArrowUp className={`text-xl text-secondary font-bold ${isOpen ? "rotate-0" : "rotate-180"}`} />
+                )}
             </div>
-            {isOpen && (forField === "email" ? renderEmail() : renderPassword())} {/* Render based on the field type */}
+            {isOpen && (forField === "email" ? (userType === "user") && renderEmail() : renderPassword())}
         </>
     );
 }

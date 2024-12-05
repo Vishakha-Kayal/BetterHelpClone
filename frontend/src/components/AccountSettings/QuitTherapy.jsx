@@ -7,12 +7,12 @@ const QuitTherapy = () => {
             <Button
                 bg="bg-secondary"
                 paddingY="py-[0.6rem]"
-                paddingX="px-[1.4rem] w-[11%]"
+                paddingX="md:w-[20%] lg:w-[15%]"
                 text="text-[1.6rem] z-[99]"
                 font="rounded-md"
-                color="text-textPrimary border-none flex items-center"
+                color="text-textPrimary border-none flex justify-center items-center"
                 content="Quit Therapy"
-                hoverbg="bg-red-600 text-white transition all ease 1s cursor-pointer"
+                hoverbg="bg-[#ef4444] hover:bg-red-700 text-white transition all ease 1s cursor-pointer"
             />
         </div>
     )
