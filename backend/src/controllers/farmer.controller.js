@@ -16,13 +16,13 @@ const registerFarmer = asyncHandler(async (req, res) => {
     file =>
       file?.public_id &&
       req.files.identityCard[0].originalname ===
-        `${file.original_filename}.${file.format}`
+      `${file.original_filename}.${file.format}`
   );
   const farmerPhotoFile = uploadedFiles.find(
     file =>
       file?.public_id &&
       req.files.farmerPhoto[0].originalname ===
-        `${file.original_filename}.${file.format}`
+      `${file.original_filename}.${file.format}`
   );
 
   const identityCardUrl = identityCardFile ? identityCardFile.secure_url : null;
@@ -78,7 +78,14 @@ const loginFarmer = asyncHandler(async (req, res) => {
     const isMatch = await farmerExists.isPasswordCorrect(password);
     if (isMatch) {
       const token = jwt.sign(
-        { _id: farmerExists._id, fullName: farmerExists.fullName },
+        {
+          _id: farmerExists._id,
+          fullName: farmerExists.fullName,
+          profileImage: farmerExists.profileImage,
+          addReminder: farmerExists.addReminder,
+          paymentStatus: farmerExists.paymentStatus,
+          notifications: farmerExists.notifications
+        },
         process.env.ACCESS_TOKEN_SECRET,
         { expiresIn: "5h" }
       );

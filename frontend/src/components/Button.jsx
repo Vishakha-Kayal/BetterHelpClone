@@ -28,9 +28,7 @@ const Button = ({
  
   return (
     <div
-      className={`text-center ${hoverbg} ${bg} ${width} ${text} ${paddingX} ${paddingY} ${font} font-overpass rounded-[5rem] ${color} border-[1px] ${
-        isScrolled ? "border-primary" : "border-white"
-      } font-medium ${borderColor} cursor-pointer capitalize`}
+      className={`text-center ${hoverbg} ${bg} ${width} ${text} ${paddingX} ${paddingY} ${font} font-overpass rounded-[5rem] ${color} border-[1px]  font-medium ${borderColor} cursor-pointer capitalize`}
       onClick={handleClick}
       style={boxShadow}
     >

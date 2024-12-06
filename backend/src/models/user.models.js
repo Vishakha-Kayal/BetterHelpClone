@@ -72,6 +72,10 @@ userSchema.methods.generateAccessToken = function () {
     {
       _id: this._id,
       email: this.email,
+      addReminder:this.addReminder,
+      paymentStatus:this.paymentStatus,
+      notifications:this.notifications,
+      profileImage:this.profileImage
     },
     process.env.ACCESS_TOKEN_SECRET,
     {

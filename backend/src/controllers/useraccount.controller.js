@@ -3,7 +3,8 @@ import { Farmer } from "../models/farmer.models.js";
 import { Student } from "../models/student.models.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
-import mongoose from "mongoose";
+import mongoose, { model } from "mongoose";
+import { uploadFileOnCloudinary } from "../utils/cloudinary.js"
 
 const updateEmail = asyncHandler(async (req, res) => {
     const { userId, userType, email } = req.body;
@@ -89,7 +90,7 @@ const updateNotificationSettings = asyncHandler(async (req, res) => {
         Farmer: Farmer,
         Student: Student
     }
-    const Model=modelMap[userType]
+    const Model = modelMap[userType]
     if (!Model) {
         throw new ApiError(500, "Invalid user type");
     }
@@ -109,6 +110,64 @@ const updateNotificationSettings = asyncHandler(async (req, res) => {
     res.status(200).json({ success: true, message: "Notification settings updated successfully" });
 })
 
+const updateReminder = asyncHandler(async (req, res) => {
+    const { userId, userType, addReminder } = req.body;
+    if (!userId || !userType) {
+        throw new ApiError(400, "All fields are required");
+    }
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+        return res.status(400).json({ message: "Invalid user ID" });
+    }
+    const modelMap = {
+        User: User,
+        Farmer: Farmer,
+        Student: Student
+    }
+    const Model = modelMap[userType]
+    if (!Model) {
+        throw new ApiError(500, "Invalid user type");
+    }
+    const user = await Model.findById(userId)
+    user.addReminder = addReminder
+    await user.save()
+
+    res.status(200).json({ success: true, message: "Reminder updated successfully" });
+
+})
+const updateProfilePhoto = asyncHandler(async (req, res) => {
+    const { userId, userType } = req.body;
+    const profileImage = req.file;
+    console.log(req.body)
+    console.log(req.file)
+    if (!userId || !userType) {
+        throw new ApiError(400, "All fields are required");
+    }
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+        return res.status(400).json({ message: "Invalid user ID" });
+    }
+    const modelMap = {
+        User: User,
+        Farmer: Farmer,
+        Student: Student
+    }
+    const Model = modelMap[userType]
+    if (!Model) {
+        throw new ApiError(500, "Invalid user type");
+    }
+    const profileLocalPath = req?.file?.path
+    if (!profileLocalPath) {
+        throw new ApiError(400, "profle image is not found.")
+    }
+    const profilePic = await uploadFileOnCloudinary(profileLocalPath)
+    console.log(profilePic.url)
+    const user = await Model.findById(userId)
+    user.profileImage = profilePic?.url
+    await user.save()
+
+    res.status(200).json({ success: true, message: "Image updated successfully" });
+
+})
+
 export {
-    updateEmail, updatePassword, updateNotificationSettings
+    updateEmail, updatePassword, updateNotificationSettings, updateReminder, updateProfilePhoto
 }

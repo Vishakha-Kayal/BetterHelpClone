@@ -7,8 +7,8 @@ import { useEffect, useState } from "react";
 import { updateNotificationSettings } from "../../../api/userAccountsettings";
 
 const Notifications = () => {
-    const { token, userType, logout } = useVerification();
-    const [decodedToken, setDecodedToken] = useState(token ? decodeToken(token) : null);
+    const { token, userType, logout ,decodedToken} = useVerification();
+    // const [decodedToken, setDecodedToken] = useState(token ? decodeToken(token) : null);
     const [messages, setMessages] = useState({
         messagesFromTherapist: decodedToken?.notifications?.messagesFromTherapist,
         liveSessionReminders: decodedToken?.notifications?.liveSessionReminders
@@ -20,6 +20,9 @@ const Notifications = () => {
         const userId = decodedToken._id;
         const formattedUserType = userType.charAt(0).toUpperCase() + userType.slice(1);
         const response = await updateNotificationSettings({ userId, formattedUserType, messages })
+        if (response.data.success === true) {
+            logout()            
+        }
     }
     // useEffect(() => {
     //     console.log("hi", messages)

@@ -31,3 +31,19 @@ export const updateNotificationSettings = async ({ userId, formattedUserType, me
     return await axios.post(`${url}/api/userAccount/notifications`, data)
 }
 
+export const updateReminder = async ({ userId, formattedUserType, isEnable }) => {
+    const data = {
+        userId, userType: formattedUserType, addReminder: isEnable
+    }
+    console.log(data)
+    return await axios.post(`${url}/api/userAccount/reminder`, data)
+}
+
+export const updateProfileImage = async ({ userId, formattedUserType, updatedImg }) => {
+    const formData=new FormData()
+    formData.append("userId",userId)
+    formData.append("userType",formattedUserType)
+    formData.append("profileImage",updatedImg)
+
+    return await axios.post(`${url}/api/userAccount/profilePhoto`, formData)
+}
