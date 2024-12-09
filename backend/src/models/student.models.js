@@ -55,11 +55,10 @@ const studentSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    paymentStatus: {
-      type: String,
-      enum: ["subscribed", "notSubscribed"],
-      default:"notSubscribed"
-    }
+    appointments: [{
+      type:mongoose.Schema.Types.ObjectId,
+      ref:"Booking"
+    }]
   },
   {
     timestamps: true,

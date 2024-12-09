@@ -5,7 +5,7 @@ const app = express();
 
 
 app.use(cors({
-  origin: ['http://localhost:5173','https://betterhelpclone.onrender.com'], // Allow requests from your frontend
+  origin: ['http://localhost:5173','http://localhost:5174','https://betterhelpclone.onrender.com'], // Allow requests from your frontend
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
   credentials: true // Allow credentials if needed
 }));

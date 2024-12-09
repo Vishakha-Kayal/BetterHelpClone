@@ -31,7 +31,8 @@ import AddGroup from "./components/Groups/AddGroup/AddGroup";
 import EditGroup from "./components/Groups/EditGroup/EditGroup"
 import AllGroupCategories from "./components/Groups/AllGroupCategories";
 import AccountHome from "./components/AccountSettings/Home";
-import TherapistDetails from "./components/AccountSettings/TherapistDetails"
+import TherapistDetails from "./components/AccountSettings/Therapist/TherapistDetails"
+import Doctors from "./containers/Doctors";
 
 // export const url = "http://localhost:3000";
 export const url = "https://betterhelpclonebackend.onrender.com";
@@ -40,44 +41,45 @@ function App() {
   return (
     <VerificationProvider>
       <VerificationContextProvider>
-      <main className="w-full min-h-screen bg-slate-100 overflow-hidden">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/user/signin" element={<SignIn />} />
-          <Route path="/user/AccountSettings" element={<AccountHome />} />
-          <Route path="/user/AccountSettings/myTherapist" element={<TherapistDetails />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/groups" element={<GroupsHome />} />
-          <Route path="/faq" element={<FaqPage />} />
-          <Route path="/user/signup" element={<SignUp />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/blog" element={<BlogPage />} />
-          <Route path="/adminsignup" element={<AdminSignup />} />
-          <Route path="/adminlogin" element={<AdminLogin />} />
-          <Route path="/createblog" element={<CreateBlog />} />
-          <Route path="/admin/addGroup" element={<AddGroup />} />
-          <Route path="/blog/:title" element={<BlogDesc />} />
-          <Route path="/allBlogs" element={<MoreBlogs />} />
-          <Route path="/programs" element={<ProgramPage />} />
-          <Route path="/programs/farmers" element={<Home />} />
-          <Route path="/programs/students" element={<StudentHome />} />
-          <Route path="/programs/farmers/signup" element={<Register />} />
-          <Route
-            path="/programs/students/signup"
-            element={<StudentRegister />}
-          />
-          <Route path="/programs/students/signin" element={<StudentLogin />} />
-          <Route path="/programs/farmers/signin" element={<FarmerLogin />} />
-          <Route path="/user/resetPsswd" element={<ForgotPsswd />} />
-          <Route path="/user/verifyPsswd" element={<Verify />} />
-          <Route path="/user/changePsswd" element={<ResetPsswd />} />
-          <Route path="/groups/visit/:id" element={<AboutGroup />} />
-          <Route path="/groups/join/:id" element={<GroupJoined />} />
-          <Route path="/groups/allGroups" element={<AllGroups />} />
-          <Route path="/groups/allGroupCategories" element={<AllGroupCategories />} />
-          <Route path="/admin/editGroup/:id" element={<EditGroup />} />
-        </Routes>
-      </main>
+        <main className="w-full min-h-screen bg-slate-100 overflow-hidden">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/user/signin" element={<SignIn />} />
+            <Route path="/user/AccountSettings" element={<AccountHome />} />
+            <Route path="/user/AccountSettings/myTherapist" element={<TherapistDetails />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/groups" element={<GroupsHome />} />
+            <Route path="/faq" element={<FaqPage />} />
+            <Route path="/user/signup" element={<SignUp />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/adminsignup" element={<AdminSignup />} />
+            <Route path="/adminlogin" element={<AdminLogin />} />
+            <Route path="/createblog" element={<CreateBlog />} />
+            <Route path="/admin/addGroup" element={<AddGroup />} />
+            <Route path="/blog/:title" element={<BlogDesc />} />
+            <Route path="/allBlogs" element={<MoreBlogs />} />
+            <Route path="/programs" element={<ProgramPage />} />
+            <Route path="/programs/farmers" element={<Home />} />
+            <Route path="/programs/students" element={<StudentHome />} />
+            <Route path="/programs/farmers/signup" element={<Register />} />
+            <Route
+              path="/programs/students/signup"
+              element={<StudentRegister />}
+            />
+            <Route path="/programs/students/signin" element={<StudentLogin />} />
+            <Route path="/programs/farmers/signin" element={<FarmerLogin />} />
+            <Route path="/user/resetPsswd" element={<ForgotPsswd />} />
+            <Route path="/user/verifyPsswd" element={<Verify />} />
+            <Route path="/user/changePsswd" element={<ResetPsswd />} />
+            <Route path="/groups/visit/:id" element={<AboutGroup />} />
+            <Route path="/groups/join/:id" element={<GroupJoined />} />
+            <Route path="/groups/allGroups" element={<AllGroups />} />
+            <Route path="/groups/allGroupCategories" element={<AllGroupCategories />} />
+            <Route path="/admin/editGroup/:id" element={<EditGroup />} />
+            <Route path="/doctors" element={<Doctors />} />
+          </Routes>
+        </main>
       </VerificationContextProvider>
     </VerificationProvider>
   );

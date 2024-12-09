@@ -1,6 +1,6 @@
 import React from 'react'
 import LoginInfo from './LoginInfo/LoginInfo'
-import YourTherapist from './YourTherapist'
+import YourTherapist from './Therapist/YourTherapist'
 import Notifications from './Notifications/Notifications'
 import EditSessions from './EditSessions'
 import Payment from './Payment'

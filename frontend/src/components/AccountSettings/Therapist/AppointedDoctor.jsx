@@ -1,17 +1,12 @@
-import React from 'react'
-import { assets } from '../../assets/assets'
+import { assets } from '../../../assets/assets'
 import { SiImessage } from "react-icons/si";
 import { FaPhone } from "react-icons/fa6";
 import { IoVideocam } from "react-icons/io5";
-import Heading from './Heading';
 import { useNavigate } from "react-router-dom"
-
-const YourTherapist = () => {
+const AppointedDoctor = () => {
     const navigate = useNavigate()
-
     return (
-        <div className='bg-textPrimary my-5 px-9 pt-11  pb6 flex flex-col gap-4 rounded-md' id="#yourTherapist">
-            <Heading content="Your Therapist" />
+        <>
             <div className="flex items-center w-full h-[7rem] gap-5">
                 <div>
                     <img src={assets.therapistFive} alt="" className='w-[7rem] rounded-full object-cover' />
@@ -66,8 +61,8 @@ const YourTherapist = () => {
                 </div>
                 <h5 className='text-[1.7rem] font-medium text-secondary px-1 my-5'>Change Therapist</h5>
             </div>
-        </div>
+        </>
     )
 }
 
-export default YourTherapist
+export default AppointedDoctor

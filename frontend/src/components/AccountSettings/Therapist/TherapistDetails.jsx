@@ -1,6 +1,6 @@
 import { FaStar } from "react-icons/fa6"
-import { assets } from "../../assets/assets"
-import Header from "../Header"
+import { assets } from "../../../assets/assets"
+import Header from "../../Header"
 
 const TherapistDetails = () => {
     return (

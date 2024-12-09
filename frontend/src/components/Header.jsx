@@ -335,6 +335,9 @@ const Header = ({ customBG }) => {
               <Link to="/faq">
                 <li>FAQ</li>
               </Link>
+              <Link to="/doctors">
+                <li>Find A Therapist</li>
+              </Link>
               <Link to="/blog">
                 <li>Blog</li>
               </Link>
