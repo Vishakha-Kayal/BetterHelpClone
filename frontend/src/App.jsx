@@ -33,6 +33,7 @@ import AllGroupCategories from "./components/Groups/AllGroupCategories";
 import AccountHome from "./components/AccountSettings/Home";
 import TherapistDetails from "./components/AccountSettings/Therapist/TherapistDetails"
 import Doctors from "./containers/Doctors";
+import DoctorDetails from "./components/Doctors/DoctorDetails";
 
 // export const url = "http://localhost:3000";
 export const url = "https://betterhelpclonebackend.onrender.com";
@@ -78,6 +79,7 @@ function App() {
             <Route path="/groups/allGroupCategories" element={<AllGroupCategories />} />
             <Route path="/admin/editGroup/:id" element={<EditGroup />} />
             <Route path="/doctors" element={<Doctors />} />
+            <Route path="/doctors/:id" element={<DoctorDetails />} />
           </Routes>
         </main>
       </VerificationContextProvider>

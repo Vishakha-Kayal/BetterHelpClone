@@ -12,6 +12,7 @@ export default {
         primary: "#325242",
         secondary:"#007481",
         tertiary:"#ffb304",
+        primaryColor: "#0067FF",
         yellowColor: "#FEB60D",
         purpleColor: "#9771FF",
         irisBlueColor: "#01B5C5",

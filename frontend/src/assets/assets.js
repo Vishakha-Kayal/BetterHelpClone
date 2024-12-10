@@ -55,36 +55,103 @@ import doctorImg03 from "./images/doctor-img03.png";
 
 export const doctors = [
   {
-    id: "01",
+    id: 1,
     name: "Dr. Alfaz Ahmed",
-    speciallization: "Surgeon",
-    avgRating: 4.8,
+    email: "alfaz.ahmed@example.com",
+    password: "hashed_password_alfaz", // Replace with an actual hashed password
+    phone: 1234567890,
+    photo: doctorImg01, // Replace with the actual path or URL
+    ticketPrice: 100,
+    role: "doctor",
+    specialization: "Surgeon",
+    qualifications: ["MBBS", "MS"],
+    experiences: ["5 years as a general surgeon", "2 years as a consultant"],
+    bio: "Dedicated surgeon.",
+    about:
+      "Dr. Alfaz Ahmed is a skilled surgeon with expertise in general and laparoscopic surgeries.",
+    timeSlots: [
+      {
+        day: "Wednesday",
+        date: "9:00 AM - 11:00 AM"
+      },
+      {
+        day: "Saturday",
+        date: "4:00 PM - 6:00 PM"
+      }],
+    reviews: [], // Assuming no reviews initially
+    averageRating: 4.8,
     totalRating: 272,
-    photo: doctorImg01,
+    isApproved: "approved",
+    appointments: [],
     totalPatients: 1500,
     hospital: "Mount Adora Hospital, Sylhet.",
   },
   {
-    id: "02",
+    id: 2,
     name: "Dr. Saleh Mahmud",
-    speciallization: "Neurologist",
-    avgRating: 4.8,
+    email: "saleh.mahmud@example.com",
+    password: "hashed_password_saleh", // Replace with an actual hashed password
+    phone: 9876543210,
+    photo: doctorImg02, // Replace with the actual path or URL
+    ticketPrice: 120,
+    role: "doctor",
+    specialization: "Neurologist",
+    qualifications: ["MBBS", "DM Neurology"],
+    experiences: ["8 years in neurology", "Senior consultant at hospital"],
+    bio: "Caring neurologist.",
+    about:
+      "Dr. Saleh Mahmud is an experienced neurologist specializing in diagnosing and treating brain and nervous system disorders.",
+    timeSlots: [
+      {
+        day: "Sunday",
+        date: "9:00 AM - 11:00 AM"
+      },
+      {
+        day: "Monday",
+        date: "4:00 PM - 6:00 PM"
+      }],
+    reviews: [],
+    averageRating: 4.8,
     totalRating: 272,
-    photo: doctorImg02,
+    isApproved: "approved",
+    appointments: [],
     totalPatients: 1500,
     hospital: "Mount Adora Hospital, Sylhet.",
   },
   {
-    id: "03",
+    id: 3,
     name: "Dr. Farid Uddin",
-    speciallization: "Dermatologist",
-    avgRating: 4.8,
-    totalRating: 272,
+    email: "farid.uddin@example.com",
+    password: "hashed_password_farid",
+    phone: 1122334455,
     photo: doctorImg03,
+    ticketPrice: 90,
+    role: "doctor",
+    specialization: "Dermatologist",
+    qualifications: ["MBBS", "MD Dermatology"],
+    experiences: ["6 years in dermatology", "3 years as a skin specialist"],
+    bio: "Expert dermatologist.",
+    about:
+      "Dr. Farid Uddin is a dermatologist providing treatments for a wide range of skin conditions.",
+      timeSlots: [
+        {
+          day: "Saturday",
+          date: "9:00 AM - 11:00 AM"
+        },
+        {
+          day: "Sunday",
+          date: "4:00 PM - 6:00 PM"
+        }],
+    reviews: [],
+    averageRating: 4.8,
+    totalRating: 272,
+    isApproved: "approved",
+    appointments: [],
     totalPatients: 1500,
     hospital: "Mount Adora Hospital, Sylhet.",
   },
 ];
+
 
 
 export const assets = {

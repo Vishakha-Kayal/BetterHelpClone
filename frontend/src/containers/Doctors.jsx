@@ -7,7 +7,7 @@ const Doctors = () => {
   document.title="freudia - Therapists"
   return (
     <>
-    <section className='bg-[#fff9ea] py-24'>
+    <section className='bg-[#fff9ea] py-24 '>
       <div className='container text-center text-2xl'>
         <h2 className='font-bold text-[3.9rem]'>Find a Therapist</h2>
         <div className='max-w-[570px] mt-[30px] mx-auto bg-[#0066ff2c] rounded-md flex items-center justify-between'>
@@ -31,7 +31,7 @@ const Doctors = () => {
       <div className="container">
         <div className='xl:w-[470px] mx-auto'>
         <h2 className='heading text-center' >What our Users Say</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed veniam recusandae enim eligendi maiores aut tempora aperiam quo similique exercitationem?</p>
+        <p className='text__para'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed veniam recusandae enim eligendi maiores aut tempora aperiam quo similique exercitationem?</p>
         </div>
 
         <Testimonial/>
