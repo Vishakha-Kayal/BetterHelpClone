@@ -19,7 +19,7 @@ const YourTherapist = () => {
             <div className='bg-textPrimary my-5 px-9 pt-11  pb-6 flex flex-col gap-4 rounded-md' id="#yourTherapist">
                 <Heading content="Your Therapist" />
                 {
-                    !user.appointments && <AppointedDoctor />
+                    user.appointments && <AppointedDoctor />
                 }
                 <Button
                     bg="bg-secondary"

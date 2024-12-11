@@ -58,9 +58,9 @@ export const doctors = [
     id: 1,
     name: "Dr. Alfaz Ahmed",
     email: "alfaz.ahmed@example.com",
-    password: "hashed_password_alfaz", // Replace with an actual hashed password
+    password: "hashed_password_alfaz", 
     phone: 1234567890,
-    photo: doctorImg01, // Replace with the actual path or URL
+    photo: "./images/doctor-img01.png", 
     ticketPrice: 100,
     role: "doctor",
     specialization: "Surgeon",
@@ -78,7 +78,7 @@ export const doctors = [
         day: "Saturday",
         date: "4:00 PM - 6:00 PM"
       }],
-    reviews: [], // Assuming no reviews initially
+    reviews: [], 
     averageRating: 4.8,
     totalRating: 272,
     isApproved: "approved",
@@ -90,9 +90,9 @@ export const doctors = [
     id: 2,
     name: "Dr. Saleh Mahmud",
     email: "saleh.mahmud@example.com",
-    password: "hashed_password_saleh", // Replace with an actual hashed password
+    password: "hashed_password_saleh", 
     phone: 9876543210,
-    photo: doctorImg02, // Replace with the actual path or URL
+    photo: "./images/doctor-img02.png", 
     ticketPrice: 120,
     role: "doctor",
     specialization: "Neurologist",
@@ -124,7 +124,7 @@ export const doctors = [
     email: "farid.uddin@example.com",
     password: "hashed_password_farid",
     phone: 1122334455,
-    photo: doctorImg03,
+    photo: "./images/doctor-img03.png",
     ticketPrice: 90,
     role: "doctor",
     specialization: "Dermatologist",
@@ -150,7 +150,7 @@ export const doctors = [
     totalPatients: 1500,
     hospital: "Mount Adora Hospital, Sylhet.",
   },
-];
+]
 
 
 

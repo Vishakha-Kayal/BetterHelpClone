@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {  useState } from 'react'
 import doctorImg from '../../assets/images/doctor-img02.png'
 import starIcon from '../../assets/images/Star.png'
 import DoctorAbout from './DoctorAbout';
@@ -6,12 +6,15 @@ import Feedback from './Feedback';
 import SidePanel from './SidePanel';
 import { useParams } from 'react-router-dom';
 import { doctors } from '../../assets/assets';
+import { useVerification } from "../../context/verifyToken"
 
 const DoctorDetails = () => {
     const { id } = useParams()
+    const { token } = useVerification()
     const aboutDoctor = doctors[Number(id) - 1]
-    const { name, timeSlots, about, bio, experiences, qualifications, role, specialization, ticketPrice, totalRating, averageRating, hospital } = aboutDoctor
+    const { name, about, bio, experiences, qualifications, role, specialization, totalRating, averageRating, hospital } = aboutDoctor
     const [tab, setTab] = useState('about');
+
     return <section>
         <div className='max-w-[1170px] px-5 mx-auto'>
             <div className='grid md:grid-cols-3 gap-[50px]'>
@@ -62,13 +65,13 @@ const DoctorDetails = () => {
                             tab == 'about' && <DoctorAbout aboutDoctor={aboutDoctor} />
                         }
                         {
-                            tab == 'feedback' && <Feedback  aboutDoctor={aboutDoctor} />
+                            tab == 'feedback' && <Feedback aboutDoctor={aboutDoctor} />
                         }
                     </div>
 
                 </div>
                 <div>
-                    <SidePanel aboutDoctor={aboutDoctor} />
+                    <SidePanel aboutDoctor={aboutDoctor} token={token}/>
                 </div>
             </div>
         </div>

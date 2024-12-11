@@ -1,7 +1,15 @@
 import React from 'react'
-
-const SidePanel = ({ aboutDoctor }) => {
+import { useNavigate } from 'react-router-dom'
+import FirstPage from '../BookTherapy/FirstPage'
+const SidePanel = ({ aboutDoctor, token }) => {
   const { timeSlots, ticketPrice } = aboutDoctor
+  const navigate = useNavigate()
+  const onHandleBookTherapy = () => {
+    if (!token) {
+      navigate("/login")
+    }
+    navigate("/bookDoctor")
+  }
   return (
     <div className='shadow-panelShadow p-3 lg:p-10 rounded-md bg-white'>
       <div className="flex items-center justify-between">
@@ -23,7 +31,7 @@ const SidePanel = ({ aboutDoctor }) => {
           ))
         }
       </div>
-      <button className='btn px-2 w-full rounded-md'>Book A Session </button>
+      <button className='btn px-2 w-full rounded-md' onClick={onHandleBookTherapy}>Book A Session </button>
     </div>
   )
 }
