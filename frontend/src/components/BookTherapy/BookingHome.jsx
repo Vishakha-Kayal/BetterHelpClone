@@ -3,8 +3,10 @@ import { TbPaywall } from "react-icons/tb";
 import { LuPiggyBank } from "react-icons/lu";
 import { GrStatusInfo } from "react-icons/gr";
 import BookingSession from "./BookingSession";
+import { useParams } from "react-router-dom";
 
 const Home = () => {
+  const { id } = useParams()
   return (
     <main className=' bg-[#f9f7ef] min-h-screen '>
 
@@ -40,7 +42,7 @@ const Home = () => {
 
         </div>
       </div>
-      <BookingSession />
+      <BookingSession id={Number(id)} />
     </main>
   )
 }

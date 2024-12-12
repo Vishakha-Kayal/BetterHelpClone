@@ -1,14 +1,14 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import FirstPage from '../BookTherapy/FirstPage'
-const SidePanel = ({ aboutDoctor, token }) => {
+const SidePanel = ({ aboutDoctor, token, id }) => {
   const { timeSlots, ticketPrice } = aboutDoctor
   const navigate = useNavigate()
   const onHandleBookTherapy = () => {
     if (!token) {
       navigate("/login")
     }
-    navigate("/bookDoctor")
+    navigate(`/bookDoctor/${id}`)
   }
   return (
     <div className='shadow-panelShadow p-3 lg:p-10 rounded-md bg-white'>

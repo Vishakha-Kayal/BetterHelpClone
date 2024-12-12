@@ -81,7 +81,7 @@ function App() {
             <Route path="/admin/editGroup/:id" element={<EditGroup />} />
             <Route path="/doctors" element={<Doctors />} />
             <Route path="/doctors/:id" element={<DoctorDetails />} />
-            <Route path="/bookDoctor" element={<BookingHome />} />
+            <Route path="/bookDoctor/:id" element={<BookingHome />} />
           </Routes>
         </main>
       </VerificationContextProvider>

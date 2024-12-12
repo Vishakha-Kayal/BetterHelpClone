@@ -1,4 +1,4 @@
-import React, {  useState } from 'react'
+import React, { useState } from 'react'
 import doctorImg from '../../assets/images/doctor-img02.png'
 import starIcon from '../../assets/images/Star.png'
 import DoctorAbout from './DoctorAbout';
@@ -12,7 +12,7 @@ const DoctorDetails = () => {
     const { id } = useParams()
     const { token } = useVerification()
     const aboutDoctor = doctors[Number(id) - 1]
-    const { name, about, bio, experiences, qualifications, role, specialization, totalRating, averageRating, hospital } = aboutDoctor
+    const { name, about, bio,photo, experiences, qualifications, role, specialization, totalRating, averageRating, hospital } = aboutDoctor
     const [tab, setTab] = useState('about');
 
     return <section>
@@ -24,7 +24,7 @@ const DoctorDetails = () => {
 
                     <div className='flex items-center gap-5'>
                         <figure >
-                            <img src={doctorImg} alt="" className='w-full' />
+                            <img src={photo} alt="" className='w-full' />
                         </figure>
                         <div>
                             <span className='bg-[#CCE0F3] text-irisBlueColor py- px-6 lg:py-4 lg:px-7 text-[12px] leading-4 lg:text-[1.5rem] lg:leading-7 font-semibold rounded'>{specialization}</span>
@@ -71,7 +71,7 @@ const DoctorDetails = () => {
 
                 </div>
                 <div>
-                    <SidePanel aboutDoctor={aboutDoctor} token={token}/>
+                    <SidePanel aboutDoctor={aboutDoctor} token={token} id={Number(id)} />
                 </div>
             </div>
         </div>

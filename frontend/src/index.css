@@ -168,9 +168,9 @@ input:checked + .slider:before {
 }
 
 @layer base{
-  section{
+  /* section{
       @apply py-[75px];
-  }
+  } */
 }
 
 @layer components{
@@ -208,9 +208,9 @@ input:checked + .slider:before {
   .container{
       @apply w-full;
   }
-  section{
+  /* section{
       @apply py-[35px];
-  }
+  } */
 }
 
 @media only screen and (max-width:768px){

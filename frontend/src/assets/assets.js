@@ -60,7 +60,7 @@ export const doctors = [
     email: "alfaz.ahmed@example.com",
     password: "hashed_password_alfaz", 
     phone: 1234567890,
-    photo: "./images/doctor-img01.png", 
+    photo: doctorImg01, 
     ticketPrice: 100,
     role: "doctor",
     specialization: "Surgeon",
@@ -92,7 +92,7 @@ export const doctors = [
     email: "saleh.mahmud@example.com",
     password: "hashed_password_saleh", 
     phone: 9876543210,
-    photo: "./images/doctor-img02.png", 
+    photo: doctorImg02, 
     ticketPrice: 120,
     role: "doctor",
     specialization: "Neurologist",
@@ -124,7 +124,7 @@ export const doctors = [
     email: "farid.uddin@example.com",
     password: "hashed_password_farid",
     phone: 1122334455,
-    photo: "./images/doctor-img03.png",
+    photo: doctorImg03,
     ticketPrice: 90,
     role: "doctor",
     specialization: "Dermatologist",
@@ -197,6 +197,9 @@ export const assets = {
   farmerIcon,
   userNavIcon,
   studentNavIcon,
+  doctorImg01,
+  doctorImg02,
+  doctorImg03
 };
 
 export const mentalHealthGroups = [
