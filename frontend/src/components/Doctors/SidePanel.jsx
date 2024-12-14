@@ -7,8 +7,9 @@ const SidePanel = ({ aboutDoctor, token, id }) => {
   const onHandleBookTherapy = () => {
     if (!token) {
       navigate("/login")
+    }else{
+      navigate(`/bookDoctor/${id}`)
     }
-    navigate(`/bookDoctor/${id}`)
   }
   return (
     <div className='shadow-panelShadow p-3 lg:p-10 rounded-md bg-white'>

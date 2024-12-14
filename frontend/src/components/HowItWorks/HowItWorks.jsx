@@ -14,7 +14,7 @@ const HowItWorks = () => {
       y: 100,
       opacity: 0.5,
       duration: 0.6,
-      scrub: 1,
+      scrub: true,
       stagger: 0.3,
       scrollTrigger: {
         trigger: ".scroller",

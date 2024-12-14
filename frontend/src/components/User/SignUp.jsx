@@ -12,22 +12,25 @@ const SignUp = () => {
   const [formData, setformData] = useState({
     email: "",
     password: "",
+    phoneNumber:"",
     profileFile: assets.profileIcon,
     profileImage: null,
   });
 
   const onHandleSubmit = async (e) => {
     e.preventDefault();
-    const { email, password, profileImage } = formData;
+    const { email, password, profileImage,phoneNumber } = formData;
     const formDataToSend = new FormData();
     formDataToSend.append("email", email);
+    formDataToSend.append("phoneNumber",phoneNumber)
     formDataToSend.append("password", password);
     if (profileImage) {
       formDataToSend.append("profileImage", profileImage);
       console.log("profileImage", profileImage);
     }
-    console.log("Form data to send:", formDataToSend);
-
+    // for (const [key, value] of formDataToSend.entries()) {
+    //   console.log(`${key}: ${typeof(value)}`);
+    // }
     try {
       const response = await axios.post(
         `${url}/api/users/register`,
@@ -40,6 +43,7 @@ const SignUp = () => {
           ...prev,
           email: "",
           password: "",
+          phoneNumber:"",
           profileImage: null,
         }));
         toast.success("Account Created Successfully");
@@ -51,6 +55,7 @@ const SignUp = () => {
           ...prev,
           email: "",
           password: "",
+          phoneNumber:"",
           profileImage: null,
         }));
       } else {
@@ -134,15 +139,24 @@ const SignUp = () => {
                 type="email"
                 name="email"
                 placeholder="Email Address"
-                className="hover:shadow-[0_0_0_3px_#a6de9b] w-full border-[2px] border-[#6d706c] font-inter text-2xl font-semibold px-6 py-8 text-[#4a4d4a] rounded-xl"
+                className="hover:shadow-[0_0_0_3px_#a6de9b] w-full border-[2px] border-[#6d706c] font-inter text-2xl font-semibold px-6 py-6 text-[#4a4d4a] rounded-xl"
                 onChange={handleChange}
                 value={formData.email}
+              />
+              <input
+                type="tel"
+                name="phoneNumber"
+                placeholder="Phone Number"
+                className="hover:shadow-[0_0_0_3px_#a6de9b] w-full border-[2px] border-[#6d706c] font-inter text-2xl font-semibold px-6 py-6 text-[#4a4d4a] rounded-xl"
+                onChange={handleChange}
+                maxLength={10}
+                value={formData.phoneNumber}
               />
               <input
                 type="password"
                 name="password"
                 placeholder="Password"
-                className="hover:shadow-[0_0_0_3px_#a6de9b] w-full border-[2px] border-[#6d706c] font-inter text-2xl font-semibold px-6 py-8 text-[#4a4d4a] rounded-xl"
+                className="hover:shadow-[0_0_0_3px_#a6de9b] w-full border-[2px] border-[#6d706c] font-inter text-2xl font-semibold px-6 py-6 text-[#4a4d4a] rounded-xl"
                 onChange={handleChange}
                 value={formData.password}
               />
@@ -162,13 +176,7 @@ const SignUp = () => {
             </form>
           </aside>
         </section>
-        <section className="w-full h-[12rem] bg-primary relative rounded-[50%_50%_0_0] pt-16">
-          <p className="text-xl md:text-3xl font-light md:w-[75%] mx-auto text-textPrimary px-[3rem] md:px-[11rem] text-center">
-            "Anita is the best! She has helped me grow so much since the first
-            time I met her. She always knows exactly to say and has the best
-            takeaways that I can use in my daily life. "
-          </p>
-        </section>
+  
       </main>
     </>
   );

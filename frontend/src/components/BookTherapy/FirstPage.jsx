@@ -2,9 +2,14 @@ import { FaPlus } from "react-icons/fa6";
 import { doctors } from "../../assets/assets";
 import { MdVerified } from "react-icons/md";
 import { assets } from "../../assets/assets"
-
+import { useVerification } from "../../context/verifyToken"
+import { useEffect, useState } from "react";
 const FirstPage = ({ nextStep, id }) => {
-  const { about, name, specialization, qualifications, experiences, timeSlots, photo } = doctors[id];
+  const { name, specialization, qualifications, experiences, timeSlots, photo } = doctors[id];
+  const { token, decodedToken } = useVerification();
+  const [selectedSlot, setSelectedSlot] = useState("");
+  // const [phoneNumber, setPhoneNumber] = useState(decodedToken?.phoneNumber);
+  const phoneNumber = decodedToken?.phoneNumber;
   const continueToSecondStep = () => {
     nextStep()
   }
@@ -26,18 +31,26 @@ const FirstPage = ({ nextStep, id }) => {
           </div>
           <p className="text-[1.4rem] text-textColor tracking-tight">Patient Name</p>
           <div className=" w-[77%] shadow-md hover:border-irisBlueColor transition duration-200 flex justify-between text-xl gap-4 items-center border-[1px] border-[#d8eaff] py-5 px-8 rounded">
-            <span>Raj Diwate</span>
+            <span>{name}</span>
           </div>
           <p className="text-[1.4rem] text-textColor tracking-tight">Mobile Number</p>
           <div className="flex  text-xl gap-4 items-center border-[1px] border-[#d8eaff] w-[77%] shadow-md hover:border-irisBlueColor transition duration-200 py-3 px-8 rounded">
-            <p className="h-full py-2">In +91</p>
-            <input type="tel" name="" id="" className="flex-col flex-grow inline-block h-full outline-none py-2" />
+            {/* <p className="h-full py-2">In +91</p> */}
+            <p className="flex-col flex-grow inline-block h-full outline-none py-2" >{phoneNumber}</p>
           </div>
 
           <p className="text-[1.4rem] text-textColor tracking-tight">Book A Session</p>
 
-          <select name="bookAsession" id="" className="outline-none text-xl border-[1px] border-[#d8eaff] py-5 px-8 rounded w-[77%] bg-white shadow-md hover:border-irisBlueColor transition duration-200">
-            <option value="" disabled selected>Select a time slot</option> {/* Added placeholder option */}
+          <select
+            name="bookAsession"
+            id=""
+            className="outline-none text-xl border-[1px] border-[#d8eaff] py-5 px-8 rounded w-[77%] bg-white shadow-md hover:border-irisBlueColor transition duration-200"
+            value={selectedSlot}
+            onChange={(e) => setSelectedSlot(e.target.value)}
+          >
+            <option
+              value=""
+              disabled >Select a time slot</option> {/* Added placeholder option */}
             {timeSlots.map(slot => (
               <option key={`${slot.day}-${slot.date}`} value={`${slot.day} - ${slot.date}`} className="py-8">
                 {slot.day} - {slot.date}

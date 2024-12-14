@@ -28,7 +28,7 @@ const generateRefreshAndAcessToken = async userId => {
 };
 
 const registerUser = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
+  const { email, phoneNumber, password } = req.body;
   if (!email || !password || email.trim() === "" || password.trim() === "") {
     throw new ApiError(400, "All fields are required");
   }
@@ -46,6 +46,7 @@ const registerUser = asyncHandler(async (req, res) => {
   const profilePic = await uploadFileOnCloudinary(profileLocalPath);
   const newUser = await User.create({
     email: email.toLowerCase(),
+    phoneNumber,
     password: password,
     profileImage: profilePic.url,
   });
@@ -133,10 +134,10 @@ const editUser = asyncHandler(async (req, res) => {
   }
   user.password = password;
   await user.save()
-  return res.json({success:true})
+  return res.json({ success: true })
 });
 
-const toggleAccess = asyncHandler(async (req, res) => {})
+const toggleAccess = asyncHandler(async (req, res) => { })
 
 const getAllUsers = asyncHandler(async (req, res) => {
   const users = await User.find({}).select("-password -refreshToken")
@@ -144,41 +145,41 @@ const getAllUsers = asyncHandler(async (req, res) => {
 })
 
 const setVisibilty = asyncHandler(async (req, res) => {
-  const {userId,userType,isPrivate}=req.body;
-  const modelMap={
-    User:User,
-    Farmer:Farmer,
-    Student:Student
+  const { userId, userType, isPrivate } = req.body;
+  const modelMap = {
+    User: User,
+    Farmer: Farmer,
+    Student: Student
   }
   const Model = modelMap[userType]
-  if(!Model){
-    throw new ApiError(500,"Invalid user type")
+  if (!Model) {
+    throw new ApiError(500, "Invalid user type")
   }
-  const user=await Model.findById(userId)
-  if(!user){
-    throw new ApiError(404,"User not found")
+  const user = await Model.findById(userId)
+  if (!user) {
+    throw new ApiError(404, "User not found")
   }
-  user.isPrivate=isPrivate
+  user.isPrivate = isPrivate
   await user.save()
-  return res.json(new ApiResponse(200,user,"Visibility set successfully"))
+  return res.json(new ApiResponse(200, user, "Visibility set successfully"))
 })
 
-const getVisibility = asyncHandler(async (req,res)=>{
-  const {userId,userType}=req.body;
-  const modelMap={
-    User:User,
-    Farmer:Farmer,
-    Student:Student
+const getVisibility = asyncHandler(async (req, res) => {
+  const { userId, userType } = req.body;
+  const modelMap = {
+    User: User,
+    Farmer: Farmer,
+    Student: Student
   }
-  const Model=modelMap[userType]
-  if(!Model){
-    throw new ApiError(500,"Invalid user type")
+  const Model = modelMap[userType]
+  if (!Model) {
+    throw new ApiError(500, "Invalid user type")
   }
-  const user=await Model.findById(userId)
-  if(!user){
-    throw new ApiError(404,"User not found")
+  const user = await Model.findById(userId)
+  if (!user) {
+    throw new ApiError(404, "User not found")
   }
-  const isPrivate=user.isPrivate
-  return res.json(new ApiResponse(200,isPrivate,"Visibility fetched successfully"))
+  const isPrivate = user.isPrivate
+  return res.json(new ApiResponse(200, isPrivate, "Visibility fetched successfully"))
 })
-export { registerUser, loginUser, checkUser, editUser ,toggleAccess,getAllUsers,setVisibilty,getVisibility};
+export { registerUser, loginUser, checkUser, editUser, toggleAccess, getAllUsers, setVisibilty, getVisibility };

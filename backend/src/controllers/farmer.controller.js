@@ -85,7 +85,8 @@ const loginFarmer = asyncHandler(async (req, res) => {
           addReminder: farmerExists.addReminder,
           paymentStatus: farmerExists.paymentStatus,
           notifications: farmerExists.notifications,
-          appointments: farmerExists.appointments
+          appointments: farmerExists.appointments,
+          phoneNumber: farmerExists .phoneNumber
         },
         process.env.ACCESS_TOKEN_SECRET,
         { expiresIn: "5h" }

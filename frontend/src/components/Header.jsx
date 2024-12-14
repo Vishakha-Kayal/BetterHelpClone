@@ -318,7 +318,7 @@ const Header = ({ customBG }) => {
       {/* Desktop Header */}
       <div className="w-full h-full hidden lg:flex">
         <div className="py-1 w-full flex justify-between items-center">
-          <div className="w-[60%] flex items-center">
+          <div className="w-[40%] flex items-center">
             <img
               src={assets.freudiaLogo}
               alt="freudiaLogo"
@@ -327,7 +327,7 @@ const Header = ({ customBG }) => {
             />
             <h2 className="text-[4.5rem] font-mono font-semibold tracking-tighter text-[#007481]">freudia</h2>
           </div>
-          <div className="w-[50%] h-full flex gap-7">
+          <div className="w-[60%] h-full flex justify-end pr-3 gap-7">
             <ul
               className={`navContent font-overpass font-medium flex items-center gap-6 text-[1.6rem] text-[#484949]`}
             >

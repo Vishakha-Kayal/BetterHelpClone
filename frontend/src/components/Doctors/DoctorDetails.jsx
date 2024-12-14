@@ -16,7 +16,7 @@ const DoctorDetails = () => {
     const [tab, setTab] = useState('about');
 
     return <section>
-        <div className='max-w-[1170px] px-5 mx-auto'>
+        <div className='max-w-[1170px] px-5 mx-auto py-12'>
             <div className='grid md:grid-cols-3 gap-[50px]'>
 
 
@@ -71,7 +71,7 @@ const DoctorDetails = () => {
 
                 </div>
                 <div>
-                    <SidePanel aboutDoctor={aboutDoctor} token={token} id={Number(id)} />
+                    <SidePanel aboutDoctor={aboutDoctor} token={token} id={Number(id)-1} />
                 </div>
             </div>
         </div>
