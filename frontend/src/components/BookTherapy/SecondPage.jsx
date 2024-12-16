@@ -3,10 +3,15 @@ import { FaPlus } from 'react-icons/fa6'
 import { FaChevronLeft } from "react-icons/fa";
 import { MdOutlineCurrencyRupee } from "react-icons/md";
 import { doctors } from '../../assets/assets';
+import { createOrder } from '../../api/payment';
 
-const SecondPage = ({ nextStep, prevStep, id }) => {
+const SecondPage = ({ nextStep, prevStep, id,orderDetails }) => {
   const { about, name, specialization, qualifications, experiences, timeSlots, photo, ticketPrice } = doctors[id];
-  const continueToThirdStep =()=>{
+  console.log("order ", orderDetails)
+  const continueToThirdStep =(e)=>{
+    e.preventDefault("")
+    console.log("entered")
+    createOrder({orderDetails})
     nextStep()
   }
   return (
@@ -28,7 +33,7 @@ const SecondPage = ({ nextStep, prevStep, id }) => {
           </ul>
           <p className="text-[1.5rem] text-textColor tracking-tight mb-3">Patient Name</p>
           <div className=" w-[77%] mb-5 shadow-md hover:border-irisBlueColor transition duration-200 flex justify-between text-xl gap-4 items-center border-[1px] border-[#d8eaff] py-5 px-8 rounded">
-            <span>Raj Diwate</span>
+            <span>{orderDetails.patientName}</span>
           </div>
           <p className="text-[1.5rem] text-textColor tracking-tight mb-3 mt-5">Final Fee</p>
           <div className="text-[1.8rem] font-semibold flex items-center">

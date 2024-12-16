@@ -91,7 +91,10 @@ const loginStudent = asyncHandler(async (req, res) => {
     if (isMatch) {
       const token = jwt.sign(
         {
-          _id: studentExists._id, fullName: studentExists.fullName, profileImage: studentExists.profileImage, notifications: studentExists.notifications,
+          _id: studentExists._id,
+          fullName: studentExists.fullName,
+          profileImage: studentExists.profileImage,
+          notifications: studentExists.notifications,
           paymentStatus: studentExists.paymentStatus,
           addReminder: studentExists.addReminder,
           appointments: studentExists.appointments,

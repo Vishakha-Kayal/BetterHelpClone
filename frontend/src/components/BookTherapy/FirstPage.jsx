@@ -5,14 +5,41 @@ import { assets } from "../../assets/assets"
 import { useVerification } from "../../context/verifyToken"
 import { useEffect, useState } from "react";
 const FirstPage = ({ nextStep, id }) => {
-  const { name, specialization, qualifications, experiences, timeSlots, photo } = doctors[id];
+  const { name, specialization, qualifications, experiences, timeSlots, photo, ticketPrice } = doctors[id];
   const { token, decodedToken } = useVerification();
   const [selectedSlot, setSelectedSlot] = useState("");
+  const [patient, setPatient] = useState("")
   // const [phoneNumber, setPhoneNumber] = useState(decodedToken?.phoneNumber);
-  const phoneNumber = decodedToken?.phoneNumber;
-  const continueToSecondStep = () => {
-    nextStep()
+  let phoneNumber = "";
+  if (token) {
+    phoneNumber = decodedToken?.phoneNumber;
   }
+
+  const continueToSecondStep = (e) => {
+    e.preventDefault();
+    // Validate required fields
+    if (!decodedToken?.fullName && !patient) {
+        alert("Please enter the patient name.");
+        return;
+    }
+    if (!phoneNumber) {
+        alert("Please enter the mobile number.");
+        return;
+    }
+    if (!selectedSlot) {
+        alert("Please select a time slot.");
+        return;
+    }
+
+    const orderDetails = {
+        patientName: decodedToken?.fullName ? decodedToken?.fullName : patient,
+        phoneNumber: phoneNumber,
+        amount: ticketPrice,
+        timeSlot: selectedSlot
+    }
+    // console.log("order ", orderDetails)
+    nextStep(orderDetails)
+}
   return (
     <div className='w-full h-full  py-14 px-28'>
       <div className="flex justify-between mb-5">
@@ -27,11 +54,21 @@ const FirstPage = ({ nextStep, id }) => {
               <span><MdVerified className="text-irisBlueColor text-2xl" /></span>
               <span>{specialization}</span>
             </div>
-            <span>Rs 699</span>
+            <span>Rs {ticketPrice}</span>
           </div>
           <p className="text-[1.4rem] text-textColor tracking-tight">Patient Name</p>
-          <div className=" w-[77%] shadow-md hover:border-irisBlueColor transition duration-200 flex justify-between text-xl gap-4 items-center border-[1px] border-[#d8eaff] py-5 px-8 rounded">
-            <span>{name}</span>
+          <div className=" w-[77%] shadow-md hover:border-irisBlueColor transition duration-200  text-xl items-center border-[1px] border-[#d8eaff] px-8 rounded">
+            {decodedToken?.fullName
+              ?
+              <span className="w-full h-full inline-block capitalize text-xl py-5">{decodedToken?.fullName}</span>
+              :
+              <input
+                type="text"
+                value={patient}
+                onChange={(e) => setPatient(e.target.value)}
+                className="w-full h-full py-5 outline-none"
+              />
+            }
           </div>
           <p className="text-[1.4rem] text-textColor tracking-tight">Mobile Number</p>
           <div className="flex  text-xl gap-4 items-center border-[1px] border-[#d8eaff] w-[77%] shadow-md hover:border-irisBlueColor transition duration-200 py-3 px-8 rounded">
@@ -58,7 +95,7 @@ const FirstPage = ({ nextStep, id }) => {
             ))}
           </select>
 
-          <button className='w-[77%] btn px-2 rounded-md' onClick={continueToSecondStep}>Continue</button>
+          <button type="submit" className='w-[77%] btn px-2 rounded-md' onClick={continueToSecondStep}>Continue</button>
         </div>
         <div className="w-[50%] flex flex-col gap-3 justify-center items-center outline-none">
           <div className="w-[23rem] h-[23rem] bg-white rounded-full overflow-hidden">

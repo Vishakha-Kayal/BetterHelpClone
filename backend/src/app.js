@@ -5,7 +5,7 @@ const app = express();
 
 
 app.use(cors({
-  origin: ['http://localhost:5173','http://localhost:5174','https://betterhelpclone.onrender.com'], // Allow requests from your frontend
+  origin: ['http://localhost:5173', 'http://localhost:5174', 'https://betterhelpclone.onrender.com'], // Allow requests from your frontend
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
   credentials: true // Allow credentials if needed
 }));
@@ -24,7 +24,7 @@ import userRouter from "./routes/users.routes.js";
 app.use("/api/users", userRouter);
 
 import userAccountRouter from "./routes/useraccount.routes.js"
-app.use("/api/userAccount",userAccountRouter)
+app.use("/api/userAccount", userAccountRouter)
 
 import adminRouter from "./routes/admin.routes.js";
 app.use("/api/admin", adminRouter);
@@ -40,5 +40,8 @@ app.use("/api/students", studentRouter)
 
 import groupRouter from "./routes/groups.routes.js"
 app.use("/api/groups", groupRouter)
+
+import orderRouter from "./routes/order.routes.js"
+app.use("/api/orders", orderRouter)
 
 export { app };

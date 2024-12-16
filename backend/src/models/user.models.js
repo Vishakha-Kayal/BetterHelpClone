@@ -80,7 +80,8 @@ userSchema.methods.generateAccessToken = function () {
       paymentStatus:this.paymentStatus,
       notifications:this.notifications,
       profileImage:this.profileImage,
-      appointments:this.appointments
+      appointments:this.appointments,
+      phoneNumber:this.phoneNumber
     },
     process.env.ACCESS_TOKEN_SECRET,
     {

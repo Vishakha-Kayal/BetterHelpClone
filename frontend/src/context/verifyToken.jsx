@@ -13,6 +13,7 @@ export const VerificationContextProvider = ({ children }) => {
   const [decodedToken, setDecodedToken] = useState(token ? decodeToken(token) : null);
   const updateToken = (newToken) => {
     setToken(newToken);
+    setDecodedToken(token ? decodeToken(token) : null)
     if (newToken) {
       localStorage.setItem("token", newToken);
     } else {

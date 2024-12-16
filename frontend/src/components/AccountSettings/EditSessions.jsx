@@ -6,10 +6,11 @@ import { updateReminder } from "../../api/userAccountsettings"
 
 const EditSessions = () => {
     const { decodedToken, getUserIdUserType } = useVerification()
-    const [isEnable, setisEnable] = useState(decodedToken.addReminder)
+    const [isEnable, setisEnable] = useState(decodedToken?.addReminder)
+    // console.log(decodedToken)
     const onToggleEnable = async () => {
-        const newIsEnable = !isEnable; // Store the new value
-        setisEnable(newIsEnable); // Update the state
+        const newIsEnable = !isEnable; 
+        setisEnable(newIsEnable); 
         const { formattedUserType, userId } = getUserIdUserType()
         const response = await updateReminder({  userId,formattedUserType, isEnable: newIsEnable }) // Use the new value
     }
