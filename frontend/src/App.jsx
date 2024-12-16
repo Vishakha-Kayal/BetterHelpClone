@@ -36,8 +36,8 @@ import Doctors from "./containers/Doctors";
 import DoctorDetails from "./components/Doctors/DoctorDetails";
 import BookingHome from "./components/BookTherapy/BookingHome"
 
-export const url = "http://localhost:3000";
-// export const url = "https://betterhelpclonebackend.onrender.com";
+// export const url = "http://localhost:3000";
+export const url = "https://betterhelpclonebackend.onrender.com";
 // 
 function App() {
   return (

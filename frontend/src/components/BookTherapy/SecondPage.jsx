@@ -11,7 +11,8 @@ const SecondPage = ({ nextStep, prevStep, id,orderDetails }) => {
   const continueToThirdStep =(e)=>{
     e.preventDefault("")
     console.log("entered")
-    createOrder({orderDetails})
+    const response=createOrder({orderDetails})
+    console.log("response = ",response)
     nextStep()
   }
   return (
