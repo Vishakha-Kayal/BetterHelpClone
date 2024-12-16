@@ -2,7 +2,7 @@ import React from 'react'
 
 const FourthPage = () => {
   return (
-    <div>FourthPage</div>
+    <div className='text-5xl text-center pt-7'>Thanks For Booking</div>
   )
 }
 

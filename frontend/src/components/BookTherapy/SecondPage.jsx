@@ -3,17 +3,40 @@ import { FaPlus } from 'react-icons/fa6'
 import { FaChevronLeft } from "react-icons/fa";
 import { MdOutlineCurrencyRupee } from "react-icons/md";
 import { doctors } from '../../assets/assets';
-import { createOrder } from '../../api/payment';
+import { createOrder ,verifyPayment} from '../../api/payment';
+import {load} from '@cashfreepayments/cashfree-js'
 
-const SecondPage = ({ nextStep, prevStep, id,orderDetails }) => {
+const SecondPage = ({ nextStep, prevStep, id, orderDetails }) => {
   const { about, name, specialization, qualifications, experiences, timeSlots, photo, ticketPrice } = doctors[id];
-  console.log("order ", orderDetails)
-  const continueToThirdStep =(e)=>{
-    e.preventDefault("")
-    console.log("entered")
-    const response=createOrder({orderDetails})
-    console.log("response = ",response)
-    nextStep()
+  let cashfree;
+
+  let initializeSDK = async function () {
+    cashfree = await load({
+      mode: "sandbox",
+    })
+  }
+
+  initializeSDK()
+ 
+  const continueToThirdStep = async (e) => {
+    e.preventDefault()
+    const response = await createOrder({ orderDetails })
+    if (response.data && response.data.payment_session_id) {
+      console.log("res", response.data)
+      nextStep()
+      // setOrderId(res.data.order_id)
+      let checkoutOptions = {
+        paymentSessionId : response.data.payment_session_id,
+        redirectTarget:"_modal",
+      }
+      console.log("checkoutOptions",checkoutOptions)
+      cashfree.checkout(checkoutOptions).then((res) => {
+        console.log("payment initialized")
+        verifyPayment({orderId:response.data.order_id})
+      })
+    }
+    console.log("response = ", response)
+    // nextStep()
   }
   return (
     <div className='w-full h-full  py-14 px-28'>
@@ -38,8 +61,8 @@ const SecondPage = ({ nextStep, prevStep, id,orderDetails }) => {
           </div>
           <p className="text-[1.5rem] text-textColor tracking-tight mb-3 mt-5">Final Fee</p>
           <div className="text-[1.8rem] font-semibold flex items-center">
-          <MdOutlineCurrencyRupee  />
-          <span  className="">{ticketPrice}</span>
+            <MdOutlineCurrencyRupee />
+            <span className="">{ticketPrice}</span>
 
           </div>
           <button className='w-[77%] btn px-2 rounded-md' onClick={continueToThirdStep}>Continue To Payment</button>

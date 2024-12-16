@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import {Cashfree} from "cashfree-pg";
 const app = express();
 
 
@@ -40,6 +41,10 @@ app.use("/api/students", studentRouter)
 
 import groupRouter from "./routes/groups.routes.js"
 app.use("/api/groups", groupRouter)
+
+Cashfree.XClientId = process.env.CLIENT_ID;
+Cashfree.XClientSecret = process.env.CLIENT_SECRET;
+// Cashfree.CFEnvironment(Cashfree.CFEnvironment.SANDBOX);
 
 import orderRouter from "./routes/order.routes.js"
 app.use("/api/orders", orderRouter)
