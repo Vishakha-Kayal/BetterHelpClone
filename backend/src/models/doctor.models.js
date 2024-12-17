@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 
 const DoctorSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
+  //psychologist license(must),name,phone number,email,photo
+
   password: { type: String, required: true },
   name: { type: String, required: true },
   phone: { type: Number },

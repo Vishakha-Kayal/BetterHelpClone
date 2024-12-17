@@ -65,7 +65,7 @@ const BookingSession = ({ id }) => {
                     </div>
                     <div className={currentStep == 3 ? `w-[160px] h-2 bg-secondary` : 'w-[160px] h-2 bg-secondary opacity-[50%]'} />
 
-                    <div className={currentStep == 4 ? `flex flex-col items-center gap-2` : 'flex flex-col items-center gap-2 opacity-[50%]'}>
+                    <div className={currentStep == 3 ? `flex flex-col items-center gap-2` : 'flex flex-col items-center gap-2 opacity-[50%]'}>
                         <div className="w-16 h-16 border-secondary border-[2px] rounded-full flex justify-center items-center">
                             <GrStatusInfo />
                         </div>

@@ -7,7 +7,7 @@ import { createOrder ,verifyPayment} from '../../api/payment';
 import {load} from '@cashfreepayments/cashfree-js'
 
 const SecondPage = ({ nextStep, prevStep, id, orderDetails }) => {
-  const { about, name, specialization, qualifications, experiences, timeSlots, photo, ticketPrice } = doctors[id];
+  const { about, name,  timeSlots, photo, ticketPrice } = doctors[id];
   let cashfree;
 
   let initializeSDK = async function () {
