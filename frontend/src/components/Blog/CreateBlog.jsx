@@ -16,7 +16,7 @@ const CreateBlog = () => {
   });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("adminToken");
 
   useEffect(() => {
     if (!token) {

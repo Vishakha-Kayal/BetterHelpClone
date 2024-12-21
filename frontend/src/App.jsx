@@ -35,6 +35,7 @@ import TherapistDetails from "./components/AccountSettings/Therapist/TherapistDe
 import Doctors from "./containers/Doctors";
 import DoctorDetails from "./components/Doctors/DoctorDetails";
 import BookingHome from "./components/BookTherapy/BookingHome"
+import AdminHome from "./components/Admin/AdminHome";
 
 // export const url = "http://localhost:3000";
 export const url = "https://betterhelpclonebackend.onrender.com";
@@ -82,6 +83,7 @@ function App() {
             <Route path="/doctors" element={<Doctors />} />
             <Route path="/doctors/:id" element={<DoctorDetails />} />
             <Route path="/bookDoctor/:id" element={<BookingHome />} />
+            <Route path="/admin" element={<AdminHome />}></Route>
           </Routes>
         </main>
       </VerificationContextProvider>
