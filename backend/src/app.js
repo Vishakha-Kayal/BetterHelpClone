@@ -49,4 +49,7 @@ Cashfree.XClientSecret = process.env.CLIENT_SECRET;
 import orderRouter from "./routes/order.routes.js"
 app.use("/api/orders", orderRouter)
 
+import doctorRouter from "./routes/doctors.routes.js"
+app.use('/api/doctors',doctorRouter)
+
 export { app };

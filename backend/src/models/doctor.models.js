@@ -1,9 +1,8 @@
 import mongoose from "mongoose";
+import bcryptjs from "bcryptjs"
 
 const DoctorSchema = new mongoose.Schema({
-  email: { type: String, required: true, unique: true },
-  //psychologist license(must),name,phone number,email,photo
-
+  email: { type: String, required: true, unique: true ,trim:true},
   password: { type: String, required: true },
   name: { type: String, required: true },
   phone: { type: String },
@@ -20,10 +19,6 @@ const DoctorSchema = new mongoose.Schema({
     required: true,
   },
   ticketPrice: { type: Number },
-  role: {
-    type: String,
-  },
-
   // Fields for doctors only
   specialization: { type: String },
   qualifications: {
@@ -53,5 +48,17 @@ const DoctorSchema = new mongoose.Schema({
   },
   appointments: [{ type: mongoose.Types.ObjectId, ref: "Appointment" }],
 });
+
+DoctorSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next();
+  const salt = await bcryptjs.genSalt(10);
+  this.password = await bcryptjs.hash(this.password, salt);
+  next();
+});
+
+// Method to compare passwords
+DoctorSchema.methods.isPasswordCorrect = async function (password) {
+  return await bcryptjs.compare(password, this.password);
+};
 
 export default mongoose.model("Doctor", DoctorSchema);

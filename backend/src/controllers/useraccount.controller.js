@@ -134,6 +134,7 @@ const updateReminder = asyncHandler(async (req, res) => {
     res.status(200).json({ success: true, message: "Reminder updated successfully" });
 
 })
+
 const updateProfilePhoto = asyncHandler(async (req, res) => {
     const { userId, userType } = req.body;
     const profileImage = req.file;

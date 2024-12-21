@@ -19,7 +19,7 @@ const uploadFileOnCloudinary = async function(localFilePath) {
       resource_type: "auto",
     });
 
-    console.log("File uploaded successfully. Response:", response);
+    // console.log("File uploaded successfully. Response:", response);
     return response;
   } catch (error) {
     console.error("Error uploading to Cloudinary:", error);
@@ -35,7 +35,7 @@ const uploadFileOnCloudinary = async function(localFilePath) {
 
 const uploadMultipleFiles = async (req, res, next) => {
   const files = req.files;
-  console.log("uploadMultipleFiles req.files = ", files);
+  // console.log("uploadMultipleFiles req.files = ", files);
 
   if (!files || files.length === 0) {
     return res.status(400).send("No files uploaded.");
@@ -52,6 +52,14 @@ const uploadMultipleFiles = async (req, res, next) => {
       files.farmerPhoto.forEach(file => {
         uploadPromises.push(uploadFileOnCloudinary(file.path));
       });
+    }
+
+    if(Array.isArray(files.photo)){
+      uploadPromises.push(uploadFileOnCloudinary(files?.photo[0]?.path));
+    }
+
+    if(Array.isArray(files.license)){
+      uploadPromises.push(uploadFileOnCloudinary(files?.license[0]?.path))
     }
 
     const results = await Promise.all(uploadPromises);

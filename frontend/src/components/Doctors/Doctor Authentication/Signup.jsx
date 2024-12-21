@@ -41,7 +41,7 @@ const Signup = () => {
   const handlerFileInputChange = async (event) => {
     const file = event.target.files[0];
     setPreviewURL(URL.createObjectURL(file));
-    console.log(file)
+    // console.log(file)
     setFormData({ ...formData, photo: file });
   };
 
@@ -53,32 +53,34 @@ const Signup = () => {
   }
   const submitHandler = async (event) => {
     event.preventDefault();
-    // setLoading(true);
+    setLoading(true);
     if (!formData.photo) {
       toast.error("Please upload your photo.");
       return false;
     }
     if (!formData.license) {
-      toast.error("License is mandatory")
+      toast.error("License is mandatory");
+      return false;
     }
-    console.log(formData)
+
+    const formDataToSend = new FormData();
+    for (const key in formData) {
+      formDataToSend.append(key, formData[key]);
+    }
 
     try {
       const res = await fetch(`${url}/api/doctors/register`, {
         method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+        body: formDataToSend,
       });
-
-      const { message } = await res.json();
+      console.log(res)
+      // const { message } = await res.json();
       if (!res.ok) {
-        throw new Error(message);
+        throw new Error("something went wrong");
       }
 
       setLoading(false);
-      toast.success(message);
+      toast.success("Doctor registered Successfully");
       navigate("/login");
     } catch (err) {
       toast.error(err.message);
@@ -134,12 +136,13 @@ const Signup = () => {
                 </div>
                 <div className="mb-[2.25rem]">
                   <input
-                    type="phone"
+                    type="text"
+                    className="w-full pr-4 py-3 border-b border-solid border-green-300 focus:outline-none focus:border-b-irtext-irisBlueColor text-[20px] leading-7 text-headingColor placeholder:text-textColor rounded-md cursor-pointer"
                     placeholder="Enter your phone number"
                     name="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    className="w-full pr-4 py-3 border-b border-solid border-green-300 focus:outline-none focus:border-b-irtext-irisBlueColor text-[20px] leading-7 text-headingColor placeholder:text-textColor rounded-md cursor-pointer"
+                    maxLength={10}
                     required
                   />
                 </div>
