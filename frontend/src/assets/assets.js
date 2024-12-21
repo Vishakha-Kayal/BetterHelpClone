@@ -52,7 +52,7 @@ import formImage from "./images/form-image.webp";
 import doctorImg01 from "./images/doctor-img01.png";
 import doctorImg02 from "./images/doctor-img02.png";
 import doctorImg03 from "./images/doctor-img03.png";
-
+import signup from "./images/signup.gif"
 export const doctors = [
   {
     id: 1,
@@ -152,8 +152,6 @@ export const doctors = [
   },
 ]
 
-
-
 export const assets = {
   formImage,
   freudiaLogo,
@@ -199,7 +197,8 @@ export const assets = {
   studentNavIcon,
   doctorImg01,
   doctorImg02,
-  doctorImg03
+  doctorImg03,
+  signup
 };
 
 export const mentalHealthGroups = [

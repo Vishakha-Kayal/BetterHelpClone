@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <section className="w-full min-h-[76rem] lg:min-h-[auto] bg-[#f5f7f5] border-t-[1px] border-t-[#e7ece7] px-[2.4rem]">
+    <section className="w-full min-h-[76rem] lg:min-h-[auto] bg-[#f5f7f5] border-t-[1px] border-t-[#e7ece7] px-[2.4rem] ">
       <div className="flex flex-col md:flex-row md:justify-between md:items-start md:w-[90%] md:mx-auto lg:w-[80%] md:pb-[3rem] lg:items-center lg:pb-0 border-b-[#e7ece7] border-b-2">
         <section className="grid grid-rows-6 gap-y-8 lg:gap-y-0 grid-cols-2 lg:flex lg:gap-6 lg:pt-0 pt-11">
           <Title text="Home" />
@@ -20,7 +20,7 @@ const Footer = () => {
           <Title text="Business" />
           <Title text="Find A Therapist" />
           <Title text="About" />
-          <Title text="Online Therapy" />
+          <Link to="/doctors/signup"><Title text="Become A Therapist" /></Link>
           <Title text="FAQ" />
           <Title text="Contact" />
           <Title text="Reviews" />

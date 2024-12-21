@@ -7,8 +7,15 @@ const DoctorSchema = new mongoose.Schema({
   password: { type: String, required: true },
   name: { type: String, required: true },
   phone: { type: Number },
-  photo: { type: String },
-  identityProof: {
+  gender: {
+    type: String,
+    enum: ['male', 'female']
+  },
+  photo: {
+    type: String,
+    required: true,
+  },
+  license: {
     type: String,
     required: true,
   },
