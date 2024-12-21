@@ -86,14 +86,14 @@ const AboutGroup = () => {
       style={{ background: 'linear-gradient(to right, rgb(205, 240, 244), rgb(241, 253, 251), rgb(255, 255, 255), rgb(254, 250, 239), rgb(254, 246, 225))' }}
       >
         <section
-          className="w-[15%] h-full flex justify-center text-6xl cursor-pointer"
+          className="w-[20%] h-full flex justify-center text-6xl cursor-pointer"
           onClick={() => {
             navigate("/groups");
           }}
         >
           <GoArrowLeft />
         </section>
-        <section className="w-[76%] h-full flex flex-col relative">
+        <section className="w-[65%] h-full flex flex-col relative">
           <aside className="h-[40vh] relative rounded-[1rem] overflow-hidden">
             <img
               src={group.image_url}
@@ -117,7 +117,7 @@ const AboutGroup = () => {
                 <IoShareSocialOutline className="text-2xl" />
               </div>
             </div>
-            <div className="mx-auto w-[12.1%]">
+            <div className="mx-auto w-[13%]">
               <Button
                 bg="bg-secondary"
                 paddingY="py-[0.8rem]"

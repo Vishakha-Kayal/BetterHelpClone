@@ -58,8 +58,8 @@ const Home = () => {
           />
         </div>
       </section>
-      <section className="min-h-screen bg-[#fffcf6] py-16 px-20"
-        style={{ background: 'linear-gradient(to right, rgb(205, 240, 244), rgb(241, 253, 251), rgb(255, 255, 255), rgb(254, 250, 239), rgb(254, 246, 225))' }}>
+      <section className="min-h-screen bg-[#d7f3f6] py-16 px-20"
+        >
         <h2 className="text-5xl text-[#4a4d4a] text-center pb-5">
           Explore Anonymous Groups
         </h2>

@@ -8,6 +8,10 @@ const DoctorSchema = new mongoose.Schema({
   name: { type: String, required: true },
   phone: { type: Number },
   photo: { type: String },
+  identityProof: {
+    type: String,
+    required: true,
+  },
   ticketPrice: { type: Number },
   role: {
     type: String,
