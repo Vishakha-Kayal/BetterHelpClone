@@ -20,7 +20,7 @@ const Footer = () => {
           <Title text="Business" />
           <Title text="Find A Therapist" />
           <Title text="About" />
-          <Link to="/doctors/signup"><Title text="Become A Therapist" /></Link>
+          <Link to="/doctors/signup" className="text-2xl text-[#4a4d4a]">Become A Therapist</Link>
           <Title text="FAQ" />
           <Title text="Contact" />
           <Title text="Reviews" />
