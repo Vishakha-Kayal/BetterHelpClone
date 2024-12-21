@@ -3,14 +3,16 @@ import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { assets } from "../../../assets/assets";
 import avatar from "../../../assets/images/avatar-icon.png";
-// import { BASE_URL } from "../../../config";
-import { toast } from "react-toastify";
+import { url } from "../../../App";
 import HashLoader from "react-spinners/HashLoader";
 import Footer from '../../Footer/Footer';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const Signup = () => {
   const identityCardInput = useRef()
-  const [selectedFile, setSelectedFile] = useState(null);
+  // const [selectedFile, setSelectedFile] = useState(null);
   const [previewURL, setPreviewURL] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -18,11 +20,10 @@ const Signup = () => {
     name: "",
     email: "",
     password: "",
-    photo: selectedFile,
+    photo: null,
     phone: "",
     license: null,
-    gender: "",
-    role: "patient",
+    gender: "male",
   });
 
   const uploadFile = (inputRef) => {
@@ -39,44 +40,56 @@ const Signup = () => {
 
   const handlerFileInputChange = async (event) => {
     const file = event.target.files[0];
-    // const data = await uploadImageToCloudinary(file);
-    setPreviewURL(data.url);
-    setSelectedFile(data.url);
-    setFormData({ ...formData, photo: data.url });
-    console.log(data);
+    setPreviewURL(URL.createObjectURL(file));
+    console.log(file)
+    setFormData({ ...formData, photo: file });
   };
 
+  const handleDocumentChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      license: e.target.files[0],
+    }))
+  }
   const submitHandler = async (event) => {
     event.preventDefault();
-    setLoading(true);
+    // setLoading(true);
+    if (!formData.photo) {
+      toast.error("Please upload your photo.");
+      return false;
+    }
+    if (!formData.license) {
+      toast.error("License is mandatory")
+    }
     console.log(formData)
-    // try {
-    //   const res = await fetch(`${BASE_URL}/auth/register`, {
-    //     method: "post",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(formData),
-    //   });
 
-    //   const { message } = await res.json();
-    //   if (!res.ok) {
-    //     throw new Error(message);
-    //   }
+    try {
+      const res = await fetch(`${url}/api/doctors/register`, {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    //   setLoading(false);
-    //   toast.success(message);
-    //   navigate("/login");
-    // } catch (err) {
-    //   toast.error(err.message);
-    //   setLoading(false);
-    // }
+      const { message } = await res.json();
+      if (!res.ok) {
+        throw new Error(message);
+      }
+
+      setLoading(false);
+      toast.success(message);
+      navigate("/login");
+    } catch (err) {
+      toast.error(err.message);
+      setLoading(false);
+    }
   };
 
   return (
     <>
       <Header />
- 
+      <ToastContainer className={`text-2xl`} />
       <section className="px-5 xl:px-0 pt-[16rem] pb-[8rem] bg-white">
         <div className="max-w-[1170px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2">
@@ -105,6 +118,7 @@ const Signup = () => {
                     onChange={handleInputChange}
                     className="w-full pr-4 py-3 border-b border-solid border-green-300 focus:outline-none focus:border-b-irtext-irisBlueColor text-[20px] leading-7 text-headingColor placeholder:text-textColor rounded-md cursor-pointer"
                     placeholder="Full Name"
+                    required
                   />
                 </div>
                 <div className="mb-[2.25rem]">
@@ -115,6 +129,7 @@ const Signup = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     className="w-full pr-4 py-3 border-b border-solid border-green-300 focus:outline-none focus:border-b-irtext-irisBlueColor text-[20px] leading-7 text-headingColor placeholder:text-textColor rounded-md cursor-pointer"
+                    required
                   />
                 </div>
                 <div className="mb-[2.25rem]">
@@ -125,6 +140,7 @@ const Signup = () => {
                     value={formData.phone}
                     onChange={handleInputChange}
                     className="w-full pr-4 py-3 border-b border-solid border-green-300 focus:outline-none focus:border-b-irtext-irisBlueColor text-[20px] leading-7 text-headingColor placeholder:text-textColor rounded-md cursor-pointer"
+                    required
                   />
                 </div>
                 <div className="mb-[2.25rem]">
@@ -135,6 +151,7 @@ const Signup = () => {
                     value={formData.password}
                     onChange={handleInputChange}
                     className="w-full pr-4 py-3 border-b border-solid border-green-300 focus:outline-none focus:border-b-irtext-irisBlueColor text-[20px] leading-7 text-headingColor placeholder:text-textColor rounded-md cursor-pointer"
+                    required
                   />
                 </div>
 
@@ -176,6 +193,7 @@ const Signup = () => {
                         onChange={handlerFileInputChange}
                         accept=".jpg,.png"
                         className="absolute top-0 left-0 w-full opacity-0 cursor-pointer"
+
                       />
                       <label
                         htmlFor="customFile"
@@ -186,15 +204,19 @@ const Signup = () => {
                     </div>
                   </div>
                   <div >
-                    <label className="text-headingColor font-bold text-[16px] leading-7 mr-5">
+                    <label
+                      htmlFor='license'
+                      className="text-headingColor font-bold text-[16px] leading-7 mr-5">
                       License:
                     </label>
                     <input
                       type="file"
+                      name="license"
                       ref={identityCardInput}
                       className="hidden"
                       accept="image/*"
-                    // onChange={(e) => handleFileChange(e, 'identityCard')}
+                      onChange={(e) => handleDocumentChange(e)}
+
                     />
                     <span
                       className="text-[1.35rem] font-bold bg-green-300 text-headingColor inline-block px-4 py-4 w-[22rem] rounded-2xl cursor-pointer"
@@ -226,7 +248,7 @@ const Signup = () => {
         </div>
       </section>
 
-      <Footer/>
+      <Footer />
     </>
   )
 }
