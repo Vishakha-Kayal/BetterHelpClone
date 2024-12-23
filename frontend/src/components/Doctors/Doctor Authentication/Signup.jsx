@@ -53,6 +53,10 @@ const Signup = () => {
   }
   const submitHandler = async (event) => {
     event.preventDefault();
+    if(formData.phone.length<10){
+      toast.error('Phone Number must be at least of 10 digits');
+      return;
+    }
     setLoading(true);
     if (!formData.photo) {
       toast.error("Please upload your photo.");
@@ -81,7 +85,16 @@ const Signup = () => {
 
       setLoading(false);
       toast.success("Doctor registered Successfully");
-      navigate("/login");
+      setFormData((prev)=>({
+        ...prev,
+        name: "",
+        email: "",
+        password: "",
+        photo: null,
+        phone: "",
+        license: null,
+        gender: "male",
+      }))
     } catch (err) {
       toast.error(err.message);
       setLoading(false);
@@ -92,7 +105,7 @@ const Signup = () => {
     <>
       <Header />
       <ToastContainer className={`text-2xl`} />
-      <section className="px-5 xl:px-0 pt-[16rem] pb-[8rem] bg-white">
+      <section className="px-5 xl:px-0 pt-[14rem] pb-[8rem] bg-white">
         <div className="max-w-[1170px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2">
             {/* Image Box */}
@@ -188,14 +201,14 @@ const Signup = () => {
                         className="w-full rounded-full"
                       />
                     </figure>
-                    <div className="relative w-[130px] h-[50px]">
+                    <div className="relative w-[130px] h-[50px] overflow-hidden">
                       <input
                         type="file"
                         name="photo"
                         id="customFile"
                         onChange={handlerFileInputChange}
                         accept=".jpg,.png"
-                        className="absolute top-0 left-0 w-full opacity-0 cursor-pointer"
+                        className="absolute top-0 left-0 w-full opacity-0 cursor-pointer "
 
                       />
                       <label
@@ -243,7 +256,7 @@ const Signup = () => {
                   </button>
                 </div>
                 <p className="mt-10 text-[1.4rem] text-textColor text-center">
-                  Already have an account? <Link to="/login">Login</Link>
+                  Already have an account? <Link to="/doctors/login">Login</Link>
                 </p>
               </form>
             </div>

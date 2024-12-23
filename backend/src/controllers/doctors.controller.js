@@ -8,6 +8,10 @@ export const registerDoctor = asyncHandler(async (req, res) => {
     if (!email || !name || !password || !phone || !gender) {
         throw new ApiError(400, "All fields are required");
     }
+    const doctorWithEmail = await Doctor.findOne({ email });
+    if (doctorWithEmail) {
+        throw new ApiError(400, "Email already exists");
+    }
     const uploadedFiles = req.uploadedFiles || [];
     const identityCardFile = uploadedFiles.find(
         file =>
@@ -51,4 +55,18 @@ export const registerDoctor = asyncHandler(async (req, res) => {
                 )
             );
     }
+})
+
+export const loginDoctor = asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+    console.log(req.body)
+    const doctor = await Doctor.findOne({ email });
+    if (!doctor) {
+        throw new ApiError(400, "Wrong Login Credentials")
+    }
+    const passwordCorrect = doctor.isPasswordCorrect(password)
+    if (!passwordCorrect) {
+        throw new ApiError(400, "Wrong Login Credentials");
+    }
+    return res.status(200).json(new ApiResponse(200, doctor, true, "Login successful"));
 })

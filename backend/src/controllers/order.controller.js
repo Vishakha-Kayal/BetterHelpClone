@@ -14,7 +14,7 @@ const createOrder = asyncHandler(
                 "order_currency": "INR",
                 "order_id": `order_${Date.now()}`,
                 "customer_details": {
-                    "customer_id": "webcodder01",
+                    "customer_id": `${patientName.replace(/\s+/g,'')}_${amount}`,
                     "customer_phone": phoneNumber,
                     "customer_name": patientName,
                 },

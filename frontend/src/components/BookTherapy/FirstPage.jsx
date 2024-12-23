@@ -13,6 +13,7 @@ const FirstPage = ({ nextStep, id }) => {
   let phoneNumber = "";
   if (token) {
     phoneNumber = decodedToken?.phoneNumber;
+    console.log(phoneNumber)
   }
 
   const continueToSecondStep = (e) => {

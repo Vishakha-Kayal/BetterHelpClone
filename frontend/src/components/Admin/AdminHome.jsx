@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {assets} from "../../assets/assets"
+import Notifications from './Notifications'
 
 const AdminHome = () => {
     const navigate = useNavigate()
@@ -24,41 +25,33 @@ const AdminHome = () => {
                         <div className="w-full h-[60vh] flex flex-col  mt-6">
                             <div className="w-full h-[10vh]  flex items-center justify-center gap-3 ">
                                 <a href="/dashboard/dashboard" className="point-cursor relative w-[80%] h-[80%] bg-[#e4ebe8] rounded-md flex items-center justify-center gap-2">
-                                    <i
-                                        className="ri-dashboard-fill text-xl"></i>
+                                    
                                     <h1 className="font-semibold">Dashboard</h1>
                                     <div className="absolute w-[0.7vw] h-[0.7vw] bg-red-600 rounded-full left-[9%] top-[40%] hidden"></div>
                                 </a>
                             </div>
                             <div className="w-full h-[10vh]  flex items-center justify-center gap-3 text-white">
                                 <a href="/dashboard/notification/comments" className="point-cursor relative w-[80%] h-[80%]  rounded-md flex items-center justify-center gap-2">
-
-                                    <i className="ri-notification-2-fill text-xl inline-block ml-2"></i>
                                     <h1 className="font-semibold">Notifications</h1>
-
                                     <div className="absolute w-[0.7vw] h-[0.7vw] bg-red-600 rounded-full left-[9%] top-[40%] "></div>
-
                                 </a>
                             </div>
                             <div className="w-full h-[10vh]  flex items-center justify-center  text-white">
-                                <a href="/dashboard/queries" className="point-cursor relative w-[80%] h-[80%]  rounded-md flex items-center justify-center gap-2">
+                                <a href="/admin/addGroup" className="point-cursor relative w-[80%] h-[80%]  rounded-md flex items-center justify-center gap-2">
 
-                                    <i className="ri-questionnaire-fill text-xl inline-block ml-2 mt-2"></i>
-                                    <h1 className="mt-1 font-semibold">Your Queries</h1>
+                                    <h1 className="mt-1 font-semibold">Create Group</h1>
                                     <div className="absolute w-[0.7vw] h-[0.7vw] bg-red-600 rounded-full left-[9%] top-[47%] hidden"></div>
                                 </a>
                             </div>
 
                             <div className="w-full h-[10vh]  flex items-center justify-center gap-3 text-white">
                                 <Link to="/createBlog" className="point-cursor relative w-[80%] h-[80%]  rounded-md flex items-center justify-center gap-2">
-                                    <i className="ri-logout-box-line text-xl inline-block -ml-[3.6rem]"></i>
                                     <h1 className="ml-[0.2rem] font-semibold text-center w-full">Create Blog</h1>
                                 </Link>
                             </div>
                             <div className="w-full h-[10vh]  flex items-center justify-center gap-3 text-white">
                                 <a href="/logout" className="point-cursor relative w-[80%] h-[80%]  rounded-md flex items-center justify-center gap-2">
 
-                                    <i className="ri-shut-down-line text-xl inline-block -ml-[1.7rem]"></i>
                                     <h1 className="ml-[0.2rem] font-semibold">LogOut</h1>
                                 </a>
                             </div>
@@ -77,7 +70,7 @@ const AdminHome = () => {
                             <h1 className="text-[#fff] text-2xl font-semibold ml-4">Dashboard</h1>
                         </div>
                         <div className="w-full h-[88vh] flex items-center justify-center  overflow-hidden">
-
+                            <Notifications/>
                         </div>
                     </div>
                 </div>
