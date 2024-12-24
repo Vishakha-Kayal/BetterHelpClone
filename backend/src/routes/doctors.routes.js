@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { loginDoctor, registerDoctor } from "../controllers/doctors.controller.js"
+import { loginDoctor, registerDoctor, getDoctors } from "../controllers/doctors.controller.js"
 import { uploadMultipleFiles } from "../utils/cloudinary.js";
 import { upload } from "../middlewares/multer.middleware.js"
 const router = Router();
@@ -12,5 +12,6 @@ router.route('/register').post(
     registerDoctor
 )
 router.post("/login", loginDoctor)
+router.get("/", getDoctors)
 
 export default router;

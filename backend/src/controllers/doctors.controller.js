@@ -1,3 +1,4 @@
+import Doctors from "../../../frontend/src/containers/Doctors.jsx";
 import {Doctor} from "../models/doctor.models.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
@@ -79,4 +80,16 @@ export const loginDoctor = asyncHandler(async (req, res) => {
     process.env.ACCESS_TOKEN_SECRET
 )
     return res.status(200).json({success:true,token:token})
+})
+
+export const getDoctors = asyncHandler(async(req,res)=>{
+    const doctors = await Doctors.find();
+    if(!doctors){
+        throw new ApiError(500,"No Doctors found")
+    }
+    return res
+    .status(200).json(
+        new ApiResponse(200,doctors,"User found successfully.")
+    )
+     
 })
