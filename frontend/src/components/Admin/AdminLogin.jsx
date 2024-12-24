@@ -81,7 +81,7 @@ const AdminLogin = () => {
           </button>
           <h4 className="text-center text-xl font-semibold underline cursor-pointer">
             {" "}
-            <Link to="/">Back To HomePage</Link>
+            <Link to="/admin">Back To HomePage</Link>
           </h4>
           <h5 className={`text-center text-xl font-semibold underline cursor-pointer ${success?'block':'hidden'}`}>
             {" "}

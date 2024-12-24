@@ -39,8 +39,8 @@ import AdminHome from "./components/Admin/AdminHome";
 import DoctorSignup from "./components/Doctors/Doctor Authentication/Signup";
 import DoctorsLogin from "./components/Doctors/Doctor Authentication/Login";
 
-export const url = "http://localhost:3000";
-// export const url = "https://betterhelpclonebackend.onrender.com";
+// export const url = "http://localhost:3000";
+export const url = "https://betterhelpclonebackend.onrender.com";
 // 
 function App() {
   return (

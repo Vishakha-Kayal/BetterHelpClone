@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import bcryptjs from "bcryptjs"
 
 const DoctorSchema = new mongoose.Schema({
-  email: { type: String, required: true, unique: true ,trim:true},
+  email: { type: String, required: true, unique: true, trim: true },
   password: { type: String, required: true },
   name: { type: String, required: true },
   phone: { type: String },
@@ -15,6 +15,10 @@ const DoctorSchema = new mongoose.Schema({
     required: true,
   },
   license: {
+    type: String,
+    required: true,
+  },
+  aadhar: { 
     type: String,
     required: true,
   },
@@ -61,4 +65,4 @@ DoctorSchema.methods.isPasswordCorrect = async function (password) {
   return await bcryptjs.compare(password, this.password);
 };
 
-export const Doctor =  mongoose.model("Doctor", DoctorSchema);
+export const Doctor = mongoose.model("Doctor", DoctorSchema);

@@ -1,5 +1,4 @@
-import Doctors from "../../../frontend/src/containers/Doctors.jsx";
-import {Doctor} from "../models/doctor.models.js";
+import { Doctor } from "../models/doctor.models.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
@@ -69,27 +68,27 @@ export const loginDoctor = asyncHandler(async (req, res) => {
     if (!passwordCorrect) {
         throw new ApiError(400, "Wrong Login Credentials");
     }
-    const {_id,name,phone,photo}=doctor;
+    const { _id, name, phone, photo } = doctor;
     const token = jwt.sign({
         _id,
         name,
-        email:doctor.email,
+        email: doctor.email,
         phone,
         photo
     },
-    process.env.ACCESS_TOKEN_SECRET
-)
-    return res.status(200).json({success:true,token:token})
+        process.env.ACCESS_TOKEN_SECRET
+    )
+    return res.status(200).json({ success: true, token: token })
 })
 
-export const getDoctors = asyncHandler(async(req,res)=>{
-    const doctors = await Doctors.find();
-    if(!doctors){
-        throw new ApiError(500,"No Doctors found")
+export const getDoctors = asyncHandler(async (req, res) => {
+    const doctors = await Doctor.find();
+    if (!doctors) {
+        throw new ApiError(500, "No Doctors found")
     }
     return res
-    .status(200).json(
-        new ApiResponse(200,doctors,"User found successfully.")
-    )
-     
+        .status(200).json(
+            new ApiResponse(200, doctors, "User found successfully.")
+        )
+
 })
