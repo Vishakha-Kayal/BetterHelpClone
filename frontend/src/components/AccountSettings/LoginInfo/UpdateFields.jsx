@@ -155,7 +155,7 @@ const UpdateFields = ({ forField, token, userType, handleLogout }) => {
                     <IoIosArrowUp className={`text-xl text-secondary font-bold ${isOpen ? "rotate-0" : "rotate-180"}`} />
                 )}
             </div>
-            {isOpen && (forField === "email" ? (userType === "user") && renderEmail() : renderPassword())}
+            {isOpen && (forField === "email" ? (userType === "user"||"doctor") && renderEmail() : renderPassword())}
         </>
     );
 }

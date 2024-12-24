@@ -61,4 +61,4 @@ DoctorSchema.methods.isPasswordCorrect = async function (password) {
   return await bcryptjs.compare(password, this.password);
 };
 
-export default mongoose.model("Doctor", DoctorSchema);
+export const Doctor =  mongoose.model("Doctor", DoctorSchema);

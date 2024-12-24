@@ -7,7 +7,7 @@ import { updateProfileImage } from '../../api/userAccountsettings'
 const MyProfile = () => {
     const { decodedToken, getUserIdUserType,logout } = useVerification()
     const fileInputRef = useRef(null);
-    const [imageSrc, setImageSrc] = useState(decodedToken.profileImage); // State to hold the image source
+    const [imageSrc, setImageSrc] = useState(decodedToken.profileImage||decodedToken.photo); // State to hold the image source
     const [updatedImg, setupdatedImg] = useState(null)
     const handleFileUpload = () => {
         if (fileInputRef.current) {

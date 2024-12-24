@@ -8,7 +8,7 @@ import { updateNotificationSettings } from "../../../api/userAccountsettings";
 
 const Notifications = () => {
     const { token, userType, logout ,decodedToken} = useVerification();
-    // const [decodedToken, setDecodedToken] = useState(token ? decodeToken(token) : null);
+
     const [messages, setMessages] = useState({
         messagesFromTherapist: decodedToken?.notifications?.messagesFromTherapist,
         liveSessionReminders: decodedToken?.notifications?.liveSessionReminders
@@ -24,9 +24,7 @@ const Notifications = () => {
             logout()            
         }
     }
-    // useEffect(() => {
-    //     console.log("hi", messages)
-    // }, [messages])
+
     return (
         <div className='bg-textPrimary my-5 px-9 py-11 flex flex-col rounded-md'>
             <Heading content="Notifications" />

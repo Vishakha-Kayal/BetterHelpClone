@@ -17,24 +17,24 @@ const RegisteredSection = ({ icon, user, isScrolled, onclick }) => {
   };
   return (
     <>
-      <div className="h-full flex flex-col md:flex-row gap-6">
-        <div className="flex justify-center md:justify-start gap-6 relative ">
+      <div className="min-w-[13%] h-full flex flex-col md:flex-row gap-6">
+        <div className="w-full flex justify-center md:justify-start gap-6 relative ">
           {/* <div className="w-14 h-14 bg-textPrimary rounded-full flex justify-center items-center">
             <IoIosNotificationsOutline className="text-5xl text-primary" />
           </div> */}
-          <div className="flex justify-center items-center gap-3 border-b-[3px] border-transparent hover:border-b-[#007481] hover:border-l-[#007481]"
+          <div className="w-full flex justify-center items-center gap-3 border-b-[3px] border-transparent hover:border-b-[#007481] hover:border-l-[#007481]"
             onClick={toggleSettings}
           >
-            <div className="w-16 h-16 rounded-full bg-[#007481] flex justify-center items-center">
-              <img src={icon} alt="" className="w-[90%] h-[90%]" />
+            <div className="w-16 h-16 rounded-full bg-[#007481] flex justify-center items-center overflow-hidden">
+              <img src={icon} alt="" className="w-full h-full" />
             </div>
             <span className="text-2xl">{user}</span>
           </div>
-          <div className={`${showSettings ? "w-full absolute top-24 mt-2 px-6 py-2 border border-gray-300 rounded bg-white shadow-md" : 'hidden'}`}
+          <div className={`${showSettings ? "w-full absolute top-24 mt-2 px-3 py-2 border border-gray-300 rounded bg-white shadow-md" : 'hidden'}`}
 
           >
-            <ul className="text-[1.4rem] ">
-              <Link to={"/user/AccountSettings"}> <li className="py-1 hover:font-medium cursor-pointer">Account Settings</li></Link>
+            <ul className="w-full text-[1.4rem] ">
+              <Link to="/user/AccountSettings"> <li className="py-1 hover:font-medium cursor-pointer">Account Settings</li></Link>
               <Link to="/user/AccountSetting#yourTherapist">   <li className="py-1 hover:font-medium cursor-pointer">My Therapist</li></Link>
               <li className="py-1 hover:font-medium cursor-pointer">Change Therapist</li>
               <li className="py-1 hover:font-medium cursor-pointer">Premium</li>
@@ -75,6 +75,8 @@ const Header = ({ customBG }) => {
   const [farmer, setFarmer] = useState("");
   const [student, setStudent] = useState(null);
   const [user, setUser] = useState("");
+  const [doctor, setDoctor] = useState(null)
+  const [doctorPhoto, setdoctorPhoto] = useState(null)
 
   const handleLogout = useCallback(() => {
     localStorage.removeItem("token");
@@ -91,6 +93,15 @@ const Header = ({ customBG }) => {
   const handleScroll = useCallback(() => {
     setIsScrolled(window.scrollY > 50);
   }, []);
+
+  useEffect(() => {
+    if (userType === "doctor") {
+      let drToken = localStorage.getItem("token");
+      if (drToken) {
+        setdoctorPhoto(decodeToken(drToken).photo)
+      }
+    }
+  }, [userType, doctorPhoto])
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -120,7 +131,11 @@ const Header = ({ customBG }) => {
         const usertDets = decodeToken(token);
         setUser(usertDets.email);
       }
-
+      updateUserType(userType || null);
+    } else if (userType === "doctor") {
+      if (token) {
+        setDoctor(decodeToken(token).name);
+      }
       updateUserType(userType || null);
     } else {
       updateUserType(null);
@@ -156,6 +171,15 @@ const Header = ({ customBG }) => {
             onclick={handleLogout}
           />
         );
+      case "doctor":
+        return (
+          <RegisteredSection
+            icon={doctorPhoto}
+            user={doctor}
+            isScrolled={isScrolled}
+            onclick={handleLogout}
+          />
+        )
       case null:
         return (
           <div className="flex gap-5 h-[100%] items-center">
@@ -216,6 +240,15 @@ const Header = ({ customBG }) => {
             onclick={handleLogout}
           />
         );
+      case "doctor":
+        return (
+          <RegisteredSection
+            icon={doctorPhoto}
+            user={doctor}
+            isScrolled={isScrolled}
+            onclick={handleLogout}
+          />
+        )
       case null:
         return (
           <>
@@ -318,7 +351,7 @@ const Header = ({ customBG }) => {
       {/* Desktop Header */}
       <div className="w-full h-full hidden lg:flex">
         <div className="py-1 w-full flex justify-between items-center">
-          <div className="w-[40%] flex items-center">
+          <div className="w-[35%] flex items-center">
             <img
               src={assets.freudiaLogo}
               alt="freudiaLogo"
@@ -327,7 +360,7 @@ const Header = ({ customBG }) => {
             />
             <h2 className="text-[4.5rem] font-mono font-semibold tracking-tighter text-[#007481]">freudia</h2>
           </div>
-          <div className="w-[60%] h-full flex justify-end pr-3 gap-7">
+          <div className="w-[65%] h-full flex justify-end pr-3 gap-7 ">
             <ul
               className={`navContent font-overpass font-medium flex items-center gap-6 text-[1.6rem] text-[#484949]`}
             >

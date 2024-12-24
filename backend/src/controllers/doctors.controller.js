@@ -1,7 +1,8 @@
-import Doctor from "../models/doctor.models.js";
+import {Doctor} from "../models/doctor.models.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
+import jwt from "jsonwebtoken"
 
 export const registerDoctor = asyncHandler(async (req, res) => {
     const { name, email, password, phone, gender } = req.body
@@ -59,14 +60,23 @@ export const registerDoctor = asyncHandler(async (req, res) => {
 
 export const loginDoctor = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
-    console.log(req.body)
     const doctor = await Doctor.findOne({ email });
     if (!doctor) {
-        throw new ApiError(400, "Wrong Login Credentials")
+        throw new ApiError(400, "Wrong Login Credentials");
     }
     const passwordCorrect = doctor.isPasswordCorrect(password)
     if (!passwordCorrect) {
         throw new ApiError(400, "Wrong Login Credentials");
     }
-    return res.status(200).json(new ApiResponse(200, doctor, true, "Login successful"));
+    const {_id,name,phone,photo}=doctor;
+    const token = jwt.sign({
+        _id,
+        name,
+        email:doctor.email,
+        phone,
+        photo
+    },
+    process.env.ACCESS_TOKEN_SECRET
+)
+    return res.status(200).json({success:true,token:token})
 })

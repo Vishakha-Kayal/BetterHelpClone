@@ -105,7 +105,7 @@ const Signup = () => {
     <>
       <Header />
       <ToastContainer className={`text-2xl`} />
-      <section className="px-5 xl:px-0 pt-[14rem] pb-[8rem] bg-white">
+      <section className="px-14 lg:px-5 xl:px-0 pt-[14rem] pb-[8rem] bg-white">
         <div className="max-w-[1170px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2">
             {/* Image Box */}

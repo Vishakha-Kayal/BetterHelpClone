@@ -7,37 +7,40 @@ import { Link } from "react-router-dom";
 import HashLoader from "react-spinners/HashLoader";
 import axios from "axios";
 import { url } from "../../../App";
+import { useVerification } from "../../../context/verifyToken";
 
 
 const Login = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [loading, setLoading] = useState(false);
-
+    const { updateUserType, updateToken } = useVerification()
     const submitHandler = async (e) => {
         e.preventDefault();
         const data = {
             email: email,
             password: password
         }
-        console.log(data)
         try {
             const response = await axios.post(`${url}/api/doctors/login`, data)
-            if (response.data.message) {
+            if (response.data.success) {
                 toast.success("login successfull")
                 setEmail("")
-                setPassword("")
+                setPassword("");
+                if (response.data.token) {
+                    updateToken(response.data.token)
+                    updateUserType("doctor")
+                }
             }
         } catch (error) {
             toast.error(error?.message || "wrong credentials")
-
         }
     }
     return (
         <>
             <Header />
             <ToastContainer className={`text-2xl`} />
-            <div className="max-w-[1170px] mx-auto pt-[14rem]">
+            <div className="max-w-[1170px] mx-auto pt-[14rem] px-14 md:px-72 lg:px-0">
                 <div className="grid grid-cols-1 lg:grid-cols-2">
                     {/* Image Box */}
                     <div className="hidden lg:block bg-irtext-irisBlueColor rounded-l-lg">

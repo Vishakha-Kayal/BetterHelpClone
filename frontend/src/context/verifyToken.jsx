@@ -31,7 +31,6 @@ export const VerificationContextProvider = ({ children }) => {
   };
 
   const logout = () => {
-    console.log("entered in logout ")
     setToken(null);
     setUserType(null);
     localStorage.removeItem("token");
